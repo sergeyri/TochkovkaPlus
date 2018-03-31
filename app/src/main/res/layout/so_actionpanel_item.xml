@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/acp_tv"
+    android:layout_width="@dimen/so_acpButtonSize"
+    android:layout_height="@dimen/so_acpButtonSize"
+    android:layout_marginRight="@dimen/so_acpPadding"
+    android:layout_marginEnd="@dimen/so_acpPadding"
+    android:gravity="center"
+    android:padding="@dimen/so_acpButtonPadding"
+    android:textColor="@color/txt_actionBlue"
+    android:textStyle="bold"
+    android:textSize="@dimen/textsize_orderItem"
+    android:ellipsize="end"
+    android:lines="3"
+    android:background="@drawable/so_action_sl"/>

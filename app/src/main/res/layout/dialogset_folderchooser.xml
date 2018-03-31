@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_actionpanelBlue">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageButton android:id="@+id/btn_back"
+            android:layout_width="@dimen/dialogset_folderChooser_backBtnWidth"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_arrow_back_white_18dp"
+            android:background="@color/bg_actionBlue"/>
+        <TextView android:id="@+id/dialog_title"
+            android:layout_marginLeft="@dimen/divider"
+            android:layout_marginStart="@dimen/divider"
+            android:text="@string/title_dialogPrefChooseFolder"
+            style="@style/dialog_titlebarTv"/>
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/ll_info_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="@dimen/dialog_borderWidth"
+        android:padding="@dimen/dialogset_contentPadding"
+        android:background="@color/bg_contentBlue"
+        android:orientation="vertical">
+        <android.support.v7.widget.RecyclerView android:id="@+id/rv_folder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <LinearLayout style="@style/dialog_action_button_container" >
+        <include layout="@layout/dialog_btn_inc"/>
+    </LinearLayout>
+
+</LinearLayout>

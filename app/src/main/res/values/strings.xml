@@ -1,0 +1,178 @@
+<resources>
+    <string name="app_name" translatable="false">Точковка+</string>
+    <string name="open_drawer" translatable="false">opendr</string>
+    <string name="close_drawer" translatable="false">closedr</string>
+
+    <!-- ui titles -->
+    <string name="title_tmplorderUI">Шаблоны</string>
+    <string name="title_settingsUI">Настройки</string>
+
+    <!-- dialog titles -->
+    <string name="title_dialogSheetImport">Импортировать расчёт</string>
+    <string name="title_dialogSheetCreate">Новый расчёт</string>
+    <string name="title_dialogSheetEdit">Редактировать расчёт</string>
+    <string name="title_dialogSheetExport">Сохранить как:</string>
+    <string name="title_dialogSheetPrint">Распечатать расчёт как:</string>
+    <string name="title_dialogComponentlistSort">Упорядочить</string>
+    <string name="title_dialogComponentCreate">Новый элемент</string>
+    <string name="title_dialogComponentEdit">Редактировать элемент</string>
+    <string name="title_dialogTmplEdit">Переименовать шаблон</string>
+    <string name="title_dialogPrefChooseFolder">Выберите папку</string>
+    <string name="title_dialogComponentFilter">Фильтр</string>
+
+    <!-- tips and hints -->
+    <string name="hint_filterSheetList">Найти расчёт</string>
+    <string name="hint_filterComponentList">Найти в списке</string>
+    <string name="hint_filterTmplList">Найти шаблон</string>
+    <string name="hint_sheetTitle">Введите название</string>
+    <string name="hint_sheetUnit">Введите единицу измерения</string>
+    <string name="hint_componentTitle">Введите наименование</string>
+    <string name="hint_rwComponentTitle">Введите диаметр</string>
+    <!-- Подсказки для голосового поиска -->
+    <string name="tip_voiceSheetTitle">Произнесите название таблицы</string>
+    <string name="tip_voiceComponentTitle">Произнесите наименование</string>
+    <string name="tip_voiceTmplTitle">Произнесите название шаблона</string>
+    <!-- Подсказки для SheetBuilder -->
+    <string name="tip_sheetTitle">Название:</string>
+    <string name="tip_sheetComment">Комментарий:</string>
+    <string name="tip_sheetUnit">Ед. измерения:</string>
+    <string name="tip_rwSheetLen">Длина брёвен, м:</string>
+    <string name="tip_rwSheetRecalc">Объёмы брёвен будут пересчитаны методом интерполяции!</string>
+    <string name="tip_oddeven_filter">Фильтр диаметров:</string>
+    <string name="tip_componentFilterEven">Чётные</string>
+    <string name="tip_componentFilterOdd">Нечётные</string>
+    <string name="tip_remember_rw_groups">Текущий список сортов будет сохранён.</string>
+    <string name="tip_remember_univ_groups">Текущий список категорий будет сохранён.</string>
+    <string name="tip_price_enb">Включен параметр \'цена\' за 1</string>
+    <!-- Подсказки для ComponentBuilder -->
+    <string name="tip_componentTitle">Наименование:</string>
+    <string name="tip_rwComponentTitle">Диаметр:</string>
+    <string name="tip_componentCapDefault">Объём/вес:</string>
+    <string name="tip_componentCapRw">Объём:</string>
+    <string name="tip_componentCapXCount">x</string>
+    <!-- Подсказки для SheetUI -->
+    <string name="tip_componentItemShowAllHistory">Показать все</string>
+    <string name="tip_componentListNoData">Нет данных</string>
+    <!-- Подсказки для SheetInfo и TmplInfo -->
+    <string name="tip_unitInfo">Ед. измерения:</string>
+    <string name="tip_groupListInfo">Категории:</string>
+    <string name="tip_rwGroupListInfo">Сорта:</string>
+    <string name="tip_rwStandartInfo">Стандарт:</string>
+    <string name="tip_rwLenInfo">Длина брёвен:</string>
+    <string name="tip_createDateInfo">Создано:</string>
+    <string name="tip_changeDateInfo">Посл. изменение:</string>
+    <string name="tip_commentInfo">Комментарий:</string>
+    <!-- Подсказки для SheetExport -->
+    <string name="tip_exportAsGroupList">список категорий</string>
+    <string name="tip_exportAsRwGroupList">список сортов</string>
+    <string name="tip_exportAsComponentList">список изделий</string>
+    <string name="tip_exportAsRwComponentList">список диаметров</string>
+    <string name="tip_includeFullTotals">подробный отчет</string>
+    <string name="tip_removeZeroItems">Удалить пустые элементы</string>
+    <!-- Подсказки для SortComponentList -->
+    <string name="tip_sortComponentListByTitle">по наименованию</string>
+    <string name="tip_sortComponentListByCreateDate">по дате создания</string>
+
+    <!-- captions and footers -->
+    <string name="component_title">Наименование</string>
+    <string name="sum0">Итого:</string>
+    <string name="sum1">Всего</string>
+    <string name="count0">Кол-во:</string>
+    <string name="count1">Кол-во</string>
+    <string name="count2">Количество</string>
+    <string name="volume1">Объём</string>
+    <string name="cost0">Стоимость:</string>
+    <string name="cost1">Стоим-ть</string>
+    <string name="gost_2708_75_title">ГОСТ 2708-75</string>
+    <string name="iso_4480_83_title">ISO 4480-83</string>
+
+    <!-- messages and descriptions -->
+    <string name="howto">Где и как использовать?</string>
+    <string name="howto_1">Пример использования\nв строительстве</string>
+    <string name="howto_2">\"Точковка+\" в лесной\nпромышленности</string>
+
+    <string name="desc_overdue_locked_ui">
+        \tСпасибо за использование приложения <b>\"Точковка +\"</b>!
+        \n\n\tСрок тестового периода подошел к концу. Все данные приложения сохранены. Для дальнейшей работы с приложением необходимо <b>Приобрести ключ</b>.
+    </string>
+    <string name="tip_trial_time_left_0">Ознакомительный период закончится через</string>
+    <string name="tip_trial_time_left_1">дней</string>
+
+    <string name="desc_get_accounts_permission">\tТребуется общая информация об учетных записях на этом устройстве.</string>
+    <string name="desc_external_storage_permission">\tТребуется доступ к файловой системе.</string>
+
+    <string name="desc_unlock_permissions">\tДля установки разрешений перейдите в настройки приложения и включите указанные пункты.</string>
+    <string name="btn_external_storage_permission">Предоставить доступ</string>
+    <string name="btn_external_storage_permission_don_t_ask">Перейти в настройки</string>
+    <string name="btn_buy_app">Активация</string>
+
+    <string name="desc_emptySheetList">Пока не создано ни одного расчёта.</string>
+    <string name="desc_emptyComponentList">Список пуст. Добавьте элементы (изделия) нажав на кнопку \"+\". Введите наименование и его объём.</string>
+    <string name="desc_sheetDelete">Удалить выбранные расчёты?</string>
+    <string name="desc_sheetSaveTmpl">Будет создан шаблон на основе выбранных расчётов!</string>
+    <string name="desc_componentDelete">Удалить выбранные элементы?</string>
+    <string name="desc_componentClear">Внимание! Это действие очистит параметр \'Количество\' в выбранных элементах!</string>
+    <string name="desc_tmplDelete">Удалить выбранные шаблоны?</string>
+    <string name="desc_externalStoragePermission">Потребуется разрешение на сохранение файла!</string>
+    <string name="desc_successExportSheet">Сохранено.</string>
+    <!-- Сообщения для ProgressDialog -->
+    <string name="msg_progressWait">Подождите …</string>
+    <string name="msg_progressLoadingData">Подготовка списка …</string>
+    <string name="msg_progressTmplSave">Сохранение шаблона … подождите</string>
+    <string name="msg_progressSheetImport">Импорт данных из шаблона  …  подождите</string>
+    <string name="msg_progressSheetCreate">Создаётся новый расчет …</string>
+    <string name="msg_progressSheetEdit">Применение изменений …</string>
+    <string name="msg_progressSheetExport">Сохранение PDF …</string>
+    <string name="msg_progressDelete">Удаление …</string>
+    <string name="msg_progressPrepareToPrint">Подготовка к печати …</string>
+
+    <!-- actions -->
+    <string name="menuitem_univ">Универсальный</string>
+    <string name="menuitem_rw">Круглый лес</string>
+    <string name="dialog_actionClose">Закрыть</string>
+    <string name="dialog_actionSelectCurrentPath">Выбрать текущее расположение</string>
+    <string name="dialog_actionSelectPath">Выбрать</string>
+
+    <!-- default values -->
+    <string name="def_sheetUnit">m3</string>
+    <string name="def_zeroInt">0</string>
+    <string name="def_zeroDouble">0.0</string>
+    <string name="def_prefixSheetTitle">От</string>
+    <string name="def_dateFormat0">dd.MM.yy HH:mm:ss</string>
+    <string name="def_groupSort0">Несорт.</string>
+    <string name="def_rwGroupSort1">1 сорт</string>
+    <string name="def_rwGroupSort2">2 сорт</string>
+    <string name="def_rwGroupSort3">3 сорт</string>
+    <string name="def_rwGroupSort4">Баланс</string>
+    <string name="def_rwGroupSort5">Дрова</string>
+    <string name="def_univGroupSort1">1 кат.</string>
+    <string name="def_univGroupSort2">2 кат.</string>
+    <string name="def_univGroupSort3">3 кат.</string>
+    <string name="def_univGroupSort4">4 кат.</string>
+    <string name="def_univGroupSort5">5 кат.</string>
+    <string name="def_warnTextColor">#ff6600</string>
+    <string name="def_dialogWidthFactory">0.98</string>
+    <string name="def_dialogHeightFactory">0.70</string>
+
+    <!-- setting items -->
+    <string name="tip_soundActionPref">Звук при нажатии кнопок \"Кол-во\"</string>
+    <string name="tip_vibrateActionPref">Вибрация при нажатии</string>
+    <string name="tip_maxCountHistoryPref">Предпросмотр истории элемента</string>
+    <string name="tip_desc_maxCountHistoryPref">Размер списка предпросмотра истории</string>
+    <string name="tip_exportFolderPathPref">Путь сохранения расчётов</string>
+    <string name="tip_sheetTitleDefaultPref">Название расчёта по умолчанию</string>
+    <string name="tip_sheetUnitDefaultPref">Единица измерения по умолчанию</string>
+
+    <!-- errors and warnings -->
+    <string name="error_voice">Голосовой поиск не поддерживается!</string>
+    <string name="error_incorrectData">Введите корректные данные!</string>
+    <string name="error_rwDataLong">Введите любое\nзначение от 1.0 до 9.5!</string>
+    <string name="error_rwDiameterLong">Введите любой\nдиаметр от 6 до 120!</string>
+    <string name="error_sheetIsExists">Расчёт с таким именем существует!</string>
+    <string name="error_groupListIsEmpty">Не создано ни одной категории!</string>
+    <string name="error_groupIsExists">Категория с таким именем существует!</string>
+    <string name="error_groupRemoveLast">Вы не можете удалить единственную категорию!</string>
+    <string name="error_sdCardFailed">Карта памяти недоступна!</string>
+    <string name="error_sheetPrint">Данных для печати нет!</string>
+
+</resources>

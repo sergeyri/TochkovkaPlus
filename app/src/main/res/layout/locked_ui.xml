@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_violetSecondary">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView android:id="@+id/lock_msg_0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/locked_ui_msgMargin"
+                android:layout_marginLeft="@dimen/locked_ui_msgMargin"
+                android:layout_marginRight="@dimen/locked_ui_msgMargin"
+                android:gravity="center"
+                android:padding="@dimen/locked_ui_msgPadding"
+                android:textSize="@dimen/locked_ui_msgTxtSize"
+                android:textColor="@color/locked_ui_msgTxtColor"
+                android:background="@drawable/bg_locked_msg"
+                android:visibility="gone"/>
+
+            <TextView android:id="@+id/lock_msg_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/locked_ui_msgMargin"
+                android:layout_marginLeft="@dimen/locked_ui_msgMargin"
+                android:layout_marginRight="@dimen/locked_ui_msgMargin"
+                android:gravity="center"
+                android:padding="@dimen/locked_ui_msgPadding"
+                android:textSize="@dimen/locked_ui_msgTxtSize"
+                android:textColor="@color/locked_ui_msgTxtColor"
+                android:background="@drawable/bg_locked_msg"
+                android:visibility="gone"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/locked_ui_msgMargin"
+                android:layout_marginLeft="@dimen/locked_ui_msgMargin"
+                android:layout_marginRight="@dimen/locked_ui_msgMargin"
+                android:padding="@dimen/locked_ui_msgPadding"
+                android:background="@drawable/bg_locked_msg"
+                android:orientation="vertical">
+
+                <TextView android:id="@+id/unlock_tip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="@dimen/locked_ui_msgTxtSize"
+                    android:textColor="@color/locked_ui_msgTxtColor"
+                    android:visibility="gone"/>
+
+                <Button android:id="@+id/unlock_action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/locked_ui_msgMargin"
+                    android:layout_marginLeft="@dimen/locked_ui_msgMargin"
+                    android:layout_marginRight="@dimen/locked_ui_msgMargin"
+                    android:paddingLeft="@dimen/locked_ui_activeBtnPadding"
+                    android:paddingRight="@dimen/locked_ui_activeBtnPadding"
+                    android:textColor="@color/green_active"
+                    android:background="@drawable/input_active_sl"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

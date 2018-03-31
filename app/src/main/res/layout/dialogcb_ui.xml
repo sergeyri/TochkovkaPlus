@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView android:id="@+id/dialog_title"
+        android:layout_width="match_parent"
+        style="@style/dialog_titlebarMonoTv"/>
+
+    <ScrollView android:id="@+id/implemented_comtainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_actionpanelBlue"
+        android:padding="@dimen/dialog_borderWidth"/>
+
+    <LinearLayout style="@style/dialog_action_button_container" >
+        <include layout="@layout/dialog_btn_inc"/>
+    </LinearLayout>
+</LinearLayout>

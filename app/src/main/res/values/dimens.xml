@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- basic -->
+    <dimen name="textsize_titlebar">18sp</dimen>
+    <dimen name="textsize_orderItem">16sp</dimen>
+    <dimen name="textsize_et">17sp</dimen>
+    <dimen name="textsize_msg">16sp</dimen>
+    <dimen name="textsize_tip">14sp</dimen>
+    <dimen name="textsize_filterHint">@dimen/textsize_orderItem</dimen>
+    <dimen name="divider">1dp</dimen>
+    <dimen name="shadow_size">3dp</dimen>
+    <dimen name="btn_clear_margin">5dp</dimen>
+    <dimen name="btn_clear_size">30dp</dimen>
+    <dimen name="input_padding">5dp</dimen>
+    <dimen name="indicator_cube">10dp</dimen>
+
+    <!-- toolbar -->
+    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="toolbar_searchPanelOffsetVertical">3dp</dimen>
+    <dimen name="toolbar_searchPanelMicSize">50dp</dimen>
+
+    <!-- dialog params -->
+    <dimen name="dialog_titlebarHeight">50dp</dimen>
+    <dimen name="dialog_titlebarPadding">10dp</dimen>
+    <dimen name="dialog_borderWidth">2dp</dimen>
+    <dimen name="dialog_btnOffset">2dp</dimen>
+    <dimen name="dialog_contentPadding">20dp</dimen>
+    <dimen name="dialog_actionbarHeight">60dp</dimen>
+    <dimen name="dialog_inputOffset">5dp</dimen>
+
+    <dimen name="dialog_export_lineBottomOffset">15dp</dimen>
+    <dimen name="dialog_export_warnMsgPadding">15dp</dimen>
+    <dimen name="dialog_print_lineBottomOffset">15dp</dimen>
+    <dimen name="dialog_progressIndicatorOffset">25dp</dimen>
+    <dimen name="dialog_progressIndicatorMsgOffset">15dp</dimen>
+    <dimen name="dialog_setter_contentPadding">5dp</dimen>
+    <dimen name="dialog_fullhistory_btnCloseWidth">100dp</dimen>
+    <dimen name="dialog_fullhistory_rvPadding">@dimen/co_item_historyPadding</dimen>
+    <dimen name="dialoginfo_contentPadding">5dp</dimen>
+    <dimen name="dialoginfo_contentBottomOffset">5dp</dimen>
+    <dimen name="dialoginfo_groupListItemMarginLeft">@dimen/co_item_historyMarginLeft</dimen>
+    <dimen name="dialoginfo_groupTitleMarginLeft">@dimen/dialoginfo_groupListItemMarginLeft</dimen>
+    <dimen name="dialoginfo_groupIconSize">@dimen/co_item_historyIconSize</dimen>
+    <dimen name="dialogcb_autocomplete_itemHeight">50dp</dimen>
+    <dimen name="dialogcb_autocomplete_itemPadding">10dp</dimen>
+    <dimen name="dialogcb_groupdataCapPadding">5dp</dimen>
+    <dimen name="dialogcb_groupdataInputWidth">90dp</dimen>
+    <dimen name="dialogcb_groupdataInputLeftOffset">5dp</dimen>
+    <dimen name="dialogcb_contentPadding">5dp</dimen>
+    <dimen name="dialogcb_contentBottomOffset">5dp</dimen>
+    <dimen name="dialogcb_extModeSwitcherMargin">10dp</dimen>
+    <dimen name="dialogcb_tipOffset">5dp</dimen>
+    <dimen name="dialogcb_capDefaultWidth">90dp</dimen>
+    <dimen name="dialogcb_progressBarRightOffset">15dp</dimen>
+    <dimen name="dialogcb_progressBarTopOffset">14dp</dimen>
+    <dimen name="dialogsb_vpi_offset">7dp</dimen>
+    <dimen name="dialogsb_groupListItemHeight">60dp</dimen>
+    <dimen name="dialogsb_groupListItemPadding">5dp</dimen>
+    <dimen name="dialogsb_groupListItemTextSize">16sp</dimen>
+    <dimen name="dialogsb_groupListItem_themeSize">50dp</dimen>
+    <dimen name="dialogsb_groupListItem_themePadding">2dp</dimen>
+    <dimen name="dialogsb_groupListItem_acpHeight">50dp</dimen>
+    <dimen name="dialogsb_groupListItem_acpPadding">3dp</dimen>
+    <dimen name="dialogsb_groupListItem_themeListRightOffset">48dp</dimen>
+    <dimen name="dialogsb_groupListAcpBtnSize">43dp</dimen>
+    <dimen name="dialogsb_contentPadding">5dp</dimen>
+    <dimen name="dialogsb_contentBottomOffset">5dp</dimen>
+    <dimen name="dialogsb_rwLengthWidth">90dp</dimen>
+    <dimen name="dialogsb_unitWidth">80dp</dimen>
+    <dimen name="dialogsb_rightPageAcpBtnSize">50dp</dimen>
+    <dimen name="dialogset_folderChooser_backBtnWidth">60dp</dimen>
+    <dimen name="dialogset_folderChooser_itemHeight">50dp</dimen>
+    <dimen name="dialogset_contentPadding">5dp</dimen>
+    <dimen name="dialogset_contentBottomOffset">5dp</dimen>
+    <dimen name="dialogsort_lineBottomOffset">15dp</dimen>
+    <dimen name="dialogtb_contentPadding">5dp</dimen>
+    <dimen name="dialogtb_contentBottomOffset">5dp</dimen>
+
+    <!-- locked ui -->
+    <dimen name="locked_ui_msgMargin">25dp</dimen>
+    <dimen name="locked_ui_msgPadding">15dp</dimen>
+    <dimen name="locked_ui_msgBgRadius">9dp</dimen>
+    <dimen name="locked_ui_msgTxtSize">19sp</dimen>
+    <dimen name="locked_ui_activeBtnPadding">25dp</dimen>
+    <!-- sheetorder -->
+    <dimen name="so_rvSheetTopOffset">80dp</dimen>
+    <dimen name="so_acpButtonOffset">2dp</dimen>
+    <dimen name="so_acpButtonSize">70dp</dimen>
+    <dimen name="so_acpPadding">3dp</dimen>
+    <dimen name="so_acpButtonPadding">2dp</dimen>
+    <dimen name="so_builderPanelLeftOffset">5dp</dimen>
+    <dimen name="so_item_offset">5dp</dimen>
+    <dimen name="so_item_minHeight">150dp</dimen>
+    <dimen name="so_item_maxHeight">200dp</dimen>
+    <dimen name="so_item_contentPadding">10dp</dimen>
+    <dimen name="so_item_acpHeight">40dp</dimen>
+    <dimen name="so_item_acpPadding">2dp</dimen>
+    <dimen name="so_howto_contentOffset">10dp</dimen>
+
+
+    <!-- componentorder -->
+    <dimen name="textsize_coItem">18sp</dimen>
+    <dimen name="textsize_coIncrementAction">20sp</dimen>
+    <dimen name="co_textsizeTotal">16sp</dimen>
+    <dimen name="co_emptyCalcListTextSize">16sp</dimen>
+    <dimen name="co_textsizeTotalListCaption">14sp</dimen>
+    <dimen name="co_textsizeTotalListItem">@dimen/co_textsizeTotalListCaption</dimen>
+    <dimen name="co_textsizeTotalSw">18sp</dimen>
+    <dimen name="co_toolbarElevation">5dp</dimen>
+    <dimen name="co_toolbarInputHeight">50dp</dimen>
+    <dimen name="co_emptyDescMargin">10dp</dimen>
+    <!-- co actionpanel (top and right) -->
+    <dimen name="co_actionSize">70dp</dimen>
+    <dimen name="co_actionpanelPadding">2dp</dimen>
+    <dimen name="co_actionPadding">2dp</dimen>
+    <dimen name="co_action_top_marginTop">1dp</dimen>
+    <dimen name="co_action_top_marginBottom">1dp</dimen>
+    <dimen name="co_action_top_marginLeft">3dp</dimen>
+    <dimen name="co_action_top_marginRight">3dp</dimen>
+    <dimen name="co_action_right_marginTop">3dp</dimen>
+    <dimen name="co_action_right_marginBottom">3dp</dimen>
+    <dimen name="co_action_right_marginLeft">1dp</dimen>
+    <dimen name="co_action_right_marginRight">1dp</dimen>
+    <!-- co item -->
+    <dimen name="co_item_historyPadding">3dp</dimen>
+    <dimen name="co_item_historyIconSize">20dp</dimen>
+    <dimen name="co_item_historyDeleteBtnSize">45dp</dimen>
+    <dimen name="co_item_historyMarginLeft">15dp</dimen>
+    <dimen name="co_item_titlePaddingHorizontal">10dp</dimen>
+    <dimen name="co_item_btnOpenHistory">15dp</dimen>
+    <dimen name="co_item_minheight">50dp</dimen><!-- минимальная высота co_item (устанавливается в режиме History) -->
+    <dimen name="co_item_historyBtnWidth">@dimen/co_item_minheight</dimen>
+    <dimen name="co_item_height">90dp</dimen>
+    <dimen name="co_item_heightHistoryMode">@dimen/co_item_minheight</dimen>
+    <dimen name="co_item_incrementPanelLeftOffset">@dimen/co_item_incrementPanelRightOffset</dimen>
+    <dimen name="co_item_incrementPanelRightOffset">51dp</dimen>
+    <dimen name="co_item_incrementPanelPadding">5dp</dimen>
+    <dimen name="co_item_floorSwPadding">2dp</dimen>
+    <dimen name="co_item_incrementBtnPadding">10dp</dimen>
+    <dimen name="co_item_historyBtnPadding">10dp</dimen>
+    <dimen name="co_item_historyBtnLeftOffset">1dp</dimen>
+    <dimen name="co_item_selectorSize">40dp</dimen>
+    <dimen name="co_item_selectorOffset">20dp</dimen>
+    <dimen name="co_item_actionWidth">80dp</dimen>
+    <dimen name="co_item_actionTitleGIHeight">20dp</dimen>
+    <dimen name="co_item_actionCountGDHeight">38dp</dimen>
+    <dimen name="co_item_actionCapGDHeight">@dimen/co_item_actionTitleGIHeight</dimen>
+    <dimen name="co_totallist_cellCapBorder">2dp</dimen>
+    <dimen name="co_totallist_cellCapPadding">7dp</dimen>
+    <dimen name="co_totallist_cellItemPaddingLeft">20dp</dimen>
+    <dimen name="co_totallist_cellItemPadding">@dimen/co_totallist_cellCapPadding</dimen>
+    <dimen name="co_farBottomOffset">85dp</dimen>
+    <dimen name="co_totalOffset">10dp</dimen>
+    <dimen name="co_totalLeftOffset">@dimen/co_totalOffset</dimen>
+
+    <dimen name="co_totalArrowSize">15dp</dimen>
+    <dimen name="co_totalInfoLeftOffset">5dp</dimen>
+    <dimen name="co_totalDataBottomOffset">5dp</dimen>
+    <dimen name="co_emptyDetailedListPadding">15dp</dimen>
+    <dimen name="co_emptyCalcList">10dp</dimen>
+    <dimen name="co_rightPanelWidth">76dp</dimen>
+    <dimen name="co_rightPanelPadding">3dp</dimen>
+
+    <!-- tmplorder -->
+    <dimen name="to_rightPanelWidth">76dp</dimen>
+    <dimen name="to_contentPadding">5dp</dimen>
+
+    <!-- settings ui -->
+    <dimen name="settings_ui_contentPadding">5dp</dimen>
+    <dimen name="settings_ui_itemBottomOffset">15dp</dimen>
+    <dimen name="settings_ui_itemPadding">15dp</dimen>
+    <dimen name="settings_ui_itemTextSize">16sp</dimen>
+    <dimen name="settings_ui_itemMarginBottom">15dp</dimen>
+    <dimen name="settings_ui_prefMaxCountHistoryWidth">60dp</dimen>
+    <dimen name="settings_ui_prefMaxCountHistoryTextSize">18sp</dimen>
+
+    <!-- navigationView -->
+    <dimen name="navfooter_itemPadding">10dp</dimen>
+    <dimen name="navfooter_itemPaddingLeft">40dp</dimen>
+    <dimen name="navfooter_paddingBottom">30dp</dimen>
+    <dimen name="navfooter_itemTextSize">14sp</dimen>
+    <dimen name="navfooter_itemIconSize">30dp</dimen>
+
+</resources>

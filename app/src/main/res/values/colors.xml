@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- globals -->
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#FF0072BE</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="navigationBarColor">@color/colorPrimaryDark</color>
+
+    <color name="bg_actionpanelBlue">#0069ca</color>
+    <color name="bg_actionBlue">#008ae6</color>
+    <color name="bg_actionCancelPressed">@color/bg_sheetOrder</color>
+    <color name="bg_actionPositivePressed">@color/green_active</color>
+    <color name="txt_actionBlue">#c9efff</color>
+    <color name="txt_actionSecondaryBlue">#8cd7f7</color> <!-- for hints -->
+
+    <color name="bg_emptyComponentList">@color/bg_contentBlue</color>
+    <color name="txt_emptyComponentList">@color/gray</color>
+
+    <color name="bg_sheetOrder">@color/bg_violet</color>
+    <color name="bg_componentOrder">@color/bg_green</color>
+    <color name="bg_componentOrderSecondary">@color/white</color>
+    <color name="bg_separatorGray">#e9e9e9</color>
+    <color name="bg_separatorDarkGray">#c7c7c7</color>
+
+    <color name="bg_tmplOrder">#a1a1a1</color>
+    <color name="bg_tmplOrderRightPanel">#878787</color>
+
+    <color name="locked_ui_msgTxtColor">@color/white</color>
+
+    <color name="border_dark">@color/gray</color>
+    <color name="border_ligth">#bfbfbf</color>
+    <color name="totallist_caption">@color/bg_greenLite</color>
+    <color name="totallist_item">@color/bg_greenLite</color>
+    <color name="totallist_item_secondary">@color/bg_greenDark</color>
+    <color name="viewpager_indicator_focused">@color/bg_violet</color>
+    <color name="viewpager_indicator_back">@color/bg_violetSecondary</color>
+    <color name="grouplist_item">@color/bg_componentOrderSecondary</color>
+    <color name="grouplist_item_price">#FFBBFC96</color>
+    <color name="s">#fff</color>
+
+
+    <color name="bg_violet">#b000bc</color>
+    <color name="bg_violetSecondary">#600f71</color>
+    <color name="bg_contentBlue">#b5e9ff</color>
+    <color name="bg_greenLite">#7fbf5a</color>
+    <color name="bg_green">#749e4e</color>
+    <color name="bg_greenDark">#479e54</color>
+    <color name="green_active">#00d277</color>
+    <color name="warning">#ff6600</color>
+
+    <color name="gray">#5c5c5c</color>
+    <color name="white">#FFFFFF</color>
+</resources>
+

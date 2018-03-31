@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Типы расчётов">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item android:id="@+id/menuitem_universal"
+                    android:icon="@drawable/navmenu_icon_univ"
+                    android:title="@string/menuitem_univ"/>
+                <item android:id="@+id/menuitem_roundwood"
+                    android:icon="@drawable/navmenu_icon_rw"
+                    android:title="@string/menuitem_rw"/>
+            </group>
+        </menu>
+    </item>
+</menu>

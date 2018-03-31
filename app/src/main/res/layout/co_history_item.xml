@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:padding="@dimen/co_item_historyPadding"
+    android:id="@+id/history_subitem_container">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/co_item_historyPadding"
+        android:background="@drawable/history_item_container">
+
+        <View android:id="@+id/groupinfo_theme"
+            android:layout_width="@dimen/co_item_historyIconSize"
+            android:layout_height="@dimen/co_item_historyIconSize"
+            android:layout_marginLeft="@dimen/co_item_historyMarginLeft"
+            android:layout_marginStart="@dimen/co_item_historyMarginLeft"
+            android:rotation="@integer/rotation_groupIcon"/>
+
+        <TextView android:id="@+id/create_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+        <Button android:id="@+id/action_delete_history_item"
+            android:layout_width="@dimen/co_item_historyDeleteBtnSize"
+            android:layout_height="@dimen/co_item_historyDeleteBtnSize"
+            android:background="@drawable/action_delete_history_item"/>
+
+    </LinearLayout>
+
+</LinearLayout>

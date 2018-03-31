@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_tmplOrder">
+    <android.support.v7.widget.RecyclerView android:id="@+id/rv_tmpllist"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="@dimen/to_contentPadding"/>
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/bg_tmplOrderRightPanel">
+        <LinearLayout android:id="@+id/ll_right_actionpanel"
+            android:layout_width="@dimen/to_rightPanelWidth"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:orientation="vertical">
+            <Button android:id="@+id/action_select_all"
+                android:background="@drawable/co_action_select_all"
+                style="@style/co_action_right"/>
+            <Button android:id="@+id/action_import"
+                android:background="@drawable/to_action_import_sl"
+                style="@style/co_action_right"/>
+            <Button android:id="@+id/action_edit"
+                android:background="@drawable/co_action_edit_sl"
+                style="@style/co_action_right"/>
+            <Button android:id="@+id/action_delete"
+                android:background="@drawable/co_action_delete_sl"
+                style="@style/co_action_right"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

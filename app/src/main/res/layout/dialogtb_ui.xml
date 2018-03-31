@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_actionpanelBlue"
+    android:orientation="vertical">
+
+    <TextView android:id="@+id/dialog_title"
+        android:layout_width="match_parent"
+        style="@style/dialog_titlebarMonoTv"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dialog_borderWidth"
+        android:padding="@dimen/dialogtb_contentPadding"
+        android:background="@color/bg_componentOrderSecondary"
+        android:orientation="vertical">
+        <TextView android:text="@string/tip_sheetTitle"
+            style="@style/tip"/>
+
+        <LinearLayout android:id="@+id/ll_title_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dialogtb_contentBottomOffset"
+            android:background="@drawable/input_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <EditText android:id="@+id/et_title"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:hint="@string/hint_sheetTitle"
+                android:background="@android:color/transparent"
+                android:singleLine="true"
+                android:textStyle="bold"
+                style="@style/et_one_line"/>
+            <Button android:id="@+id/btn_title_clear"
+                style="@style/btn_clear" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout style="@style/dialog_action_button_container" >
+        <include layout="@layout/dialog_btn_inc"/>
+    </LinearLayout>
+</LinearLayout>

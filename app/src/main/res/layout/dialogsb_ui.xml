@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView android:id="@+id/dialog_title"
+        style="@style/dialog_titlebarMonoTv" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dialogsb_vpi_offset"
+        android:gravity="center"
+        android:background="@color/bg_actionpanelBlue">
+        <View android:id="@+id/pi_0"
+            android:layout_width="@dimen/indicator_cube"
+            android:layout_height="@dimen/indicator_cube" />
+        <View android:id="@+id/pi_1"
+            android:layout_width="@dimen/indicator_cube"
+            android:layout_height="@dimen/indicator_cube"
+            android:layout_marginLeft="@dimen/dialogsb_vpi_offset"
+            android:layout_marginStart="@dimen/dialogsb_vpi_offset" />
+    </LinearLayout>
+
+    <ru.sergeyri.tochkovkaplusv2.WrappingViewPager
+        android:id="@+id/content_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/bg_actionpanelBlue"/>
+
+    <LinearLayout style="@style/dialog_action_button_container">
+        <include layout="@layout/dialog_btn_inc"/>
+    </LinearLayout>
+
+</LinearLayout>

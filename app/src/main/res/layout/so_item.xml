@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/so_item_offset"
+    android:padding="1dp"
+    android:background="@drawable/so_item_bg"
+    android:longClickable="true"
+    android:clickable="true"
+    android:focusable="true"
+    android:id="@+id/so_item">
+
+    <LinearLayout android:id="@+id/itempanel"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/so_item_acpHeight"
+        android:padding="@dimen/so_item_acpPadding"
+        android:background="@drawable/so_itempanel_bg"
+        android:duplicateParentState="true">
+        <ImageView android:id="@+id/itempanel_selector"
+            android:layout_width="@dimen/so_item_acpHeight"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"/>
+        <LinearLayout android:id="@+id/itempanel_menu"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:gravity="right|center_vertical">
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/ic_info_outline_white_24dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/so_item_minHeight"
+        android:maxHeight="@dimen/so_item_maxHeight"
+        android:padding="@dimen/so_item_contentPadding"
+        android:background="@drawable/so_item_title_bg"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/txt_actionBlue"
+        android:textSize="@dimen/textsize_orderItem"
+        android:duplicateParentState="true"/>
+</LinearLayout>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "706324740922",
+    "firebase_url": "https://tochkovkaplus-3fac5.firebaseio.com",
+    "project_id": "tochkovkaplus-3fac5",
+    "storage_bucket": "tochkovkaplus-3fac5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:706324740922:android:ad56ff5854eefd7a",
+        "android_client_info": {
+          "package_name": "ru.sergeyri.tochkovkaplusv2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "706324740922-2oereebsb386qh73e6mkh56ccccbibps.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.sergeyri.tochkovkaplusv2",
+            "certificate_hash": "41198ca7fbc25669a4d686977af7ae5095af747d"
+          }
+        },
+        {
+          "client_id": "706324740922-7qs5lrhmsgiv2jiaehu0sp78ifcirdgv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJ6rqmih4WCdkhfyvKNosl-z-gYkjK12w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "706324740922-7qs5lrhmsgiv2jiaehu0sp78ifcirdgv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <Button android:id="@+id/action_close_dialogui"
+        android:background="@drawable/action_cancel"
+        android:text="@android:string/cancel"
+        style="@style/dialog_action_button"/>
+    <Button android:id="@+id/action_positive"
+        android:layout_marginLeft="@dimen/dialog_btnOffset"
+        android:layout_marginStart="@dimen/dialog_btnOffset"
+        android:background="@drawable/action_positive"
+        android:text="@android:string/ok"
+        style="@style/dialog_action_button" />
+</merge>

@@ -1,0 +1,219 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="title">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/txt_actionBlue</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:gravity">left|center_vertical</item>
+    </style>
+
+    <style name="scrollbar_hidden">
+        <item name="android:scrollbarAlwaysDrawHorizontalTrack">true</item>
+        <item name="android:scrollbarStyle">outsideOverlay</item>
+        <item name="android:scrollbars">horizontal</item>
+        <item name="android:fadeScrollbars">false</item>
+        <item name="android:scrollbarThumbHorizontal">@drawable/z_scrollbar_transparent</item>
+    </style>
+
+    <style name="bar_shadow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:background">#358</item>
+    </style>
+
+    <style name="horizontal_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/divider</item>
+    </style>
+
+    <style name="vertical_line">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+
+    <style name="dialog_action_button_container">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dialog_actionbarHeight</item>
+        <item name="android:paddingTop">@dimen/dialog_borderWidth</item>
+        <item name="android:paddingBottom">@dimen/dialog_borderWidth</item>
+        <item name="android:background">@color/bg_actionpanelBlue</item>
+    </style>
+    <style name="dialog_action_button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/txt_actionBlue</item>
+    </style>
+    <style name="tip">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/textsize_tip</item>
+    </style>
+    <style name="et_one_line">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/input_padding</item>
+        <item name="android:paddingRight">@dimen/input_padding</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textSize">@dimen/textsize_et</item>
+    </style>
+    <style name="btn_clear">
+        <item name="android:layout_width">@dimen/btn_clear_size</item>
+        <item name="android:layout_height">@dimen/btn_clear_size</item>
+        <item name="android:layout_margin">@dimen/btn_clear_margin</item>
+        <item name="android:background">@drawable/sb_action_group_remove</item>
+    </style>
+
+    <style name="co_action">
+        <item name="android:layout_width">@dimen/co_actionSize</item>
+        <item name="android:layout_height">@dimen/co_actionSize</item>
+        <item name="android:padding">@dimen/co_actionPadding</item>
+    </style>
+    <style name="co_action_top" parent="co_action">
+        <item name="android:layout_marginTop">@dimen/co_action_top_marginTop</item>
+        <item name="android:layout_marginBottom">@dimen/co_action_top_marginBottom</item>
+        <item name="android:layout_marginLeft">@dimen/co_action_top_marginLeft</item>
+        <item name="android:layout_marginRight">@dimen/co_action_top_marginRight</item>
+    </style>
+    <style name="co_action_right" parent="co_action">
+        <item name="android:layout_marginTop">@dimen/co_action_right_marginTop</item>
+        <item name="android:layout_marginBottom">@dimen/co_action_right_marginBottom</item>
+        <item name="android:layout_marginLeft">@dimen/co_action_right_marginLeft</item>
+        <item name="android:layout_marginRight">@dimen/co_action_right_marginRight</item>
+    </style>
+
+    <!-- totallist -->
+    <style name="totallist_cellcaption">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/divider</item>
+        <item name="android:layout_marginBottom">@dimen/divider</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/co_totallist_cellCapPadding</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">middle</item>
+        <item name="android:textSize">@dimen/co_textsizeTotalListCaption</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@color/totallist_caption</item>
+    </style>
+    <style name="totallist_cellcaption_no_first" parent="totallist_cellcaption">
+        <item name="android:layout_marginLeft">@dimen/divider</item>
+    </style>
+
+    <style name="totallist_cellitem">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/co_totallist_cellItemPadding</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/co_textsizeTotalListItem</item>
+        <item name="android:background">@color/totallist_item_secondary</item>
+    </style>
+    <style name="totallist_cellitem_no_first" parent="totallist_cellitem">
+        <item name="android:layout_marginLeft">@dimen/divider</item>
+    </style>
+
+    <style name="totallist_cellfooter">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginBottom">@dimen/divider</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/co_totallist_cellItemPadding</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/co_textsizeTotalListItem</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@color/totallist_caption</item>
+    </style>
+    <style name="totallist_cellfooter_no_first" parent="totallist_cellfooter">
+        <item name="android:layout_marginLeft">@dimen/divider</item>
+    </style>
+
+    <style name="detailedlist_cellcaption">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/divider</item>
+        <item name="android:layout_marginBottom">@dimen/divider</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/co_totallist_cellCapPadding</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">middle</item>
+        <item name="android:textSize">@dimen/co_textsizeTotalListCaption</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@color/totallist_caption</item>
+    </style>
+    <style name="detailedlist_cellcaption_no_first" parent="detailedlist_cellcaption">
+        <item name="android:layout_marginLeft">@dimen/divider</item>
+    </style>
+
+    <style name="detailedlist_cellitem">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/divider</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/co_totallist_cellItemPadding</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/co_textsizeTotalListItem</item>
+        <item name="android:background">@color/totallist_item</item>
+    </style>
+    <style name="detailedlist_cellitem_no_first" parent="detailedlist_cellitem">
+        <item name="android:layout_marginLeft">@dimen/divider</item>
+    </style>
+    <style name="detailedlist_cellitem_subinfo">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">@dimen/co_totallist_cellItemPaddingLeft</item>
+        <item name="android:paddingTop">@dimen/co_totallist_cellItemPadding</item>
+        <item name="android:paddingRight">@dimen/co_totallist_cellItemPadding</item>
+        <item name="android:paddingBottom">@dimen/co_totallist_cellItemPadding</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:background">@color/totallist_item_secondary</item>
+    </style>
+    <style name="detailedlist_cellitem_subinfo_no_first" parent="detailedlist_cellitem_subinfo">
+        <item name="android:layout_marginLeft">@dimen/divider</item>
+        <item name="android:paddingLeft">@dimen/co_totallist_cellItemPadding</item>
+    </style>
+
+    <!-- dialog params -->
+    <style name="dialog_titlebar_container">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dialog_titlebarHeight</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@color/bg_actionpanelBlue</item>
+    </style>
+    <style name="dialog_titlebarMonoTv" parent="dialog_titlebar_container">
+        <item name="android:lines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:padding">@dimen/dialog_titlebarPadding</item>
+        <item name="android:textColor">@color/txt_actionBlue</item>
+        <item name="android:textSize">@dimen/textsize_titlebar</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@color/bg_actionBlue</item>
+    </style>
+    <style name="dialog_titlebarTv">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:lines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:padding">@dimen/dialog_titlebarPadding</item>
+        <item name="android:textColor">@color/txt_actionBlue</item>
+        <item name="android:textSize">@dimen/textsize_titlebar</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@color/bg_actionBlue</item>
+    </style>
+</resources>

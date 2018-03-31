@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_actionpanelBlue">
+
+    <TextView android:id="@+id/dialog_title"
+        android:text="@string/title_dialogComponentlistSort"
+        style="@style/dialog_titlebarMonoTv" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dialog_borderWidth"
+            android:padding="@dimen/dialog_contentPadding"
+            android:background="@color/bg_contentBlue">
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dialogsort_lineBottomOffset">
+                <RadioButton android:id="@+id/rb_order_by_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/textsize_msg"
+                    android:text="@string/tip_sortComponentListByTitle"
+                    android:checked="true"/>
+                <RadioButton android:id="@+id/rb_order_by_createdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dialog_export_warnMsgPadding"
+                    android:textSize="@dimen/textsize_msg"
+                    android:text="@string/tip_sortComponentListByCreateDate"/>
+            </RadioGroup>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout style="@style/dialog_action_button_container" >
+        <include layout="@layout/dialog_btn_inc"/>
+    </LinearLayout>
+
+</LinearLayout>

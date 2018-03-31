@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/dialogcb_groupdataCapPadding">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end|center_vertical">
+        <TextView android:id="@+id/tv_group_title" style="@style/tip"/>
+        <EditText android:id="@+id/et_group_capacity"
+            android:layout_width="@dimen/dialogcb_groupdataInputWidth"
+            android:layout_marginLeft="@dimen/dialogcb_groupdataInputLeftOffset"
+            android:layout_marginStart="@dimen/dialogcb_groupdataInputLeftOffset"
+            android:gravity="center"
+            android:inputType="numberDecimal"
+            android:singleLine="true"
+            android:hint="@string/volume1"
+            android:background="@drawable/input_bg"
+            style="@style/et_one_line"/>
+        <TextView android:text="@string/tip_componentCapXCount"
+            android:layout_marginLeft="@dimen/dialogcb_groupdataInputLeftOffset"
+            android:layout_marginStart="@dimen/dialogcb_groupdataInputLeftOffset"
+            style="@style/tip"/>
+        <EditText android:id="@+id/et_group_count"
+            android:layout_width="@dimen/dialogcb_groupdataInputWidth"
+            android:layout_marginLeft="@dimen/dialogcb_groupdataInputLeftOffset"
+            android:layout_marginStart="@dimen/dialogcb_groupdataInputLeftOffset"
+            android:gravity="center"
+            android:inputType="numberDecimal"
+            android:singleLine="true"
+            android:hint="@string/count1"
+            android:background="@drawable/input_bg"
+            style="@style/et_one_line"/>
+    </LinearLayout>
+</LinearLayout>

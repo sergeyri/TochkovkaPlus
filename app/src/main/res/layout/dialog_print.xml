@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_actionpanelBlue">
+
+    <TextView android:id="@+id/dialog_title"
+        android:text="@string/title_dialogSheetPrint"
+        style="@style/dialog_titlebarMonoTv" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dialog_borderWidth"
+            android:padding="@dimen/dialog_contentPadding"
+            android:background="@color/bg_contentBlue">
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dialog_print_lineBottomOffset">
+                <RadioButton android:id="@+id/rb_grouplist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/textsize_msg"
+                    android:text="@string/tip_exportAsGroupList"
+                    android:checked="true"/>
+                <RadioButton android:id="@+id/rb_particlelist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dialog_print_lineBottomOffset"
+                    android:textSize="@dimen/textsize_msg"
+                    android:text="@string/tip_exportAsComponentList"/>
+            </RadioGroup>
+
+            <CheckBox android:id="@+id/chb_fulldata"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tip_includeFullTotals"/>
+
+            <CheckBox android:id="@+id/chb_remove_zero_items"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tip_removeZeroItems"
+                android:checked="true"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout style="@style/dialog_action_button_container" >
+        <include layout="@layout/dialog_btn_inc"/>
+    </LinearLayout>
+
+</LinearLayout>

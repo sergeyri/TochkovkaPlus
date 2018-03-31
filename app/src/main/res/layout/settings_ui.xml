@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/settings_ui_contentPadding">
+
+        <Switch android:id="@+id/pref_sound_action"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/settings_ui_itemPadding"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/settings_ui_itemTextSize"
+            android:text="@string/tip_soundActionPref"
+            android:singleLine="true"
+            android:ellipsize="middle"/>
+
+        <Switch android:id="@+id/pref_vibrate_action"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/settings_ui_itemPadding"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/settings_ui_itemTextSize"
+            android:text="@string/tip_vibrateActionPref"
+            android:singleLine="true"
+            android:ellipsize="middle"/>
+
+        <View style="@style/horizontal_line"
+            android:background="@color/bg_separatorDarkGray"/>
+
+        <LinearLayout android:id="@+id/ll_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="@dimen/settings_ui_itemPadding"
+            android:layout_marginBottom="@dimen/settings_ui_itemBottomOffset"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingRight="@dimen/settings_ui_contentPadding"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/settings_ui_itemTextSize"
+                    android:text="@string/tip_maxCountHistoryPref"
+                    android:ellipsize="end"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="italic"
+                    android:textSize="@dimen/settings_ui_itemTextSize"
+                    android:text="@string/tip_desc_maxCountHistoryPref"
+                    android:ellipsize="end"/>
+            </LinearLayout>
+            <TextView android:id="@+id/pref_max_count_history_previous"
+                android:layout_width="@dimen/settings_ui_prefMaxCountHistoryWidth"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/input_padding"
+                android:textStyle="bold"
+                android:textSize="@dimen/settings_ui_prefMaxCountHistoryTextSize"
+                android:background="@drawable/input_bg"/>
+
+        </LinearLayout>
+
+        <View style="@style/horizontal_line"
+            android:background="@color/bg_separatorDarkGray"/>
+
+        <LinearLayout android:id="@+id/ll_export_folderpath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="@dimen/settings_ui_itemPadding"
+            android:layout_marginBottom="@dimen/settings_ui_itemMarginBottom"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/settings_ui_itemTextSize"
+                android:text="@string/tip_exportFolderPathPref"
+                android:ellipsize="end"/>
+            <TextView android:id="@+id/pref_export_folder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/settings_ui_contentPadding"
+                android:textStyle="italic"
+                android:textSize="@dimen/settings_ui_itemTextSize"
+                android:ellipsize="end"/>
+        </LinearLayout>
+
+        <View style="@style/horizontal_line"
+            android:background="@color/bg_separatorDarkGray"/>
+
+        <LinearLayout android:id="@+id/ll_sheet_title_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="@dimen/settings_ui_itemPadding"
+            android:layout_marginBottom="@dimen/settings_ui_itemMarginBottom"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/settings_ui_itemTextSize"
+                android:text="@string/tip_sheetTitleDefaultPref"
+                android:ellipsize="end"/>
+            <TextView android:id="@+id/pref_sheet_title_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/settings_ui_contentPadding"
+                android:textStyle="italic"
+                android:textSize="@dimen/settings_ui_itemTextSize"
+                android:ellipsize="end"/>
+        </LinearLayout>
+
+        <View style="@style/horizontal_line"
+            android:background="@color/bg_separatorDarkGray"/>
+
+        <LinearLayout android:id="@+id/ll_sheet_unit_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="@dimen/settings_ui_itemPadding"
+            android:layout_marginBottom="@dimen/settings_ui_itemMarginBottom"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/settings_ui_itemTextSize"
+                android:text="@string/tip_sheetUnitDefaultPref"
+                android:ellipsize="end"/>
+            <TextView android:id="@+id/pref_sheet_unit_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/settings_ui_contentPadding"
+                android:textStyle="italic"
+                android:textSize="@dimen/settings_ui_itemTextSize"
+                android:ellipsize="end"/>
+        </LinearLayout>
+
+        <View style="@style/horizontal_line"
+            android:background="@color/bg_separatorDarkGray"/>
+
+    </LinearLayout>
+</ScrollView>

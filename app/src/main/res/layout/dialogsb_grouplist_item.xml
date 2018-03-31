@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/divider">
+    <FrameLayout android:id="@+id/infopanel"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialogsb_groupListItemHeight"
+        android:padding="@dimen/dialogsb_groupListItemPadding"
+        android:background="@color/grouplist_item">
+        <LinearLayout android:id="@+id/show_mode"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView android:id="@+id/group_title"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="start|center_vertical"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="@dimen/textsize_msg"
+                android:textStyle="bold"/>
+            <TextView android:id="@+id/group_price"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/dialogsb_groupListItemPadding"
+                android:layout_marginStart="@dimen/dialogsb_groupListItemPadding"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="@dimen/textsize_msg"
+                android:background="@drawable/sb_groupinfo_price_bg"/>
+            <LinearLayout android:id="@+id/group_theme_bg"
+                android:layout_width="@dimen/dialogsb_groupListItem_themeSize"
+                android:layout_height="@dimen/dialogsb_groupListItem_themeSize"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dialogsb_groupListItemPadding"
+                android:layout_marginStart="@dimen/dialogsb_groupListItemPadding"
+                android:padding="@dimen/dialogsb_groupListItem_themePadding">
+                <View android:id="@+id/group_theme_txt"
+                    android:layout_width="@dimen/indicator_cube"
+                    android:layout_height="@dimen/indicator_cube"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/edit_mode"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <EditText android:id="@+id/group_title_editable"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="@dimen/input_padding"
+                android:paddingRight="@dimen/input_padding"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textSize="@dimen/dialogsb_groupListItemTextSize"
+                android:textStyle="bold"
+                android:background="@drawable/input_bg"/>
+            <EditText android:id="@+id/group_price_editable"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:layout_marginLeft="@dimen/dialogsb_groupListItemPadding"
+                android:layout_marginStart="@dimen/dialogsb_groupListItemPadding"
+                android:gravity="center"
+                android:paddingLeft="@dimen/input_padding"
+                android:paddingRight="@dimen/input_padding"
+                android:inputType="numberDecimal"
+                android:singleLine="true"
+                android:textSize="@dimen/textsize_msg"
+                android:background="@drawable/input_bg"/>
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout android:id="@+id/itempanel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialogsb_groupListItem_acpHeight"
+        android:padding="@dimen/dialogsb_groupListItem_acpPadding"
+        android:background="@color/bg_separatorGray">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end|center_vertical">
+            <Button android:id="@+id/action_remove"
+                android:layout_width="@dimen/dialogsb_groupListAcpBtnSize"
+                android:layout_height="@dimen/dialogsb_groupListAcpBtnSize"
+                android:background="@drawable/sb_action_group_remove"/>
+            <Button android:id="@+id/action_edit"
+                android:layout_width="@dimen/dialogsb_groupListAcpBtnSize"
+                android:layout_height="@dimen/dialogsb_groupListAcpBtnSize"
+                android:layout_marginLeft="@dimen/dialogsb_groupListItemPadding"
+                android:layout_marginStart="@dimen/dialogsb_groupListItemPadding"
+                android:background="@drawable/sb_action_group_remove"/>
+            <LinearLayout android:id="@+id/action_group_theme_bg"
+                android:layout_width="@dimen/dialogsb_groupListAcpBtnSize"
+                android:layout_height="@dimen/dialogsb_groupListAcpBtnSize"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dialogsb_groupListItemPadding"
+                android:layout_marginStart="@dimen/dialogsb_groupListItemPadding"
+                android:padding="@dimen/dialogsb_groupListItem_themePadding">
+                <View android:id="@+id/action_group_theme_txt"
+                    android:layout_width="@dimen/indicator_cube"
+                    android:layout_height="@dimen/indicator_cube"/>
+            </LinearLayout>
+        </LinearLayout>
+        <android.support.v7.widget.RecyclerView android:id="@+id/action_group_theme_list"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dialogsb_groupListAcpBtnSize"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginRight="@dimen/dialogsb_groupListItem_themeListRightOffset"
+            android:layout_marginEnd="@dimen/dialogsb_groupListItem_themeListRightOffset"
+            android:elevation="@dimen/shadow_size"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+</LinearLayout>

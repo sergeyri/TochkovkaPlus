@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bgcolor"
+    android:orientation="vertical"
+    android:layout_width="@dimen/dialogsb_groupListAcpBtnSize"
+    android:layout_height="@dimen/dialogsb_groupListAcpBtnSize"
+    android:gravity="center">
+    <View android:id="@+id/txtcolor"
+        android:layout_width="@dimen/indicator_cube"
+        android:layout_height="@dimen/indicator_cube"/>
+</LinearLayout>

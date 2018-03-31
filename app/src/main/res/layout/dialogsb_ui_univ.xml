@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="end">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginRight="@dimen/dialogsb_contentPadding"
+        android:layout_marginEnd="@dimen/dialogsb_contentPadding"
+        android:textSize="@dimen/textsize_tip"
+        android:text="@string/tip_sheetUnit"/>
+
+    <LinearLayout android:id="@+id/sheet_unit_container"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@drawable/input_bg">
+        <EditText android:id="@+id/et_unit"
+            android:layout_width="@dimen/dialogsb_unitWidth"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/input_padding"
+            android:paddingRight="@dimen/input_padding"
+            android:singleLine="true"
+            android:inputType="text"
+            android:textSize="@dimen/textsize_et"
+            android:background="@android:color/transparent"/>
+        <Button android:id="@+id/sheet_unit_clear"
+            android:layout_width="@dimen/btn_clear_size"
+            android:layout_height="@dimen/btn_clear_size"
+            android:layout_margin="@dimen/dialog_inputOffset"
+            android:background="@drawable/sb_action_group_remove"/>
+    </LinearLayout>
+
+</LinearLayout>

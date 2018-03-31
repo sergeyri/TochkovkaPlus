@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout android:id="@+id/far"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/co_farBottomOffset"
+        android:background="@color/bg_componentOrder">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include layout="@layout/co_actionpanel_top"/>
+        </HorizontalScrollView>
+
+        <LinearLayout android:id="@+id/result_container"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout android:id="@+id/total_sw"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/co_totalOffset">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/co_textsizeTotalSw"
+                    android:text="@string/sum1" />
+                <ImageView android:id="@+id/total_sw_arrow"
+                    android:layout_width="@dimen/co_totalArrowSize"
+                    android:layout_height="@dimen/co_totalArrowSize"
+                    android:layout_marginLeft="@dimen/co_totalLeftOffset"
+                    android:layout_marginStart="@dimen/co_totalLeftOffset"
+                    android:src="@drawable/arrow_vertical_black"
+                    tools:ignore="ContentDescription" />
+            </LinearLayout>
+
+            <include android:id="@+id/caption_totalGroupList" layout="@layout/co_totalgrouplist_caption" />
+            <android.support.v7.widget.RecyclerView android:id="@+id/rv_totalGroupList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <include android:id="@+id/footer_totalGroupList" layout="@layout/co_totalgrouplist_footer" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:paddingBottom="@dimen/divider"
+                android:background="@color/border_dark"
+                android:orientation="vertical">
+
+                <include android:id="@+id/caption_totallist" layout="@layout/co_detailedlist_caption" />
+                <android.support.v7.widget.RecyclerView android:id="@+id/detailed_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </android.support.v7.widget.RecyclerView>
+                <TextView android:id="@+id/no_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/divider"
+                    android:gravity="center"
+                    android:padding="@dimen/co_emptyDetailedListPadding"
+                    android:text="@string/tip_componentListNoData"
+                    android:background="@color/totallist_item"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/near"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:duplicateParentState="true">
+
+        <LinearLayout android:id="@+id/pseudo_toolbar"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            android:background="@color/bg_actionBlue"
+            android:elevation="@dimen/co_toolbarElevation">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/input_padding"
+                android:src="@drawable/shiftpanel_icon"/>
+
+            <TextView android:id="@+id/toolbar_title"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="25dp"
+                android:layout_marginStart="25dp"
+                android:textSize="@dimen/textsize_titlebar"
+                android:text="@string/app_name"
+                style="@style/title" />
+
+            <LinearLayout android:id="@+id/toolbar_searchpanel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/toolbar_searchPanelOffsetVertical"
+                android:layout_marginBottom="@dimen/toolbar_searchPanelOffsetVertical"
+                android:background="@drawable/input_bg_focused"
+                android:visibility="gone">
+                <EditText android:id="@+id/search_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/input_padding"
+                    android:layout_marginStart="@dimen/input_padding"
+                    android:padding="@dimen/input_padding"
+                    android:textColor="@color/txt_actionBlue"
+                    android:textColorHint="@color/txt_actionSecondaryBlue"
+                    android:textSize="@dimen/textsize_filterHint"
+                    android:inputType="text"
+                    android:background="@android:color/transparent"
+                    tools:ignore="NestedWeights" />
+            </LinearLayout>
+
+            <ImageButton android:id="@+id/search_btn"
+                android:layout_width="@dimen/toolbar_height"
+                android:layout_height="@dimen/toolbar_height"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_search_white_24dp"
+                android:background="@android:color/transparent"
+                tools:ignore="ContentDescription" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/bg_componentOrderSecondary">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:elevation="@dimen/shadow_size">
+                <android.support.v7.widget.RecyclerView android:id="@+id/calc_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </android.support.v7.widget.RecyclerView>
+                <ViewStub android:id="@android:id/empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout="@layout/co_stub"/>
+            </FrameLayout>
+
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/bg_componentOrder">
+                <LinearLayout android:id="@+id/ll_right_actionpanel"
+                    android:layout_width="@dimen/co_rightPanelWidth"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/co_rightPanelPadding"
+                    android:orientation="vertical">
+                    <Button android:id="@+id/action_select_all"
+                        android:background="@drawable/co_action_select_all"
+                        style="@style/co_action_right"/>
+                    <Button android:id="@+id/action_edit"
+                        android:background="@drawable/co_action_edit_sl"
+                        style="@style/co_action_right"/>
+                    <Button android:id="@+id/action_delete"
+                        android:background="@drawable/co_action_delete_sl"
+                        style="@style/co_action_right"/>
+                    <Button android:id="@+id/action_clear_data"
+                        android:background="@drawable/co_action_clear_data_sl"
+                        style="@style/co_action_right"/>
+                </LinearLayout>
+            </ScrollView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</FrameLayout>

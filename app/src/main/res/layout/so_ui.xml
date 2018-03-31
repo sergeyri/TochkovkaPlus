@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_sheetOrder">
+
+    <ViewStub android:id="@+id/empty"
+        android:inflatedId="@+id/howto_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout="@layout/so_stub"/>
+
+    <android.support.v7.widget.RecyclerView android:id="@+id/sheetlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:paddingTop="@dimen/so_rvSheetTopOffset"
+        android:clipToPadding="false"/>
+
+    <FrameLayout android:id="@+id/actionpanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_actionpanelBlue">
+        <LinearLayout android:id="@+id/builderpanel"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/so_acpPadding"
+            android:gravity="right|center_vertical">
+            <android.support.v7.widget.RecyclerView android:id="@+id/builderpanel_tmpllist"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/scrollbar_hidden"/>
+            <LinearLayout android:id="@+id/rw_builder_container"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/so_builderPanelLeftOffset"
+                android:layout_marginRight="@dimen/so_acpPadding">
+                <ImageView android:id="@+id/gost_2708_75_builder"
+                    android:layout_width="@dimen/so_acpButtonSize"
+                    android:layout_height="@dimen/so_acpButtonSize"
+                    android:src="@drawable/so_action_gost_2708_75_sl"/>
+                <ImageView android:id="@+id/iso_4480_83_builder"
+                    android:layout_width="@dimen/so_acpButtonSize"
+                    android:layout_height="@dimen/so_acpButtonSize"
+                    android:layout_marginLeft="@dimen/so_acpButtonOffset"
+                    android:src="@drawable/so_action_iso_4480_83_sl"/>
+            </LinearLayout>
+            <ImageView android:id="@+id/univ_builder"
+                android:layout_width="@dimen/so_acpButtonSize"
+                android:layout_height="@dimen/so_acpButtonSize"
+                android:layout_marginLeft="@dimen/so_builderPanelLeftOffset"
+                android:layout_marginRight="@dimen/so_acpPadding"
+                android:src="@drawable/so_action_builder_sl"/>
+        </LinearLayout>
+        <android.support.v7.widget.RecyclerView android:id="@+id/selectorpanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/so_acpPadding"
+            style="@style/scrollbar_hidden"/>
+        <View style="@style/bar_shadow"/>
+    </FrameLayout>
+
+</FrameLayout>

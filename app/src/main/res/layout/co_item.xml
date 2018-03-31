@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/divider"
+    android:background="@color/border_dark">
+
+    <LinearLayout android:id="@+id/floor_title"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@color/bg_componentOrderSecondary">
+        <TextView android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/co_item_minheight"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/co_item_titlePaddingHorizontal"
+            android:paddingRight="@dimen/co_item_titlePaddingHorizontal"
+            android:textStyle="bold"
+            android:textSize="@dimen/textsize_coItem"
+            android:ellipsize="end"
+            android:singleLine="true"/>
+        <LinearLayout android:id="@+id/sub_container"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/co_item_historyPadding"
+            android:background="@color/bg_separatorGray">
+            <LinearLayout android:id="@+id/history_container"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView android:id="@+id/btn_show_all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/co_item_btnOpenHistory"
+                android:textStyle="bold"
+                android:text="@string/tip_componentItemShowAllHistory"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/floor_increment_panel"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/co_item_height"
+        android:gravity="right|center_vertical"
+        android:paddingRight="@dimen/co_item_incrementPanelRightOffset"
+        android:visibility="gone">
+        <ru.sergeyri.tochkovkaplusv2.BlockScrollView android:id="@+id/increment_panel_sv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end|center_vertical"
+            android:paddingLeft="@dimen/co_item_incrementPanelLeftOffset"
+            android:paddingStart="@dimen/co_item_incrementPanelLeftOffset"
+            style="@style/scrollbar_hidden">
+            <LinearLayout android:id="@+id/increment_panel_container"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="@dimen/co_item_incrementPanelPadding"/>
+        </ru.sergeyri.tochkovkaplusv2.BlockScrollView>
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/floor_switcher"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/co_item_height"
+        android:padding="@dimen/co_item_floorSwPadding"
+        android:gravity="end|center_vertical">
+        <ru.sergeyri.tochkovkaplusv2.IncrementorView
+            android:id="@+id/increment_panel_open_switcher"
+            android:layout_width="@dimen/co_item_height"
+            android:layout_height="match_parent"
+            android:padding="@dimen/co_item_incrementBtnPadding"
+            android:background="@drawable/action_increment_bg"
+            android:layout_gravity="end|center_vertical"
+            android:gravity="center"
+            android:textColor="@color/txt_actionBlue"
+            android:textStyle="bold"
+            android:textSize="@dimen/textsize_coIncrementAction"/>
+        <ImageView android:id="@+id/increment_panel_close_switcher"
+            android:layout_width="@dimen/co_item_historyBtnWidth"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/co_item_historyBtnLeftOffset"
+            android:layout_marginStart="@dimen/co_item_historyBtnLeftOffset"
+            android:padding="@dimen/co_item_historyBtnPadding"
+            android:src="@drawable/ic_history_white_24dp"
+            android:background="@drawable/action_history_bg"
+            android:layout_gravity="end|center_vertical" />
+    </LinearLayout>
+
+    <ImageView android:id="@+id/item_selector"
+        android:layout_width="@dimen/co_item_selectorSize"
+        android:layout_height="@dimen/co_item_selectorSize"
+        android:layout_margin="@dimen/co_item_selectorOffset"
+        android:layout_gravity="end|center_vertical"
+        tools:ignore="ContentDescription" />
+
+</FrameLayout>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView android:id="@+id/rw_length_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textsize_tip"
+        android:text="@string/tip_rwSheetLen"/>
+
+    <LinearLayout android:id="@+id/rw_container"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dialogsb_contentBottomOffset"
+        android:padding="@dimen/dialogsb_contentPadding"
+        android:background="@drawable/input_bg">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+            <SeekBar
+                android:id="@+id/sb_rw_length"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <EditText android:id="@+id/et_rw_length"
+                android:layout_width="@dimen/dialogsb_rwLengthWidth"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingLeft="@dimen/input_padding"
+                android:paddingRight="@dimen/input_padding"
+                android:singleLine="true"
+                android:inputType="numberDecimal"
+                android:background="@drawable/input_bg"/>
+        </LinearLayout>
+
+        <TextView android:id="@+id/recalc_components_warn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dialog_inputOffset"
+            android:text="@string/tip_rwSheetRecalc"
+            android:textColor="@color/warning"
+            android:textSize="@dimen/textsize_tip"
+            android:textStyle="italic"
+            android:checked="true"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+    <TextView android:id="@+id/rw_oddeven_filter_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textsize_tip"
+        android:text="@string/tip_oddeven_filter"/>
+    <LinearLayout android:id="@+id/rw_oddeven_filter_container"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dialogsb_contentPadding"
+        android:background="@drawable/input_bg">
+        <CheckBox android:id="@+id/even_flag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tip_componentFilterEven"/>
+        <CheckBox android:id="@+id/odd_flag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tip_componentFilterOdd"/>
+    </LinearLayout>
+
+</LinearLayout>

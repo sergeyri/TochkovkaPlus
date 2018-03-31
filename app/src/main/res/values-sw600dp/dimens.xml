@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="co_textsizeTotalSw">20sp</dimen>
+    <dimen name="co_textsizeTotal">18sp</dimen>
+    <dimen name="co_textsizeTotalListCaption">16sp</dimen>
+    <dimen name="co_textsizeTotalListItem">@dimen/co_textsizeTotalListCaption</dimen>
+</resources>

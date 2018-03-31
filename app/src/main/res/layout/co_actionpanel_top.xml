@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/co_actionpanelPadding"
+    android:layout_gravity="end">
+
+    <Button android:id="@+id/componentlist_print"
+        android:background="@drawable/co_action_print"
+        style="@style/co_action_top"/>
+    <Button android:id="@+id/componentlist_zero_filter"
+        android:background="@drawable/co_action_filter"
+        style="@style/co_action_top"/>
+    <Button android:id="@+id/componentlist_order"
+        android:background="@drawable/co_action_order"
+        style="@style/co_action_top"/>
+    <Button android:id="@+id/component_create"
+        android:background="@drawable/co_action_builder"
+        style="@style/co_action_top"/>
+
+</LinearLayout>

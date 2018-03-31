@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/toolbar_height"
+    android:background="@color/bg_actionBlue"
+    app:theme="@style/Theme.Design.NoActionBar">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="start|center_vertical">
+
+        <TextView android:id="@+id/toolbar_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/textsize_titlebar"
+            android:text="@string/app_name"
+            style="@style/title" />
+
+        <LinearLayout android:id="@+id/toolbar_searchpanel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/toolbar_searchPanelOffsetVertical"
+            android:layout_marginBottom="@dimen/toolbar_searchPanelOffsetVertical"
+            android:background="@drawable/input_bg_focused"
+            android:visibility="gone">
+            <EditText android:id="@+id/search_input"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/input_padding"
+                android:textColor="@color/txt_actionBlue"
+                android:textColorHint="@color/txt_actionSecondaryBlue"
+                android:textSize="@dimen/textsize_filterHint"
+                android:inputType="text"
+                android:background="@android:color/transparent"
+                tools:ignore="NestedWeights" />
+            <ImageButton android:id="@+id/search_mic"
+                android:layout_width="@dimen/toolbar_searchPanelMicSize"
+                android:layout_height="@dimen/toolbar_searchPanelMicSize"
+                android:layout_gravity="end|center_vertical"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_mic_white_24dp"
+                tools:ignore="ContentDescription" />
+        </LinearLayout>
+
+        <ImageButton android:id="@+id/search_btn"
+            android:layout_width="@dimen/toolbar_height"
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_gravity="end"
+            android:src="@drawable/ic_search_white_24dp"
+            android:background="@android:color/transparent"
+            tools:ignore="ContentDescription" />
+
+    </LinearLayout>
+
+</android.support.v7.widget.Toolbar>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/dialog_borderWidth"
+    android:background="@color/bg_actionpanelBlue">
+
+    <android.support.v7.widget.RecyclerView android:id="@+id/grouplist"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/border_ligth"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dialogsb_contentPadding"
+        android:paddingRight="@dimen/dialogsb_contentPadding"
+        android:gravity="center_horizontal">
+        <Button android:id="@+id/btn_add_group"
+            android:layout_width="@dimen/dialogsb_rightPageAcpBtnSize"
+            android:layout_height="@dimen/dialogsb_rightPageAcpBtnSize"
+            android:layout_marginBottom="@dimen/dialogsb_contentPadding"
+            android:background="@drawable/so_action_builder_sl"/>
+        <Button android:id="@+id/btn_price"
+            android:layout_width="@dimen/dialogsb_rightPageAcpBtnSize"
+            android:layout_height="@dimen/dialogsb_rightPageAcpBtnSize"
+            android:layout_marginBottom="@dimen/dialogsb_contentPadding"
+            android:background="@drawable/sb_price_switcher"/>
+        <Button android:id="@+id/btn_rem_groups"
+            android:layout_width="@dimen/dialogsb_rightPageAcpBtnSize"
+            android:layout_height="@dimen/dialogsb_rightPageAcpBtnSize"
+            android:background="@drawable/sb_rem_groups"/>
+    </LinearLayout>
+
+</LinearLayout>

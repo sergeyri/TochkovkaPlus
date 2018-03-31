@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp"
+    android:animateLayoutChanges="true">
+    <LinearLayout android:id="@+id/to_item"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/to_item_bg"
+        android:longClickable="true"
+        android:clickable="true"
+        android:focusable="true">
+        <TextView android:id="@+id/item_title"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:layout_marginRight="5dp"
+            android:paddingLeft="@dimen/so_item_contentPadding"
+            android:paddingRight="@dimen/so_item_contentPadding"
+            android:background="@color/bg_separatorGray"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:textSize="@dimen/textsize_orderItem"
+            android:textStyle="bold"
+            android:ellipsize="middle"
+            android:duplicateParentState="true"/>
+        <ImageView android:id="@+id/item_info"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_info_outline_black_24"
+            android:duplicateParentState="true"/>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dialogcb_contentPadding"
+    android:background="@color/bg_componentOrderSecondary"
+    android:orientation="vertical">
+
+    <TextView android:text="@string/tip_componentTitle"
+        style="@style/tip"/>
+
+    <LinearLayout android:id="@+id/ll_title_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dialogcb_contentBottomOffset"
+        android:background="@drawable/input_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <ru.sergeyri.tochkovkaplusv2.DelayAutoCompleteTextView
+            android:id="@+id/ac_title"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:hint="@string/hint_componentTitle"
+            android:inputType="numberDecimal"
+            android:singleLine="true"
+            android:textStyle="bold"
+            style="@style/et_one_line"/>
+        <ProgressBar android:id="@+id/pb_title_autocomplete_wait"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginRight="@dimen/dialogcb_progressBarRightOffset"
+            android:layout_marginEnd="@dimen/dialogcb_progressBarRightOffset"
+            android:layout_marginTop="@dimen/dialogcb_progressBarTopOffset"
+            android:layout_marginBottom="@dimen/dialogcb_progressBarTopOffset"
+            android:visibility="gone"
+            style="?android:attr/progressBarStyleSmall"/>
+        <Button android:id="@+id/btn_title_clear"
+            style="@style/btn_clear" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dialogcb_contentBottomOffset">
+
+        <LinearLayout android:id="@+id/ll_capdefault_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dialogcb_contentBottomOffset"
+            android:gravity="end|center_vertical"
+            android:orientation="horizontal">
+            <TextView android:text="@string/tip_componentCapDefault"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/dialogcb_tipOffset"
+                android:layout_marginEnd="@dimen/dialogcb_tipOffset"
+                android:ellipsize="end"
+                style="@style/tip"/>
+            <EditText android:id="@+id/et_capdefault"
+                android:layout_width="@dimen/dialogcb_capDefaultWidth"
+                android:gravity="center"
+                android:inputType="numberDecimal"
+                android:singleLine="true"
+                android:background="@drawable/input_bg"
+                style="@style/et_one_line"/>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/ll_capgroupdata_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"/>
+        <Switch
+            android:id="@+id/swt_capsettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dialogcb_extModeSwitcherMargin" />
+    </FrameLayout>
+</LinearLayout>

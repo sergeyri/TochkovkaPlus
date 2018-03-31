@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dialoginfo_contentBottomOffset"
+        android:textStyle="bold"
+        android:textSize="@dimen/textsize_orderItem"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dialoginfo_contentBottomOffset"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textsize_tip"
+            android:text="@string/tip_unitInfo"/>
+
+        <TextView android:id="@+id/unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dialog_inputOffset"
+            android:layout_marginStart="@dimen/dialog_inputOffset"
+            android:textStyle="bold"
+            android:textSize="@dimen/textsize_msg"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dialoginfo_contentBottomOffset"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textsize_tip"
+            android:text="@string/tip_rwStandartInfo"/>
+
+        <TextView android:id="@+id/rw_standart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dialog_inputOffset"
+            android:layout_marginStart="@dimen/dialog_inputOffset"
+            android:textStyle="bold"
+            android:textSize="@dimen/textsize_msg"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dialoginfo_contentBottomOffset"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textsize_tip"
+            android:text="@string/tip_rwLenInfo"/>
+
+        <TextView android:id="@+id/rw_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dialog_inputOffset"
+            android:textStyle="bold"
+            android:textSize="@dimen/textsize_msg"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dialoginfo_contentBottomOffset"
+        android:textSize="@dimen/textsize_tip"
+        android:text="@string/tip_rwGroupListInfo"/>
+
+    <android.support.v7.widget.RecyclerView android:id="@+id/list_gmi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dialoginfo_contentBottomOffset"/>
+
+</LinearLayout>

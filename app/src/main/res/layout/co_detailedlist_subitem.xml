@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/border_dark">
+
+    <TextView android:id="@+id/iteminfo_title"
+        android:layout_weight="4"
+        style="@style/detailedlist_cellitem_subinfo"/>
+
+    <TextView android:id="@+id/iteminfo_count"
+        android:layout_weight="2"
+        style="@style/detailedlist_cellitem_subinfo_no_first"/>
+
+    <TextView android:id="@+id/iteminfo_volume"
+        android:layout_weight="3"
+        style="@style/detailedlist_cellitem_subinfo_no_first"/>
+
+    <TextView android:id="@+id/iteminfo_cost"
+        android:layout_weight="3"
+        style="@style/detailedlist_cellitem_subinfo_no_first"/>
+
+</LinearLayout>

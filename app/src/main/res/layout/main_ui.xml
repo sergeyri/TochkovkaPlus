@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_ui"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!-- Toolbar -->
+        <include android:id="@+id/toolbar"
+            layout="@layout/main_toolbar" />
+        <!-- content -->
+        <LinearLayout android:id="@+id/container_fragment_ui"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/main_navheader"
+        app:menu="@menu/navview">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:paddingBottom="@dimen/navfooter_paddingBottom"
+            android:background="@color/colorPrimaryDark"
+            android:orientation="vertical">
+            <LinearLayout android:id="@+id/action_tmpllist_ui"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingTop="@dimen/navfooter_itemPadding"
+                android:paddingBottom="@dimen/navfooter_itemPadding"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="@dimen/navfooter_itemIconSize"
+                    android:layout_height="@dimen/navfooter_itemIconSize"
+                    android:layout_marginLeft="@dimen/navfooter_itemPadding"
+                    android:src="@drawable/navfooter_icon_tmpl"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/navfooter_itemPaddingLeft"
+                    android:layout_marginRight="@dimen/navfooter_itemPadding"
+                    android:textStyle="bold"
+                    android:textColor="@color/txt_actionBlue"
+                    android:textSize="@dimen/navfooter_itemTextSize"
+                    android:text="@string/title_tmplorderUI" />
+            </LinearLayout>
+            <LinearLayout android:id="@+id/action_settings_ui"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingTop="@dimen/navfooter_itemPadding"
+                android:paddingBottom="@dimen/navfooter_itemPadding"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="@dimen/navfooter_itemIconSize"
+                    android:layout_height="@dimen/navfooter_itemIconSize"
+                    android:layout_marginLeft="@dimen/navfooter_itemPadding"
+                    android:src="@drawable/navfooter_icon_settings"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/navfooter_itemPaddingLeft"
+                    android:layout_marginRight="@dimen/navfooter_itemPadding"
+                    android:textStyle="bold"
+                    android:textColor="@color/txt_actionBlue"
+                    android:textSize="@dimen/navfooter_itemTextSize"
+                    android:text="@string/title_settingsUI"/>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.design.widget.NavigationView>
+</android.support.v4.widget.DrawerLayout>

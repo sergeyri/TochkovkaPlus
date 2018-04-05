@@ -9,7 +9,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.speech.RecognizerIntent
@@ -22,8 +21,6 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.text.Editable
-import android.text.TextUtils
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
@@ -34,7 +31,6 @@ import androidx.content.edit
 import androidx.net.toUri
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.answers.Answers
-import com.crashlytics.android.answers.ContentViewEvent
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.sergeyri.tpcore.TPNode
 import io.fabric.sdk.android.Fabric
@@ -94,10 +90,6 @@ class Glob : Fragment() {
         mOnStateListener.onInit()
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-    }
-
 }
 
 
@@ -155,7 +147,6 @@ class MainUI : AppCompatActivity(), Glob.OnStateListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Fabric.with(this, Crashlytics())
-        Fabric.with(this, Answers())
         setContentView(R.layout.main_ui)
 
         try{
@@ -201,7 +192,7 @@ class MainUI : AppCompatActivity(), Glob.OnStateListener {
                         if(glob.mFirstOpenTime > 0){
                             val trialTimeLast = TRIAL_MAX - (System.currentTimeMillis() - glob.mFirstOpenTime)
                             val trialMsg: String = "${resources.getString(R.string.tip_trial_time_left_0)} " +
-                                    "${trialTimeLast / (1000 * 60 * 60 * 24)} ${resources.getString(R.string.tip_trial_time_left_1)}"
+                                    "${trialTimeLast / (1000 * 60 * 60 * 24) + 1} ${resources.getString(R.string.tip_trial_time_left_1)}"
 
                             toast(this, trialMsg, Toast.LENGTH_LONG)
                         }
@@ -304,7 +295,7 @@ class MainUI : AppCompatActivity(), Glob.OnStateListener {
     private fun onOpenLockedUI(type: LockedUI.LockType){
         glob.mLockedUI.arguments.putString(LockedUI.KEY_LOCKTYPE, type.name)
         if(glob.mLockedUI.isAdded){
-            glob.mLockedUI.update()
+            glob.mLockedUI.updateUI()
         } else{ onClickOpenUI(glob.mLockedUI) }
     }
 

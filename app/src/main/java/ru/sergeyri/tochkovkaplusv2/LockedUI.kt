@@ -169,7 +169,7 @@ class LockedUI : FragmentUI(), MainUI.PermissionResultListener {
         }
     }
 
-    private fun updateUI(){
+    fun updateUI(){
         when(mLockType){
             LockType.NO_PERMISSIONS -> {
                 mTvMsg0.visibility = if(permissionDeniedStateList.find { it.permission == Manifest.permission.GET_ACCOUNTS } != null) View.VISIBLE else View.GONE
@@ -199,39 +199,6 @@ class LockedUI : FragmentUI(), MainUI.PermissionResultListener {
                 mTvUnlockTip.visibility = View.VISIBLE
             }
         }
-    }
-
-    fun update(){
-//        if(arguments.getString(KEY_LOCKTYPE) != null){
-//            mLockType = when(arguments.getString(KEY_LOCKTYPE)){
-//                LockType.FILESYSTEM_NO_PERMISSION.name -> LockType.FILESYSTEM_NO_PERMISSION
-//                LockType.OVERDUE.name -> LockType.OVERDUE
-//                else -> LockType.UNDEFINED
-//            }
-//        }
-//
-//        when(mLockType){
-//            LockType.FILESYSTEM_NO_PERMISSION -> {
-//                mTvMsg.setText(R.string.desc_external_storage_permission)
-//                mTvTip.visibility = View.GONE
-//                mBtnActive.setText(if(mDontAskFlag) R.string.btn_external_storage_permission_don_t_ask else R.string.btn_external_storage_permission)
-//                mBtnActive.setOnClickListener { onClickActionUnlock(mDontAskFlag) }
-//
-//                log("updated for fieperm")
-//            }
-//            LockType.OVERDUE -> {
-//                mTvMsg.setText(R.string.desc_overdue_locked_ui)
-//                mTvTip.visibility = View.GONE
-//                mBtnActive.setText(R.string.btn_buy_app)
-//                mBtnActive.setOnClickListener { onClickActionBuyApp() }
-//            }
-//            LockType.UNDEFINED -> {
-//                mTvMsg.setText(R.string.desc_lock_undefined)
-//                mTvTip.visibility = View.GONE
-//                mBtnActive.setText(R.string.btn_lock_undefined)
-//                mBtnActive.setOnClickListener { onClickSendMsg() }
-//            }
-//        }
     }
 
     override fun onPermissionResult(mainIU: MainUI, requestCode: Int, permissions: Array<out String>?, grantResults: IntArray?) {

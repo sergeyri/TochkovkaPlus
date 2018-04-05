@@ -24,8 +24,8 @@ android {
         minSdkVersion 15
         targetSdkVersion 27
 
-        versionCode 30
-        versionName "1.4.3"
+        versionCode 33
+        versionName "1.4.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -54,8 +54,8 @@ dependencies {
     implementation files('libs/itext5-itextpdf-5.5.12.jar')
     implementation files('libs/json-simple-1.1.1.jar')
     implementation 'androidx.core:core-ktx:0.2'
-    compile project(path: ':tpcore')
-    compile('com.crashlytics.sdk.android:crashlytics:2.9.0@aar') {
+    implementation project(path: ':tpcore')
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.0@aar') {
         transitive = true
     }
     implementation 'com.google.firebase:firebase-core:12.0.1'

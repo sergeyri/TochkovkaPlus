@@ -234,8 +234,8 @@ class RWI(private val mContext: Context, private val mStandart: String){
             val lenArray = getCurrentLengthArray()
             val minLen = lenArray[lenDiapazone[0]]
             val maxLen = lenArray[lenDiapazone[1]]
-            val minCap = vols[lenDiapazone[0]] as Double
-            val maxCap = vols[lenDiapazone[1]] as Double
+            val minCap = vols[lenDiapazone[0]].toString().toDouble()
+            val maxCap = vols[lenDiapazone[1]].toString().toDouble()
             icap = getInterpolatedCapAtLen(length, minLen, maxLen, minCap, maxCap).round()
         }
         return icap

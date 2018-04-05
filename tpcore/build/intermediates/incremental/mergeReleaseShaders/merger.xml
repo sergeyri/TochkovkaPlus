@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/home/sergeyri/Рабочий стол/TochkovkaPlus/tpcore/src/main/shaders"/></dataSet><dataSet config="release"><source path="/home/sergeyri/Рабочий стол/TochkovkaPlus/tpcore/src/release/shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/home/sergeyri/projects/development/TochkovkaPlus/tpcore/src/main/shaders"/></dataSet><dataSet config="release"><source path="/home/sergeyri/projects/development/TochkovkaPlus/tpcore/src/release/shaders"/></dataSet></merger>

@@ -22,6 +22,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.view.doOnPreDraw
 import androidx.view.postDelayed
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.sergeyri.tpcore.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -126,6 +127,11 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
                     })
                 }
 
+                val fbBundle = Bundle()
+                fbBundle.putString(FirebaseAnalytics.Param.ITEM_NAME, fb_user_name)
+                fbBundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Открыт расчёт")
+                fbBundle.putString(FirebaseAnalytics.Param.CONTENT, mParent.title)
+                xGlob.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, fbBundle)
             }
             BgType.COMPONENT_CREATE.name -> {
                 val sid = mComponentOperator.list.last().sid
@@ -1100,6 +1106,12 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
         }
 
         fun moveToBottom(animate: Boolean=true){
+            val fbBundle = Bundle()
+            fbBundle.putString(FirebaseAnalytics.Param.ITEM_NAME, fb_user_name)
+            fbBundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Просмотр результатов расчёта")
+            fbBundle.putString(FirebaseAnalytics.Param.CONTENT, "sheet_size: ${mComponentOperator.list.size}")
+            xGlob.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, fbBundle)
+
             mIsOpened = true
             if(animate){
                 mNearCnt.animate().translationY(mBottomY).setInterpolator(DecelerateInterpolator()).setDuration(400).start()

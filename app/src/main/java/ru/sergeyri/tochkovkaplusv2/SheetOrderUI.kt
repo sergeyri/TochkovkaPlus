@@ -256,9 +256,13 @@ class SheetOrderUI : FragmentUI() {
         val sort1 = Group.GroupMetaInfo(resources.getString(R.string.def_rwGroupSort1))
         sort1.theme = Group.GroupTheme.C1
         groupsDefault.put(Group.GroupMetaInfo.toJson(sort1))
+        val sort2 = Group.GroupMetaInfo(resources.getString(R.string.def_rwGroupSort2))
+        sort2.theme = Group.GroupTheme.C4
+        groupsDefault.put(Group.GroupMetaInfo.toJson(sort2))
         val sort3 = Group.GroupMetaInfo(resources.getString(R.string.def_rwGroupSort3))
-        sort3.theme = Group.GroupTheme.C2
+        sort3.theme = Group.GroupTheme.C3
         groupsDefault.put(Group.GroupMetaInfo.toJson(sort3))
+
         val balance = Group.GroupMetaInfo(resources.getString(R.string.def_rwGroupSort4))
         groupsDefault.put(Group.GroupMetaInfo.toJson(balance))
         val groupsFromMem = xGlob.mPrefs.getString(TP_PREFS_RW_GOST270875_GROUPS, groupsDefault.toString())
@@ -266,8 +270,10 @@ class SheetOrderUI : FragmentUI() {
 
         val ext = JSONObject()
         if(xGlob.mFamilyName == Glob.FML_ROUNDWOOD){
+            val rwlenFromMem = xGlob.mPrefs.getFloat(RwSheetBuilder.TP_PREF_RWLEN, 4.0F)
+
             ext.also { it.put(RWI.KEY_STANDART, RWI.St.GOST_2708_75.name) }
-                    .also { it.put(RWI.KEY_LENGTH, 4.0F) }
+                    .also { it.put(RWI.KEY_LENGTH, rwlenFromMem) }
                     .also { it.put(RWI.KEY_ODDEVEN_FILTER, RWI.ALL_COMPONENTS) }
         }
         json[Sheet.KEY_EXT] = ext
@@ -298,6 +304,9 @@ class SheetOrderUI : FragmentUI() {
         val sort1 = Group.GroupMetaInfo(resources.getString(R.string.def_rwGroupSort1))
         sort1.theme = Group.GroupTheme.C1
         groupsDefault.put(Group.GroupMetaInfo.toJson(sort1))
+        val sort2 = Group.GroupMetaInfo(resources.getString(R.string.def_rwGroupSort2))
+        sort2.theme = Group.GroupTheme.C4
+        groupsDefault.put(Group.GroupMetaInfo.toJson(sort2))
         val sort3 = Group.GroupMetaInfo(resources.getString(R.string.def_rwGroupSort3))
         sort3.theme = Group.GroupTheme.C2
         groupsDefault.put(Group.GroupMetaInfo.toJson(sort3))
@@ -308,8 +317,9 @@ class SheetOrderUI : FragmentUI() {
 
         val ext = JSONObject()
         if(xGlob.mFamilyName == Glob.FML_ROUNDWOOD){
+            val rwlenFromMem = xGlob.mPrefs.getFloat(RwSheetBuilder.TP_PREF_RWLEN, 4.0F)
             ext.also { it.put(RWI.KEY_STANDART, RWI.St.ISO_4480_83.name) }
-                    .also { it.put(RWI.KEY_LENGTH, 4.0F) }
+                    .also { it.put(RWI.KEY_LENGTH, rwlenFromMem) }
                     .also { it.put(RWI.KEY_ODDEVEN_FILTER, RWI.ALL_COMPONENTS) }
         }
         json[Sheet.KEY_EXT] = ext
@@ -450,7 +460,6 @@ class SheetOrderUI : FragmentUI() {
             get() = acpCnt.y
             set(value) { acpCnt.y = value }
 
-        @Throws(UninitializedPropertyAccessException::class)
     	fun refreshView(rootView: View){
     		acpCnt = rootView.findViewById(R.id.actionpanel)
     		univBuilder = rootView.findViewById(R.id.univ_builder)
@@ -475,12 +484,16 @@ class SheetOrderUI : FragmentUI() {
             selectorPanelContainer.adapter = selectionAdapter
 
             rootView.post {
-                updateBuildersAtFamily(xGlob.mFamilyName)
-                updateActionPanelMode()
+                try{
+                    updateBuildersAtFamily(xGlob.mFamilyName)
+                    updateActionPanelMode()
 
-                tmplButtonListLayoutManager.scrollToPosition(tmplButtonAdapter.itemCount - 1)
-                y = mActionpanelY.toFloat()
-                height = acpCnt.height
+                    tmplButtonListLayoutManager.scrollToPosition(tmplButtonAdapter.itemCount - 1)
+                    y = mActionpanelY.toFloat()
+                    height = acpCnt.height
+                } catch (e: UninitializedPropertyAccessException){
+                    (activity as MainUI).finishMainUI()
+                }
             }
     	}
 

@@ -1021,7 +1021,12 @@ class UnivComponentBuilder : ComponentBuilder(), DelayAutoCompleteTextView.OnFil
                 capDefaultBgRes = R.drawable.input_bg_error
             } else {
                 mParent.listGMI.forEach {
-                    tempListGD.add(Group.GroupData(it.sid, capacity))
+                    val groupInfo = it
+                    val groupData = mSrcListGD.find { it.sid == groupInfo.sid}
+                    if(groupData != null){
+                        groupData.capacity = capacity
+                        tempListGD.add(groupData)
+                    }
                 }
             }
         }
@@ -1248,10 +1253,20 @@ abstract class ComponentBuilder : DialogUI(){
     }
 
     private fun onEditComponent(glob: Glob, component: Component): Boolean {
+        val fbBundle = Bundle()
+        fbBundle.putString(FirebaseAnalytics.Param.ITEM_NAME, fb_user_name)
+        fbBundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "onEditComponent")
+        fbBundle.putString(FirebaseAnalytics.Param.CONTENT, component.title)
+        glob.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, fbBundle)
         return glob.mSheetUI.mComponentOperator.edit(component)
     }
 
     private fun onCreateComponent(glob: Glob, component: Component): Boolean {
+        val fbBundle = Bundle()
+        fbBundle.putString(FirebaseAnalytics.Param.ITEM_NAME, fb_user_name)
+        fbBundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "onCreateComponent")
+        fbBundle.putString(FirebaseAnalytics.Param.CONTENT, component.title)
+        glob.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, fbBundle)
         return glob.mSheetUI.mComponentOperator.create(component)
     }
 
@@ -1335,6 +1350,7 @@ class RwSheetBuilder : SheetBuilder() {
         const val RECALC_VISIBILITY = "recalc_visibility"
         const val CHB_EVEN_STATE = "even_state"
         const val CHB_ODD_STATE = "odd_state"
+        const val TP_PREF_RWLEN = "pref_rwlen"
     }
 
     lateinit var mRwCnt: LinearLayout
@@ -1440,7 +1456,14 @@ class RwSheetBuilder : SheetBuilder() {
         }
 
         if(errorToastMsg == null){
-            val ext = mExt.also { it.put(RWI.KEY_LENGTH, length) }
+            length as Double
+            try{
+                val editor = (activity as MainUI).glob.mPrefs.edit()
+                editor.putFloat(RwSheetBuilder.TP_PREF_RWLEN, length.toFloat())
+                editor.apply()
+            } catch (e: NullPointerException){}
+
+            val ext = mExt.also { it.put(RWI.KEY_LENGTH, length.toFloat()) }
                     .also { it.put(RWI.KEY_ODDEVEN_FILTER, oddevenFilter) }
             oJsonOut.put(Sheet.KEY_EXT, ext)
         } else {
@@ -1865,12 +1888,12 @@ abstract class SheetBuilder : DialogUI() {
                     }
                 }))
             }
-
             val fbBundle = Bundle()
             fbBundle.putString(FirebaseAnalytics.Param.ITEM_NAME, fb_user_name)
             fbBundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Новый расчёт")
             fbBundle.putString(FirebaseAnalytics.Param.CONTENT, "${out.title}, ${out.family}")
             glob.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, fbBundle)
+
             dismiss()
         } else {
             toast(activity, errorToastMsg, Toast.LENGTH_SHORT)
@@ -3064,11 +3087,6 @@ class FullHistoryUI : DialogUI(), TPNode.ComponentCallback {
         mFullHistoryRv.layoutManager = LinearLayoutManager(activity)
         mFullHistoryRv.adapter = mAdapter
         return view
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
     }
 
     inner class HistoryAdapter(historyList: List<Group.History>) : RecyclerView.Adapter<HistoryAdapter.ItemHolder>() {

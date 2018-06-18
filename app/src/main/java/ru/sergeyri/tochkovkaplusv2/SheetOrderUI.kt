@@ -223,7 +223,7 @@ class SheetOrderUI : FragmentUI() {
         json[Sheet.KEY_UNIT] = xGlob.mPrefs.getString(SettingsUI.KEY_SHEET_UNIT_DEFAULT, resources.getString(R.string.def_sheetUnit))
 
         val groupsDefault = JSONArray()
-        groupsDefault.put(Group.GroupMetaInfo.toJson(Group.GroupMetaInfo(Group.GroupMetaInfo.getDefaultTitle(activity))))
+        groupsDefault.put(Group.GroupMeta.toJson(Group.GroupMeta(Group.GroupMeta.getDefaultTitle(activity))))
         val groupsFromMem = xGlob.mPrefs.getString(TP_PREFS_UNIV_GROUPS, groupsDefault.toString())
         json[Sheet.KEY_GROUPINFO_LIST] = JSONArray(groupsFromMem)
 
@@ -253,18 +253,18 @@ class SheetOrderUI : FragmentUI() {
         json[Sheet.KEY_UNIT] = resources.getString(R.string.def_sheetUnit)
 
         val groupsDefault = JSONArray()
-        val sort1 = Group.GroupMetaInfo(resources.getString(R.string.def_rwGroupSort1))
+        val sort1 = Group.GroupMeta(resources.getString(R.string.def_rwGroupSort1))
         sort1.theme = Group.GroupTheme.C1
-        groupsDefault.put(Group.GroupMetaInfo.toJson(sort1))
-        val sort2 = Group.GroupMetaInfo(resources.getString(R.string.def_rwGroupSort2))
+        groupsDefault.put(Group.GroupMeta.toJson(sort1))
+        val sort2 = Group.GroupMeta(resources.getString(R.string.def_rwGroupSort2))
         sort2.theme = Group.GroupTheme.C4
-        groupsDefault.put(Group.GroupMetaInfo.toJson(sort2))
-        val sort3 = Group.GroupMetaInfo(resources.getString(R.string.def_rwGroupSort3))
+        groupsDefault.put(Group.GroupMeta.toJson(sort2))
+        val sort3 = Group.GroupMeta(resources.getString(R.string.def_rwGroupSort3))
         sort3.theme = Group.GroupTheme.C3
-        groupsDefault.put(Group.GroupMetaInfo.toJson(sort3))
+        groupsDefault.put(Group.GroupMeta.toJson(sort3))
 
-        val balance = Group.GroupMetaInfo(resources.getString(R.string.def_rwGroupSort4))
-        groupsDefault.put(Group.GroupMetaInfo.toJson(balance))
+        val balance = Group.GroupMeta(resources.getString(R.string.def_rwGroupSort4))
+        groupsDefault.put(Group.GroupMeta.toJson(balance))
         val groupsFromMem = xGlob.mPrefs.getString(TP_PREFS_RW_GOST270875_GROUPS, groupsDefault.toString())
         json[Sheet.KEY_GROUPINFO_LIST] = JSONArray(groupsFromMem)
 
@@ -301,17 +301,17 @@ class SheetOrderUI : FragmentUI() {
         json[Sheet.KEY_UNIT] = resources.getString(R.string.def_sheetUnit)
 
         val groupsDefault = JSONArray()
-        val sort1 = Group.GroupMetaInfo(resources.getString(R.string.def_rwGroupSort1))
+        val sort1 = Group.GroupMeta(resources.getString(R.string.def_rwGroupSort1))
         sort1.theme = Group.GroupTheme.C1
-        groupsDefault.put(Group.GroupMetaInfo.toJson(sort1))
-        val sort2 = Group.GroupMetaInfo(resources.getString(R.string.def_rwGroupSort2))
+        groupsDefault.put(Group.GroupMeta.toJson(sort1))
+        val sort2 = Group.GroupMeta(resources.getString(R.string.def_rwGroupSort2))
         sort2.theme = Group.GroupTheme.C4
-        groupsDefault.put(Group.GroupMetaInfo.toJson(sort2))
-        val sort3 = Group.GroupMetaInfo(resources.getString(R.string.def_rwGroupSort3))
+        groupsDefault.put(Group.GroupMeta.toJson(sort2))
+        val sort3 = Group.GroupMeta(resources.getString(R.string.def_rwGroupSort3))
         sort3.theme = Group.GroupTheme.C2
-        groupsDefault.put(Group.GroupMetaInfo.toJson(sort3))
-        val balance = Group.GroupMetaInfo(resources.getString(R.string.def_rwGroupSort4))
-        groupsDefault.put(Group.GroupMetaInfo.toJson(balance))
+        groupsDefault.put(Group.GroupMeta.toJson(sort3))
+        val balance = Group.GroupMeta(resources.getString(R.string.def_rwGroupSort4))
+        groupsDefault.put(Group.GroupMeta.toJson(balance))
         val groupsFromMem = xGlob.mPrefs.getString(TP_PREFS_RW_ISO448083_GROUPS, groupsDefault.toString())
         json[Sheet.KEY_GROUPINFO_LIST] = JSONArray(groupsFromMem)
 
@@ -345,7 +345,7 @@ class SheetOrderUI : FragmentUI() {
         json[Sheet.KEY_TITLE] = tmpl.title
         json[Sheet.KEY_UNIT] = tmpl.unit
         val gmiJsonArr = JSONArray()
-        tmpl.listGMI.forEach {gmiJsonArr.put(Group.GroupMetaInfo.toJson(it))}
+        tmpl.listGMI.forEach {gmiJsonArr.put(Group.GroupMeta.toJson(it))}
         json[Sheet.KEY_GROUPINFO_LIST] = gmiJsonArr
         json[Sheet.KEY_EXT] = tmpl.ext
         json[Sheet.KEY_COMMENT] = ""
@@ -377,7 +377,7 @@ class SheetOrderUI : FragmentUI() {
             json[Sheet.KEY_TITLE] = sheet.title
             json[Sheet.KEY_UNIT] = sheet.unit
             val gmiJsonArr = JSONArray()
-            sheet.listGMI.forEach {gmiJsonArr.put(Group.GroupMetaInfo.toJson(it))}
+            sheet.listGMI.forEach {gmiJsonArr.put(Group.GroupMeta.toJson(it))}
             json[Sheet.KEY_GROUPINFO_LIST] = gmiJsonArr
             json[Sheet.KEY_EXT] = sheet.ext
             json[Sheet.KEY_COMMENT] = sheet.comment

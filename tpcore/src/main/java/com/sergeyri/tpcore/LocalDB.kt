@@ -72,9 +72,9 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
                     val changeDate = cursor.getLong(cursor.getColumnIndex(Sheet.KEY_CHANGE_DATE))
                     val title = cursor.getString(cursor.getColumnIndex(Sheet.KEY_TITLE))
                     val unit = cursor.getString(cursor.getColumnIndex(Sheet.KEY_UNIT))
-                    val listGMI: MutableList<Group.GroupMetaInfo> = mutableListOf()
+                    val listGMI: MutableList<Group.GroupMeta> = mutableListOf()
                     val jarr = JSONArray(cursor.getString(cursor.getColumnIndex(Sheet.KEY_GROUPINFO_LIST)))
-                    (0 until jarr.length()).mapTo(listGMI) { Group.GroupMetaInfo.fromJson(jarr[it] as JSONObject) }
+                    (0 until jarr.length()).mapTo(listGMI) { Group.GroupMeta.fromJson(jarr[it] as JSONObject) }
                     val ext = JSONObject(cursor.getString(cursor.getColumnIndex(Sheet.KEY_EXT)))
                     val comment = cursor.getString(cursor.getColumnIndex(Sheet.KEY_COMMENT))
                     val priceEnabled = (cursor.getInt(cursor.getColumnIndex(Sheet.KEY_PRICE_ENABLED)) == 1)
@@ -109,7 +109,7 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
             values.put(Sheet.KEY_TITLE, sheet.title)
             values.put(Sheet.KEY_UNIT, sheet.unit)
             val jarr = JSONArray()
-            sheet.listGMI.forEach { jarr.put(Group.GroupMetaInfo.toJson(it)) }
+            sheet.listGMI.forEach { jarr.put(Group.GroupMeta.toJson(it)) }
             values.put(Sheet.KEY_GROUPINFO_LIST, jarr.toString())
             values.put(Sheet.KEY_EXT, sheet.ext.toString())
             values.put(Sheet.KEY_COMMENT, sheet.comment)
@@ -127,7 +127,7 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
         values.put(Sheet.KEY_TITLE, sheet.title)
         values.put(Sheet.KEY_UNIT, sheet.unit)
         val jarr = JSONArray()
-        sheet.listGMI.forEach { jarr.put(Group.GroupMetaInfo.toJson(it)) }
+        sheet.listGMI.forEach { jarr.put(Group.GroupMeta.toJson(it)) }
         values.put(Sheet.KEY_GROUPINFO_LIST, jarr.toString())
         values.put(Sheet.KEY_EXT, sheet.ext.toString())
         values.put(Sheet.KEY_COMMENT, sheet.comment)
@@ -268,9 +268,9 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
                     val changeDate = cursor.getLong(cursor.getColumnIndex(Tmpl.KEY_CHANGE_DATE))
                     val title = cursor.getString(cursor.getColumnIndex(Tmpl.KEY_TITLE))
                     val unit = cursor.getString(cursor.getColumnIndex(Tmpl.KEY_UNIT))
-                    val listGI: MutableList<Group.GroupMetaInfo> = mutableListOf()
+                    val listGI: MutableList<Group.GroupMeta> = mutableListOf()
                     val jarr = JSONArray(cursor.getString(cursor.getColumnIndex(Tmpl.KEY_GROUPINFO_LIST)))
-                    (0 until jarr.length()).mapTo(listGI) { Group.GroupMetaInfo.fromJson(jarr[it] as JSONObject) }
+                    (0 until jarr.length()).mapTo(listGI) { Group.GroupMeta.fromJson(jarr[it] as JSONObject) }
                     val ext = JSONObject(cursor.getString(cursor.getColumnIndex(Tmpl.KEY_EXT)))
                     val priceEnabled = (cursor.getInt(cursor.getColumnIndex(Tmpl.KEY_PRICE_ENABLED)) == 1)
                     tmplList.add(Tmpl(createDate, family, changeDate, title, unit, listGI, ext, priceEnabled))
@@ -303,7 +303,7 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
             values.put(Tmpl.KEY_TITLE, tmpl.title)
             values.put(Tmpl.KEY_UNIT, tmpl.unit)
             val jarr = JSONArray()
-            tmpl.listGMI.forEach { jarr.put(Group.GroupMetaInfo.toJson(it)) }
+            tmpl.listGMI.forEach { jarr.put(Group.GroupMeta.toJson(it)) }
             values.put(Tmpl.KEY_GROUPINFO_LIST, jarr.toString())
             values.put(Tmpl.KEY_EXT, tmpl.ext.toString())
             values.put(Tmpl.KEY_PRICE_ENABLED, tmpl.priceEnabled)
@@ -473,8 +473,8 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
     }
 
     inner class Helper(val context: Context, name: String, factory: SQLiteDatabase.CursorFactory?, version: Int) : SQLiteOpenHelper(context, name, factory, version){
-        inner class SheetSource(val listGMI: List<Group.GroupMetaInfo>, val listComponent: List<Component>)
-        inner class TmplSource(val listGMI: List<Group.GroupMetaInfo>, val listTmplComponent: List<TmplComponent>)
+        inner class SheetSource(val listGMI: List<Group.GroupMeta>, val listComponent: List<Component>)
+        inner class TmplSource(val listGMI: List<Group.GroupMeta>, val listTmplComponent: List<TmplComponent>)
 
         override fun onUpgrade(SQLite: SQLiteDatabase?, oldVersion: Int, newVersion: Int) { log("onUpgradeLocalDB")
             if(SQLite != null){
@@ -547,7 +547,7 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
                                     }
 
                                     val oldSheetSource: SheetSource = getOldComponentList(oldSid, family)
-                                    val listGMI: List<Group.GroupMetaInfo> = oldSheetSource.listGMI
+                                    val listGMI: List<Group.GroupMeta> = oldSheetSource.listGMI
                                     val sheet = Sheet(createDate, family, createDate, title, unit, listGMI, ext, comment, false)
                                     if(migrateSheet(sheet)){
                                         val values = ContentValues()
@@ -604,7 +604,7 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
                                     }
 
                                     val oldTmplSource: TmplSource = getOldTmplComponentList(oldSid, family)
-                                    val listGMI: List<Group.GroupMetaInfo> = oldTmplSource.listGMI
+                                    val listGMI: List<Group.GroupMeta> = oldTmplSource.listGMI
 
                                     val tmpl = Tmpl(createDate, family, createDate, title, unit, listGMI, ext, false)
                                     if(migrateTmpl(tmpl)){
@@ -639,7 +639,7 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
             }
 
             private fun getOldComponentList(sid: String, family: String): SheetSource {
-                val listGMI: MutableList<Group.GroupMetaInfo> = mutableListOf()
+                val listGMI: MutableList<Group.GroupMeta> = mutableListOf()
                 val componentList: MutableList<Component> = mutableListOf()
 
                 val cursor = get(sid, arrayOf("*"), null, null, null)
@@ -657,7 +657,7 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
                                 val defTitle = Old.gi0Title(context)
                                 var gmi = listGMI.find { it.title == defTitle }
                                 if(gmi == null){
-                                    gmi = Group.GroupMetaInfo(Group.GroupMetaInfo.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C0, 0.0)
+                                    gmi = Group.GroupMeta(Group.GroupMeta.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C0, 0.0)
                                     listGMI.add(gmi)
                                     SystemClock.sleep(1)
                                 }
@@ -677,7 +677,7 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
                                 val defTitle = Old.gi1Title(context, family)
                                 var gmi = listGMI.find { it.title == defTitle }
                                 if(gmi == null){
-                                    gmi = Group.GroupMetaInfo(Group.GroupMetaInfo.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C1, 0.0)
+                                    gmi = Group.GroupMeta(Group.GroupMeta.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C1, 0.0)
                                     listGMI.add(gmi)
                                     SystemClock.sleep(1)
                                 }
@@ -697,7 +697,7 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
                                 val defTitle = Old.gi2Title(context, family)
                                 var gmi = listGMI.find { it.title == defTitle }
                                 if(gmi == null){
-                                    gmi = Group.GroupMetaInfo(Group.GroupMetaInfo.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C2, 0.0)
+                                    gmi = Group.GroupMeta(Group.GroupMeta.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C2, 0.0)
                                     listGMI.add(gmi)
                                     SystemClock.sleep(1)
                                 }
@@ -717,7 +717,7 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
                                 val defTitle = Old.gi3Title(context, family)
                                 var gmi = listGMI.find { it.title == defTitle }
                                 if(gmi == null){
-                                    gmi = Group.GroupMetaInfo(Group.GroupMetaInfo.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C3, 0.0)
+                                    gmi = Group.GroupMeta(Group.GroupMeta.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C3, 0.0)
                                     listGMI.add(gmi)
                                     SystemClock.sleep(1)
                                 }
@@ -737,7 +737,7 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
                                 val defTitle = Old.gi4Title(context, family)
                                 var gmi = listGMI.find { it.title == defTitle }
                                 if(gmi == null){
-                                    gmi = Group.GroupMetaInfo(Group.GroupMetaInfo.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C4, 0.0)
+                                    gmi = Group.GroupMeta(Group.GroupMeta.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C4, 0.0)
                                     listGMI.add(gmi)
                                     SystemClock.sleep(1)
                                 }
@@ -757,7 +757,7 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
                                 val defTitle = Old.gi5Title(context, family)
                                 var gmi = listGMI.find { it.title == defTitle }
                                 if(gmi == null){
-                                    gmi = Group.GroupMetaInfo(Group.GroupMetaInfo.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C5, 0.0)
+                                    gmi = Group.GroupMeta(Group.GroupMeta.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C5, 0.0)
                                     listGMI.add(gmi)
                                     SystemClock.sleep(1)
                                 }
@@ -813,7 +813,7 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
                     values.put(Sheet.KEY_TITLE, sheet.title)
                     values.put(Sheet.KEY_UNIT, sheet.unit)
                     val jarr = JSONArray()
-                    sheet.listGMI.forEach { jarr.put(Group.GroupMetaInfo.toJson(it)) }
+                    sheet.listGMI.forEach { jarr.put(Group.GroupMeta.toJson(it)) }
                     values.put(Sheet.KEY_GROUPINFO_LIST, jarr.toString())
                     values.put(Sheet.KEY_EXT, sheet.ext.toString())
                     values.put(Sheet.KEY_COMMENT, sheet.comment)
@@ -825,7 +825,7 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
             }
 
             private fun getOldTmplComponentList(sid: String, family: String): TmplSource {
-                val listGMI: MutableList<Group.GroupMetaInfo> = mutableListOf()
+                val listGMI: MutableList<Group.GroupMeta> = mutableListOf()
                 val tmplComponentList: MutableList<TmplComponent> = mutableListOf()
 
                 val cursor = get(sid, arrayOf("*"), null, null, null)
@@ -842,7 +842,7 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
                                 val defTitle = Old.gi0Title(context)
                                 var gmi = listGMI.find { it.title == defTitle }
                                 if(gmi == null){
-                                    gmi = Group.GroupMetaInfo(Group.GroupMetaInfo.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C0, 0.0)
+                                    gmi = Group.GroupMeta(Group.GroupMeta.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C0, 0.0)
                                     listGMI.add(gmi)
                                     SystemClock.sleep(1)
                                 }
@@ -856,7 +856,7 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
                                 val defTitle = Old.gi1Title(context, family)
                                 var gmi = listGMI.find { it.title == defTitle }
                                 if(gmi == null){
-                                    gmi = Group.GroupMetaInfo(Group.GroupMetaInfo.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C1, 0.0)
+                                    gmi = Group.GroupMeta(Group.GroupMeta.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C1, 0.0)
                                     listGMI.add(gmi)
                                     SystemClock.sleep(1)
                                 }
@@ -870,7 +870,7 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
                                 val defTitle = Old.gi2Title(context, family)
                                 var gmi = listGMI.find { it.title == defTitle }
                                 if(gmi == null){
-                                    gmi = Group.GroupMetaInfo(Group.GroupMetaInfo.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C2, 0.0)
+                                    gmi = Group.GroupMeta(Group.GroupMeta.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C2, 0.0)
                                     listGMI.add(gmi)
                                     SystemClock.sleep(1)
                                 }
@@ -884,7 +884,7 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
                                 val defTitle = Old.gi3Title(context, family)
                                 var gmi = listGMI.find { it.title == defTitle }
                                 if(gmi == null){
-                                    gmi = Group.GroupMetaInfo(Group.GroupMetaInfo.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C3, 0.0)
+                                    gmi = Group.GroupMeta(Group.GroupMeta.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C3, 0.0)
                                     listGMI.add(gmi)
                                     SystemClock.sleep(1)
                                 }
@@ -898,7 +898,7 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
                                 val defTitle = Old.gi4Title(context, family)
                                 var gmi = listGMI.find { it.title == defTitle }
                                 if(gmi == null){
-                                    gmi = Group.GroupMetaInfo(Group.GroupMetaInfo.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C4, 0.0)
+                                    gmi = Group.GroupMeta(Group.GroupMeta.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C4, 0.0)
                                     listGMI.add(gmi)
                                     SystemClock.sleep(1)
                                 }
@@ -912,7 +912,7 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
                                 val defTitle = Old.gi5Title(context, family)
                                 var gmi = listGMI.find { it.title == defTitle }
                                 if(gmi == null){
-                                    gmi = Group.GroupMetaInfo(Group.GroupMetaInfo.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C5, 0.0)
+                                    gmi = Group.GroupMeta(Group.GroupMeta.PREFIX + System.currentTimeMillis(), defTitle, Group.GroupTheme.C5, 0.0)
                                     listGMI.add(gmi)
                                     SystemClock.sleep(1)
                                 }
@@ -962,7 +962,7 @@ class LocalDB(context: Context) : TPNode.DatabaseActions {
                     values.put(Tmpl.KEY_TITLE, tmpl.title)
                     values.put(Tmpl.KEY_UNIT, tmpl.unit)
                     val jarr = JSONArray()
-                    tmpl.listGMI.forEach { jarr.put(Group.GroupMetaInfo.toJson(it)) }
+                    tmpl.listGMI.forEach { jarr.put(Group.GroupMeta.toJson(it)) }
                     values.put(Tmpl.KEY_GROUPINFO_LIST, jarr.toString())
                     values.put(Tmpl.KEY_EXT, tmpl.ext.toString())
                     values.put(Tmpl.KEY_PRICE_ENABLED, tmpl.priceEnabled)

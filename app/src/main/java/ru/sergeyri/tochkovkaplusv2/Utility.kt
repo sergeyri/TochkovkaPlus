@@ -309,6 +309,10 @@ fun EditText.setInputListener(listener: EditTextWatcher){
 
 
 
+fun View.isVisible(): Boolean {
+    return (this.visibility == View.VISIBLE)
+}
+
 fun String.checkPattern(pattern: String): Boolean {
     return matches(pattern.toRegex())
 }

@@ -22,32 +22,92 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout android:id="@+id/total_sw"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:padding="@dimen/co_totalOffset">
-                <TextView
+                android:gravity="right"
+                android:orientation="horizontal">
+                <LinearLayout android:id="@+id/total_sw_0"
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/co_textsizeTotalSw"
-                    android:text="@string/sum1" />
-                <ImageView android:id="@+id/total_sw_arrow"
-                    android:layout_width="@dimen/co_totalArrowSize"
-                    android:layout_height="@dimen/co_totalArrowSize"
-                    android:layout_marginLeft="@dimen/co_totalLeftOffset"
-                    android:layout_marginStart="@dimen/co_totalLeftOffset"
-                    android:src="@drawable/arrow_vertical_black"
-                    tools:ignore="ContentDescription" />
+                    android:layout_margin="@dimen/total_sw_offset"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/total_sw_bg">
+                    <TextView android:id="@+id/total_sw_0_btn_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="@dimen/co_totalLeftOffset"
+                        android:layout_marginStart="@dimen/co_totalLeftOffset"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/co_textsizeTotalListCaption"
+                        android:text="@string/sum2" />
+                    <ImageView android:id="@+id/total_sw_ar0"
+                        android:layout_width="@dimen/co_totalArrowSize"
+                        android:layout_height="@dimen/co_totalArrowSize"
+                        android:layout_marginLeft="@dimen/co_totalLeftOffset"
+                        android:layout_marginStart="@dimen/co_totalLeftOffset"
+                        android:layout_marginRight="@dimen/co_totalLeftOffset"
+                        android:layout_marginEnd="@dimen/co_totalLeftOffset"
+                        android:src="@drawable/arrow_vertical_black"
+                        tools:ignore="ContentDescription" />
+                </LinearLayout>
+                <LinearLayout android:id="@+id/total_sw_1"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/total_sw_offset"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/total_sw_bg">
+                    <ImageView android:id="@+id/creator_diameter_groups"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:padding="@dimen/co_totalOffset"
+                        android:src="@drawable/country_settings"/>
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/bg_green"/>
+                    <TextView android:id="@+id/total_sw_1_btn_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/co_totalLeftOffset"
+                        android:layout_marginStart="@dimen/co_totalLeftOffset"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/co_textsizeTotalListCaption"
+                        android:text="@string/groupsTotalUniv" />
+                    <ImageView android:id="@+id/total_sw_ar1"
+                        android:layout_width="@dimen/co_totalArrowSize"
+                        android:layout_height="@dimen/co_totalArrowSize"
+                        android:layout_marginLeft="@dimen/co_totalLeftOffset"
+                        android:layout_marginStart="@dimen/co_totalLeftOffset"
+                        android:layout_marginRight="@dimen/co_totalLeftOffset"
+                        android:layout_marginEnd="@dimen/co_totalLeftOffset"
+                        android:src="@drawable/arrow_vertical_black"
+                        tools:ignore="ContentDescription" />
+                </LinearLayout>
             </LinearLayout>
 
-            <include android:id="@+id/caption_totalGroupList" layout="@layout/co_totalgrouplist_caption" />
-            <android.support.v7.widget.RecyclerView android:id="@+id/rv_totalGroupList"
+            <include android:id="@+id/caption_totalList" layout="@layout/co_totallist_caption" />
+            <android.support.v7.widget.RecyclerView android:id="@+id/rv_totalList_0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-            <include android:id="@+id/footer_totalGroupList" layout="@layout/co_totalgrouplist_footer" />
+            <android.support.v7.widget.RecyclerView android:id="@+id/rv_totalList_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView android:id="@+id/no_total_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/divider"
+                android:gravity="center"
+                android:padding="@dimen/co_emptyDetailedListPadding"
+                android:text="@string/tip_componentListNoData"
+                android:background="@color/totallist_item"/>
+            <View android:id="@+id/no_total_data_footer_line"
+                style="@style/horizontal_line"
+                android:background="@color/gray"/>
+            <include android:id="@+id/footer_totalList" layout="@layout/co_totallist_footer" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,7 +122,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 </android.support.v7.widget.RecyclerView>
-                <TextView android:id="@+id/no_data"
+                <TextView android:id="@+id/no_detailed_data"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/divider"

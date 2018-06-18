@@ -167,7 +167,7 @@ class TmplOrderUI : FragmentUI() {
             json.put(Sheet.KEY_TITLE, tmpl.title)
             json.put(Sheet.KEY_UNIT, tmpl.unit)
             val gmiJsonArr = JSONArray()
-            tmpl.listGMI.forEach {gmiJsonArr.put(Group.GroupMetaInfo.toJson(it))}
+            tmpl.listGMI.forEach {gmiJsonArr.put(Group.GroupMeta.toJson(it))}
             json.put(Sheet.KEY_GROUPINFO_LIST, gmiJsonArr)
             json.put(Sheet.KEY_EXT, tmpl.ext)
             json.put(Sheet.KEY_COMMENT, "")

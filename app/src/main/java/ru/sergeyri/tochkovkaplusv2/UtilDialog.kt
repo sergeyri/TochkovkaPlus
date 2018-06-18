@@ -331,8 +331,8 @@ abstract class SheetInfo : InfoUI(){
         mGroupInfoAdapter = GroupInfoAdapter(mSheet.listGMI)
     }
 
-    inner class GroupInfoAdapter(listGMI: List<Group.GroupMetaInfo>) : RecyclerView.Adapter<GroupInfoAdapter.ItemHolder>() {
-        private val itemList: MutableList<Group.GroupMetaInfo> = mutableListOf()
+    inner class GroupInfoAdapter(listGMI: List<Group.GroupMeta>) : RecyclerView.Adapter<GroupInfoAdapter.ItemHolder>() {
+        private val itemList: MutableList<Group.GroupMeta> = mutableListOf()
         init {itemList.addAll(listGMI)}
 
         override fun getItemCount(): Int = itemList.size
@@ -366,8 +366,8 @@ abstract class TmplInfo : InfoUI(){
         mGroupInfoAdapter = GroupInfoAdapter(mTmpl.listGMI)
     }
 
-    inner class GroupInfoAdapter(listGMI: List<Group.GroupMetaInfo>) : RecyclerView.Adapter<GroupInfoAdapter.ItemHolder>() {
-        private val itemList: MutableList<Group.GroupMetaInfo> = mutableListOf()
+    inner class GroupInfoAdapter(listGMI: List<Group.GroupMeta>) : RecyclerView.Adapter<GroupInfoAdapter.ItemHolder>() {
+        private val itemList: MutableList<Group.GroupMeta> = mutableListOf()
         init {itemList.addAll(listGMI)}
 
         override fun getItemCount(): Int = itemList.size
@@ -614,7 +614,7 @@ class RwComponentBuilder : ComponentBuilder() {
     lateinit var mCapDefaultCnt: LinearLayout
     lateinit var mEtCapDefault: EditText
     lateinit var mCapGroupDataCnt: LinearLayout
-    var mEtCapGroupDataMap: MutableMap<String, EtHub> = mutableMapOf()// (<GroupMetaInfo.sid, EditText>)
+    var mEtCapGroupDataMap: MutableMap<String, EtHub> = mutableMapOf()// (<GroupMeta.sid, EditText>)
     val mSrcListGD: MutableList<Group.GroupData> = mutableListOf()
     var mCapSettingsIsOpened: Boolean = false
     lateinit var mStandart: String
@@ -880,7 +880,7 @@ class UnivComponentBuilder : ComponentBuilder(), DelayAutoCompleteTextView.OnFil
     lateinit var mCapDefaultCnt: LinearLayout
     lateinit var mEtCapDefault: EditText
     lateinit var mCapGroupDataCnt: LinearLayout
-    var mEtCapGroupDataMap: MutableMap<String, EtHub> = mutableMapOf()// (<GroupMetaInfo.sid, EditText>)
+    var mEtCapGroupDataMap: MutableMap<String, EtHub> = mutableMapOf()// (<GroupMeta.sid, EditText>)
     val mSrcListGD: MutableList<Group.GroupData> = mutableListOf()
     var mCapSettingsIsOpened: Boolean = false
     lateinit var mAdapter: AutoCompleteAdapter
@@ -1534,9 +1534,22 @@ class RwSheetBuilder : SheetBuilder() {
                 out.listGMI.forEach {
                     tmpListGD.add(Group.GroupData(it.sid, icap, 0))
                 }
+
                 val co = glob.mNode.ComponentOperator(out)
                 successList.add(co.create(Component(key, tmpListGD)))
             }
+
+            val tmpArrGS = JSONArray()
+            val q0 = JSONObject()
+            q0.put(Sheet.GS_MIN_IND, 0)
+            q0.put(Sheet.GS_MAX_IND, 8)
+            tmpArrGS.put(q0)
+            val q1 = JSONObject()
+            q1.put(Sheet.GS_MIN_IND, 20)
+            q1.put(Sheet.GS_MAX_IND, 114)
+            tmpArrGS.put(q1)
+            out.ext.put(Sheet.KEY_GS, tmpArrGS)
+
             result = (successList.size == keyList.size)
         }
         return result
@@ -1862,8 +1875,9 @@ abstract class SheetBuilder : DialogUI() {
             oJsonOut.put(Sheet.KEY_CHANGE_DATE, date)
             oJsonOut.put(Sheet.KEY_TITLE, tmpTitle)
             oJsonOut.put(Sheet.KEY_COMMENT, tmpComment)
+
             val giJsonArr = JSONArray()
-            tmpGroups.forEach { giJsonArr.put(Group.GroupMetaInfo.toJson(it)) }
+            tmpGroups.forEach { giJsonArr.put(Group.GroupMeta.toJson(it)) }
             if(mRemGroupsState){
                 val editor = glob.mPrefs.edit()
                 editor.putString(mPrefNameRemGroups, giJsonArr.toString())
@@ -1996,7 +2010,7 @@ abstract class SheetBuilder : DialogUI() {
         init{
             val jsonGroupList = oJsonSrc.getJSONArray(Sheet.KEY_GROUPINFO_LIST)
             (0 until jsonGroupList.length())
-                    .map { Group.GroupMetaInfo.fromJson(jsonGroupList.getJSONObject(it)) }
+                    .map { Group.GroupMeta.fromJson(jsonGroupList.getJSONObject(it)) }
                     .forEach { itemList.add(Item(it, false, false)) }
         }
 
@@ -2026,7 +2040,7 @@ abstract class SheetBuilder : DialogUI() {
         }
 
         fun addItemGroup(groupTitle: String, full: Boolean, editable: Boolean){
-            itemList.add(0, Item(Group.GroupMetaInfo(groupTitle), full, editable))
+            itemList.add(0, Item(Group.GroupMeta(groupTitle), full, editable))
         }
 
         fun removeItemGroup(position: Int){
@@ -2045,8 +2059,8 @@ abstract class SheetBuilder : DialogUI() {
             }
         }
 
-        fun getGroups(): List<Group.GroupMetaInfo> {
-            val list: MutableList<Group.GroupMetaInfo> = mutableListOf()
+        fun getGroups(): List<Group.GroupMeta> {
+            val list: MutableList<Group.GroupMeta> = mutableListOf()
             itemList.forEach { it -> if(!it.editable) list.add(it.groupInfo) }
             return list
         }
@@ -2239,7 +2253,7 @@ abstract class SheetBuilder : DialogUI() {
 
         }
 
-        inner class Item(val groupInfo: Group.GroupMetaInfo, var full: Boolean=false, var editable: Boolean=false, var themeListOpen: Boolean=false){
+        inner class Item(val groupInfo: Group.GroupMeta, var full: Boolean=false, var editable: Boolean=false, var themeListOpen: Boolean=false){
             var memTitle: String = ""
             var memPrice: Double = 0.0
             init{ setItemEditable(editable) }
@@ -3067,14 +3081,14 @@ class FullHistoryUI : DialogUI(), TPNode.ComponentCallback {
     private lateinit var mFullHistoryRv: RecyclerView
     private lateinit var mAdapter: HistoryAdapter
     private lateinit var mComponent: Component
-    val mGroupInfoList: MutableList<Group.GroupMetaInfo> = mutableListOf()
+    val mGroupInfoList: MutableList<Group.GroupMeta> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mComponent = Component.fromJson(JSONObject(arguments.getString(COMPONENT)))
         mAdapter = HistoryAdapter(mComponent.compileHistory())
         val jarr = JSONArray(arguments.getString(GROUPINFO_LIST))
-        (0 until jarr.length()).map { Group.GroupMetaInfo.fromJson(jarr.getJSONObject(it)) }.forEach {
+        (0 until jarr.length()).map { Group.GroupMeta.fromJson(jarr.getJSONObject(it)) }.forEach {
             mGroupInfoList.add(it)
         }
     }

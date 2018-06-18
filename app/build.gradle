@@ -8,13 +8,13 @@ android {
         configRelease {
             keyAlias 'default'
             keyPassword '19121981'
-            storeFile file('/home/sergeyri/Documents/app-release-files/sign.jks')
+            storeFile file('/home/sergeyri/development/public/app-release-files/sign.jks')
             storePassword '19121981'
         }
         configDebug {
             keyAlias 'default'
             keyPassword '19121981'
-            storeFile file('/home/sergeyri/Documents/app-release-files/sign.jks')
+            storeFile file('/home/sergeyri/development/public/app-release-files/sign.jks')
             storePassword '19121981'
         }
     }

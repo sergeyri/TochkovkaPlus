@@ -76,7 +76,10 @@
     <!-- captions and footers -->
     <string name="component_title">Наименование</string>
     <string name="sum0">Итого:</string>
-    <string name="sum1">Всего</string>
+    <string name="sum1">Сорта</string>
+    <string name="sum2">Категории</string>
+    <string name="groupsTotalRw">Группы диаметров</string>
+    <string name="groupsTotalUniv">По группам</string>
     <string name="count0">Кол-во:</string>
     <string name="count1">Кол-во</string>
     <string name="count2">Количество</string>

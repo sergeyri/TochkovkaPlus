@@ -109,6 +109,9 @@
     <dimen name="co_toolbarElevation">5dp</dimen>
     <dimen name="co_toolbarInputHeight">50dp</dimen>
     <dimen name="co_emptyDescMargin">10dp</dimen>
+    <dimen name="total_sw_offset">5dp</dimen>
+
+
     <!-- co actionpanel (top and right) -->
     <dimen name="co_actionSize">70dp</dimen>
     <dimen name="co_actionpanelPadding">2dp</dimen>

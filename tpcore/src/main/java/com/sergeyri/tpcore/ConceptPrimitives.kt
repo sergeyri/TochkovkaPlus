@@ -1,6 +1,5 @@
 package com.sergeyri.tpcore
 
-import android.content.ContentValues
 import android.content.Context
 import android.graphics.Color
 import android.os.SystemClock
@@ -23,7 +22,7 @@ open class Group {
         C8(Color.rgb(75, 0, 237), Color.rgb(255, 146, 148))
     }
 
-    class GroupMetaInfo {
+    class GroupMeta {
         companion object {
             val PREFIX: String = "gmi_"
             // keys
@@ -35,16 +34,16 @@ open class Group {
             fun getDefaultTitle(context: Context): String
                     = context.resources.getString(R.string.def_groupSort0)
 
-            fun toJson(groupMetaInfo: GroupMetaInfo): JSONObject { // сохранение в JSON
+            fun toJson(groupMeta: GroupMeta): JSONObject { // сохранение в JSON
                 val jsonObj = JSONObject()
-                jsonObj.put(KEY_SID, groupMetaInfo.sid)
-                jsonObj.put(KEY_TITLE, groupMetaInfo.title)
-                jsonObj.put(KEY_THEME, groupMetaInfo.theme.name)
-                jsonObj.put(KEY_PRICE, groupMetaInfo.price)
+                jsonObj.put(KEY_SID, groupMeta.sid)
+                jsonObj.put(KEY_TITLE, groupMeta.title)
+                jsonObj.put(KEY_THEME, groupMeta.theme.name)
+                jsonObj.put(KEY_PRICE, groupMeta.price)
                 return jsonObj
             }
 
-            fun fromJson(jsonObj: JSONObject): GroupMetaInfo { // восстановление из JSON
+            fun fromJson(jsonObj: JSONObject): GroupMeta { // восстановление из JSON
                 val sid = jsonObj.getString(KEY_SID)
                 val title = jsonObj.getString(KEY_TITLE)
                 val theme: GroupTheme = when(jsonObj.getString(KEY_THEME)){
@@ -59,7 +58,7 @@ open class Group {
                     else -> GroupTheme.C0
                 }
                 val price = jsonObj.getDouble(KEY_PRICE)
-                return GroupMetaInfo(sid, title, theme, price)
+                return GroupMeta(sid, title, theme, price)
             }
         }
 
@@ -116,7 +115,7 @@ open class Group {
             }
         }
 
-        val sid: String // sid объединяющий этот объект с GroupMetaInfo
+        val sid: String // sid объединяющий этот объект с GroupMeta
         var capacity: Double
         var count: Int
         val listH: MutableList<History> = mutableListOf()
@@ -215,6 +214,9 @@ open class Sheet {
         val KEY_COMMENT: String = "${PREFIX}comment"
         val KEY_PRICE_ENABLED = "${PREFIX}priceenabled"
 
+        val KEY_GS = "${PREFIX}gs"
+        val GS_MIN_IND = "gs_min_ind"
+        val GS_MAX_IND = "gs_max_ind"
         val FML = "fml_filter"
         val FML_ROUNDWOOD: String = "fml_rw"
         val FML_UNIVERSAL: String = "fml_universal"
@@ -230,7 +232,7 @@ open class Sheet {
             jsonObj.put(KEY_TITLE, sheet.title)
             jsonObj.put(KEY_UNIT, sheet.unit)
             val giJsonArr = JSONArray()
-            sheet.listGMI.forEach { giJsonArr.put(Group.GroupMetaInfo.toJson(it)) }
+            sheet.listGMI.forEach { giJsonArr.put(Group.GroupMeta.toJson(it)) }
             jsonObj.put(KEY_GROUPINFO_LIST, giJsonArr)
             jsonObj.put(KEY_EXT, sheet.ext)
             jsonObj.put(KEY_COMMENT, sheet.comment)
@@ -245,8 +247,8 @@ open class Sheet {
             val title = jsonObj.getString(KEY_TITLE)
             val unit = jsonObj.getString(KEY_UNIT)
             val gmiJsonArr = jsonObj.getJSONArray(KEY_GROUPINFO_LIST)
-            val listGMI: MutableList<Group.GroupMetaInfo> = mutableListOf()
-            (0 until gmiJsonArr.length()).map { gmiJsonArr.getJSONObject(it) }.forEach { listGMI.add(Group.GroupMetaInfo.fromJson(it)) }
+            val listGMI: MutableList<Group.GroupMeta> = mutableListOf()
+            (0 until gmiJsonArr.length()).map { gmiJsonArr.getJSONObject(it) }.forEach { listGMI.add(Group.GroupMeta.fromJson(it)) }
             val ext = jsonObj.getJSONObject(KEY_EXT)
             val comment = jsonObj.getString(KEY_COMMENT)
             val priceEnabled = jsonObj.getBoolean(KEY_PRICE_ENABLED)
@@ -261,13 +263,13 @@ open class Sheet {
     var changeDate: Long
     var title: String
     var unit: String
-    val listGMI: MutableList<Group.GroupMetaInfo> = mutableListOf()
+    val listGMI: MutableList<Group.GroupMeta> = mutableListOf()
     var ext: JSONObject
     var comment: String
     var priceEnabled: Boolean = false
 
     // for new object
-    constructor(title: String, unit: String, tmpListGMI: List<Group.GroupMetaInfo>, family: String){
+    constructor(title: String, unit: String, tmpListGMI: List<Group.GroupMeta>, family: String){
         this.createDate = System.currentTimeMillis()
         this.sid = PREFIX + this.createDate
         this.family = family
@@ -281,7 +283,7 @@ open class Sheet {
         this.comment = ""
     }
     //for restore object
-    constructor(createDate: Long, family: String, changeDate: Long, title: String, unit: String, listGMI: List<Group.GroupMetaInfo>, ext: JSONObject, comment: String, priceEnabled: Boolean) {
+    constructor(createDate: Long, family: String, changeDate: Long, title: String, unit: String, listGMI: List<Group.GroupMeta>, ext: JSONObject, comment: String, priceEnabled: Boolean) {
         this.createDate = createDate
         this.sid = PREFIX + this.createDate
         this.family = family
@@ -352,7 +354,7 @@ open class Component {
         this.listGD.addAll(listGD)
     }
 
-    fun calculateCountAt(gmiList: List<Group.GroupMetaInfo>): Int {
+    fun calculateCountAt(gmiList: List<Group.GroupMeta>): Int {
         var count = 0
         gmiList.forEach {
             val groupData = findDataOf(it.sid)
@@ -363,7 +365,7 @@ open class Component {
         return count
     }
 
-    fun calculateVolumeAt(gmiList: List<Group.GroupMetaInfo>): Double {
+    fun calculateVolumeAt(gmiList: List<Group.GroupMeta>): Double {
         var volume = 0.0
         gmiList.forEach {
             val groupData = findDataOf(it.sid)
@@ -374,7 +376,7 @@ open class Component {
         return volume.round()
     }
 
-    fun calculateCostAt(gmiList: List<Group.GroupMetaInfo>): Double {
+    fun calculateCostAt(gmiList: List<Group.GroupMeta>): Double {
         var cost = 0.0
         gmiList.forEach {
             val groupData = findDataOf(it.sid)
@@ -418,7 +420,7 @@ class Tmpl {
             jsonObj.put(KEY_TITLE, tmpl.title)
             jsonObj.put(KEY_UNIT, tmpl.unit)
             val gmiJsonArr = JSONArray()
-            tmpl.listGMI.forEach { gmiJsonArr.put(Group.GroupMetaInfo.toJson(it)) }
+            tmpl.listGMI.forEach { gmiJsonArr.put(Group.GroupMeta.toJson(it)) }
             jsonObj.put(KEY_GROUPINFO_LIST, gmiJsonArr)
             jsonObj.put(KEY_EXT, tmpl.ext)
             jsonObj.put(KEY_PRICE_ENABLED, tmpl.priceEnabled)
@@ -432,8 +434,8 @@ class Tmpl {
             val title = jsonObj.getString(KEY_TITLE)
             val unit = jsonObj.getString(KEY_UNIT)
             val gmiJsonArr = jsonObj.getJSONArray(KEY_GROUPINFO_LIST)
-            val listGMI: MutableList<Group.GroupMetaInfo> = mutableListOf()
-            (0 until gmiJsonArr.length()).map { gmiJsonArr.getJSONObject(it) }.forEach { listGMI.add(Group.GroupMetaInfo.fromJson(it)) }
+            val listGMI: MutableList<Group.GroupMeta> = mutableListOf()
+            (0 until gmiJsonArr.length()).map { gmiJsonArr.getJSONObject(it) }.forEach { listGMI.add(Group.GroupMeta.fromJson(it)) }
             val ext = jsonObj.getJSONObject(KEY_EXT)
             val priceEnabled = jsonObj.getBoolean(KEY_PRICE_ENABLED)
             return Tmpl(createDate, family, changeDate, title, unit, listGMI, ext, priceEnabled)
@@ -446,13 +448,13 @@ class Tmpl {
     var changeDate: Long
     var title: String
     var unit: String
-    val listGMI: MutableList<Group.GroupMetaInfo> = mutableListOf()
+    val listGMI: MutableList<Group.GroupMeta> = mutableListOf()
     var ext: JSONObject
     var priceEnabled: Boolean = false
 
     init{ SystemClock.sleep(1) }
 
-    constructor(createDate: Long, family: String, changeDate: Long, title: String, unit: String, listGMI: List<Group.GroupMetaInfo>, ext: JSONObject, priceEnabled: Boolean){
+    constructor(createDate: Long, family: String, changeDate: Long, title: String, unit: String, listGMI: List<Group.GroupMeta>, ext: JSONObject, priceEnabled: Boolean){
         this.createDate = createDate
         this.sid = PREFIX + this.createDate
         this.family = family

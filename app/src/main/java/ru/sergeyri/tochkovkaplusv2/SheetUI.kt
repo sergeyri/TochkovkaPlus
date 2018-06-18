@@ -1302,7 +1302,6 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
                 sumVolume = 0.0
                 sumCost = 0.0
 
-
                 mParent.listGMI.forEach {
                     val groupData: Group.GroupData? = component.findDataOf(it.sid)
                     if(groupData != null){

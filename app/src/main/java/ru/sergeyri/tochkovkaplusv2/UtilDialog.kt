@@ -1476,6 +1476,14 @@ class RwSheetBuilder : SheetBuilder() {
 
     override fun onImportSheet(glob: Glob, out: Sheet): Boolean {
         var result = false
+
+        val tmpArrGS = JSONArray()
+        val gs = JSONObject()
+        gs.put(Sheet.GS_MIN_IND, 0)
+        gs.put(Sheet.GS_MAX_IND, 8)
+        tmpArrGS.put(gs)
+        out.ext.put(Sheet.KEY_GS, tmpArrGS)
+
         if(super.onCreateSheet(glob, out)){
             val successList: MutableList<Boolean> = mutableListOf()
             val date = oJsonSrc.getLong(Sheet.KEY_CREATE_DATE)
@@ -1520,6 +1528,14 @@ class RwSheetBuilder : SheetBuilder() {
 
     override fun onCreateSheet(glob: Glob, out: Sheet): Boolean {
         var result = false
+
+        val tmpArrGS = JSONArray()
+        val gs = JSONObject()
+        gs.put(Sheet.GS_MIN_IND, 0)
+        gs.put(Sheet.GS_MAX_IND, 8)
+        tmpArrGS.put(gs)
+        out.ext.put(Sheet.KEY_GS, tmpArrGS)
+
         if(super.onCreateSheet(glob, out)){
             val successList: MutableList<Boolean> = mutableListOf()
             val keyList = rwi.standartDataJson.keys.toMutableList()
@@ -1538,18 +1554,6 @@ class RwSheetBuilder : SheetBuilder() {
                 val co = glob.mNode.ComponentOperator(out)
                 successList.add(co.create(Component(key, tmpListGD)))
             }
-
-            val tmpArrGS = JSONArray()
-            val q0 = JSONObject()
-            q0.put(Sheet.GS_MIN_IND, 0)
-            q0.put(Sheet.GS_MAX_IND, 8)
-            tmpArrGS.put(q0)
-            val q1 = JSONObject()
-            q1.put(Sheet.GS_MIN_IND, 20)
-            q1.put(Sheet.GS_MAX_IND, 114)
-            tmpArrGS.put(q1)
-            out.ext.put(Sheet.KEY_GS, tmpArrGS)
-
             result = (successList.size == keyList.size)
         }
         return result

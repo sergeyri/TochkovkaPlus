@@ -93,20 +93,26 @@
             <android.support.v7.widget.RecyclerView android:id="@+id/rv_totalList_0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-            <android.support.v7.widget.RecyclerView android:id="@+id/rv_totalList_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <TextView android:id="@+id/no_total_data"
+            <LinearLayout android:id="@+id/ll_totalcontainer_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/divider"
-                android:gravity="center"
-                android:padding="@dimen/co_emptyDetailedListPadding"
-                android:text="@string/tip_componentListNoData"
-                android:background="@color/totallist_item"/>
-            <View android:id="@+id/no_total_data_footer_line"
-                style="@style/horizontal_line"
-                android:background="@color/gray"/>
+                android:orientation="vertical"
+                android:visibility="gone">
+                <android.support.v7.widget.RecyclerView android:id="@+id/rv_totalList_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <TextView android:id="@+id/no_total_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/divider"
+                    android:gravity="center"
+                    android:padding="@dimen/co_emptyDetailedListPadding"
+                    android:text="@string/tip_componentListNoData"
+                    android:background="@color/totallist_item"/>
+                <View android:id="@+id/no_total_data_footer_line"
+                    style="@style/horizontal_line"
+                    android:background="@color/gray"/>
+            </LinearLayout>
             <include android:id="@+id/footer_totalList" layout="@layout/co_totallist_footer" />
 
             <LinearLayout

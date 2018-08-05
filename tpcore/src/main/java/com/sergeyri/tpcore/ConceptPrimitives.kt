@@ -215,8 +215,8 @@ open class Sheet {
         val KEY_PRICE_ENABLED = "${PREFIX}priceenabled"
 
         val KEY_GS = "${PREFIX}gs"
-        val GS_MIN_IND = "gs_min_ind"
-        val GS_MAX_IND = "gs_max_ind"
+        val GS_MIN = "gs_min"
+        val GS_MAX = "gs_max"
         val FML = "fml_filter"
         val FML_ROUNDWOOD: String = "fml_rw"
         val FML_UNIVERSAL: String = "fml_universal"

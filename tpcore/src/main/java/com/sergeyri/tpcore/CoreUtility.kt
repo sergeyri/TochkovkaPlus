@@ -18,12 +18,19 @@ fun Double.round(tail: Int=5): Double {
 fun JSONArray.removeObject(jsonObj: JSONObject): JSONArray {
     val new = JSONArray()
     (0 until this.length()).map { this[it] }.forEachIndexed { index, any ->
-        log("JSON0: $any, $jsonObj")
         if(any != jsonObj){ log("putting ...")
-            this.put(index, any)
+            new.put(index, any)
         }
     }
     return new
 }
 
-
+fun JSONArray.removeAt(index: Int): JSONArray {
+    val new = JSONArray()
+    (0 until this.length()).map { this.getJSONObject(it) }.forEachIndexed { i, jsonObj ->
+        if(index != i){ log("putting ...")
+            new.put(jsonObj)
+        }
+    }
+    return new
+}

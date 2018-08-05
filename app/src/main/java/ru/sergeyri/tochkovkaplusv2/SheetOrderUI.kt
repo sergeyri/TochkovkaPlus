@@ -151,7 +151,8 @@ class SheetOrderUI : FragmentUI() {
 
                 val gmailAccounts: Array<Account> = AccountManager.get(activity).getAccountsByType("com.google")
                 fb_user_name = if(gmailAccounts.isNotEmpty()) gmailAccounts.last().name else "unknown"
-            }
+            } else{ mSheetListAdapter.notifyDataSetChanged() }
+
             isBack = false
         } catch (e: UninitializedPropertyAccessException){
             (activity as MainUI).finishMainUI()

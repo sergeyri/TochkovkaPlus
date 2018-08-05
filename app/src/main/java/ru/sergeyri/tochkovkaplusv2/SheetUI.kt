@@ -68,7 +68,7 @@ class RwSheetUI : SheetUI() {
 open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
     enum class Mode { SELECTION, DEFAULT}
     enum class CalculatorItemMode { INCREMENT, HISTORY, DEFAULT}
-    enum class BgType{DETAILS_LOAD, COMPONENTLIST_LOAD, COMPONENT_CREATE, COMPONENT_EDIT, COMPONENT_DELETE, COMPONENT_INCREMENT, COMPONENT_DECREMENT, COMPONENT_CLEAR, TO_PRINT}
+    enum class BgType{COMPONENTLIST_LOAD, COMPONENT_CREATE, COMPONENT_EDIT, COMPONENT_DELETE, COMPONENT_INCREMENT, COMPONENT_DECREMENT, COMPONENT_CLEAR, TO_PRINT}
     companion object {
         const val TAGNAME = "sheet_ui" // uniq name this fragment in FragmentManager
         const val PARENT = "parent_obj"
@@ -97,7 +97,6 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
     override fun filter(key: String) {
         mDetailedAdapter.update(mComponentOperator.filter(key))
         mCalculatorAdapter.update(mComponentOperator.filter(key))
-
     } /* Конец функционала поиска */
 
     /* Обработка фоновых процессов */
@@ -118,15 +117,17 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
                     ORDER_BY_TITLE -> mComponentOperator.list.sortBy { it.title }
                     ORDER_BY_CREATEDATE -> mComponentOperator.list.sortBy { it.createDate }
                 }
-
                 mCalculatorAdapter.update(mComponentOperator.list)
-                calculateTotalData()
+
+                calculateTotalData(genGS=!gsIsExists)
 
                 if(mComponentOperator.list.isEmpty()){
                     mResultCnt.postDelayed(0, {
                         onUpdateShiftOpenY(mResultCnt.bottom)
                         mResultCnt.post { mShift.moveToBottom(true) }
                     })
+                } else{
+                    mTotalSw1Settings.setOnClickListener { openDipCreator() }
                 }
 
                 val fbBundle = Bundle()
@@ -152,6 +153,12 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
                 }
             }
             BgType.COMPONENT_EDIT.name -> {
+                when(mOrder){
+                    ORDER_BY_TITLE_INT -> mComponentOperator.list.sortBy { it.title.toFloat() }
+                    ORDER_BY_TITLE -> mComponentOperator.list.sortBy { it.title }
+                    ORDER_BY_CREATEDATE -> mComponentOperator.list.sortBy { it.createDate }
+                }
+
                 setMode(Mode.DEFAULT, false)
                 mCalculatorAdapter.update(mComponentOperator.list)
                 calculateTotalData()
@@ -178,7 +185,6 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
         }
         hidePD()
     }
-
 
     override fun onComponentUpdate(component: Component) {
         activity?.runOnUiThread {
@@ -216,10 +222,14 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
 
     private lateinit var mTotal1DataContainer: LinearLayout
     private lateinit var mTotalSw1: LinearLayout
+    private lateinit var mTotalSw1Settings: ImageView
+    private lateinit var mTotalSw1Sep: View
+    private lateinit var mTotalSw1Txt: TextView
     private lateinit var mTotalAr1: ImageView
     private lateinit var mTotalList1: RecyclerView
     private lateinit var mNoTotal1DataTv: TextView
-
+    private var mCurrentTotalInterface = 0
+    private lateinit var mTotalFtrTitle: TextView
     private lateinit var mTotalFtrCount: TextView
     private lateinit var mTotalFtrVolume: TextView
     private lateinit var mTotalFtrCost: TextView
@@ -254,14 +264,22 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
     private var mTotalUpdateIsRunning = false
     var mZeroVisible: Boolean = false
     open var mOrder: Int = ORDER_BY_CREATEDATE
+    lateinit var mTotalFtr0: Total
+    lateinit var mTotalFtr1: Total
+    var gsIsExists = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         try{
             setupSoundPool()
+            mTotalFtr0 = Total(getString(R.string.sum0), 0, 0.0, 0.0)
+            mTotalFtr1 = Total(getString(R.string.all_diam_groups), 0, 0.0, 0.0)
             prefSoundAction = xGlob.mPrefs.getBoolean(SettingsUI.KEY_SOUND_ACTION, SettingsUI.SOUND_ACTION)
             prefVibrateAction = xGlob.mPrefs.getBoolean(SettingsUI.KEY_VIBRATE_ACTION, SettingsUI.VIBRATE_ACTION)
             mParent = Sheet.fromJson(JSONObject(arguments.getString(PARENT))) // parent json object
+            log("onCreate, parent.ext: ${mParent.ext.toString()}")
+            gsIsExists = mParent.ext.has(Sheet.KEY_GS)
+
             mComponentOperator = xGlob.mNode.ComponentOperator(mParent)
             mTotalAdapter0 = TotalAdapter0()
             mRwGroupTotalAdapter = RwGroupTotalAdapter()
@@ -306,13 +324,15 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
             mTotalSw0 = mResultCnt.findViewById(R.id.total_sw_0)
             val total0BtnText = mTotalSw0.findViewById<TextView>(R.id.total_sw_0_btn_text)
             total0BtnText.setText(if(mParent.family == Sheet.FML_ROUNDWOOD) R.string.sum1 else R.string.sum2)
-            mTotalSw0.setOnClickListener {showTotalData()}
+            mTotalSw0.setOnClickListener {showTotal0()}
             mTotalAr0 = mTotalSw0.findViewById(R.id.total_sw_ar0)
 
             mTotalSw1 = mResultCnt.findViewById(R.id.total_sw_1)
-            val total1BtnText = mTotalSw1.findViewById<TextView>(R.id.total_sw_1_btn_text)
-            total1BtnText.setText(if(mParent.family == Sheet.FML_ROUNDWOOD) R.string.groupsTotalRw else R.string.groupsTotalUniv)
-            mTotalSw1.setOnClickListener { showTotalData() }
+            mTotalSw1Settings = mResultCnt.findViewById(R.id.creator_diameter_groups)
+            mTotalSw1Sep = mResultCnt.findViewById(R.id.total_sw1_sep)
+            mTotalSw1Txt = mTotalSw1.findViewById<TextView>(R.id.total_sw_1_btn_text)
+            mTotalSw1Txt.setText(if(mParent.family == Sheet.FML_ROUNDWOOD) R.string.groupsTotalRw else R.string.groupsTotalUniv)
+            mTotalSw1Txt.setOnClickListener { showTotal1() }
             mTotalAr1 = mTotalSw1.findViewById(R.id.total_sw_ar1)
 
             val mTotalHeader: LinearLayout = view.findViewById(R.id.caption_totalList)
@@ -324,6 +344,10 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
             mTotalList0.adapter = mTotalAdapter0
 
             mTotal1DataContainer = mResultCnt.findViewById(R.id.ll_totalcontainer_1)
+            if(xTagname == RwSheetUI.TAGNAME){
+                mTotalSw1.visibility = View.VISIBLE
+                mTotal1DataContainer.visibility = View.VISIBLE
+            }
             mTotalList1 = view.findViewById(R.id.rv_totalList_1)
             mTotalList1.layoutManager = LinearLayoutManager(activity)
             mTotalList1.adapter = mRwGroupTotalAdapter
@@ -333,6 +357,7 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
             mTotalFooter.findViewById<TextView>(R.id.item_title).setText(R.string.sum0)
             mTotalFooter.findViewById<TextView>(R.id.item_price).visibility = if(mParent.priceEnabled) View.VISIBLE else View.GONE
             //mTotalFooter.setOnClickListener { showTotal(!mIsVisibleTotalList) }
+            mTotalFtrTitle = mTotalFooter.findViewById(R.id.item_title)
             mTotalFtrCount = mTotalFooter.findViewById(R.id.item_count)
             mTotalFtrVolume = mTotalFooter.findViewById(R.id.item_volume)
             mTotalFtrCost = mTotalFooter.findViewById(R.id.item_price)
@@ -367,7 +392,12 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
             view.findViewById<Button>(R.id.action_delete).setOnClickListener { onClickComponentDelete() }
             view.findViewById<Button>(R.id.action_clear_data).setOnClickListener { onClickClearData() }
 
-            showTotalData(false)
+            if(mCurrentTotalInterface == 0){
+                showTotal0(mIsVisibleTotalList, false)
+            } else if(mCurrentTotalInterface == 1 && xTagname == RwSheetUI.TAGNAME){
+                showTotal1(mIsVisibleTotalList, false)
+            }
+
             noDetailedData()
             if(savedInstanceState != null){
                 calculateTotalData()
@@ -618,57 +648,112 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
     }
 
     /* Обработка общих результатов */
-    private fun showTotalData(notifyDetails: Boolean=true){
-        log("tagname: ${xTagname}")
-        when(xTagname){
-            RwSheetUI.TAGNAME -> {
-                mTotalSw1.visibility = View.VISIBLE
-                mTotal1DataContainer.visibility = View.VISIBLE
-            }
-            else -> {
-                mTotalSw1.visibility = View.GONE
-                mTotal1DataContainer.visibility = View.GONE
-            }
+    private fun showTotal0(visible: Boolean?=null, notifyDetails: Boolean=true){
+        mTotalSw1.setBackgroundResource(R.drawable.total_sw_bg)
+        mTotalSw1Sep.setBackgroundResource(android.R.color.black)
+        mTotalSw0.setBackgroundResource(R.drawable.total_sw_bg_active)
+        if(mCurrentTotalInterface == 0){
+            mIsVisibleTotalList = visible ?: !mIsVisibleTotalList
         }
-
-//        if(totalInterface > 0){ // diameter groups
-//            mTotalSw0.setBackgroundResource(R.drawable.total_sw_bg)
-//            mTotalSw1.setBackgroundResource(R.drawable.total_sw_bg_active)
-//            if(mCurrentTotalInterface == 1){
-//                mIsVisibleTotalList = !mIsVisibleTotalList
-//            }
-//
-//            mTotalList0.visibility = View.GONE
-//            mTotalList1.visibility = if(mIsVisibleTotalList) View.VISIBLE else View.GONE
-//            noTotal1Data()
-//            mCurrentTotalInterface = 1
-//        } else{ // sorts
-//            mTotalSw1.setBackgroundResource(R.drawable.total_sw_bg)
-//            mTotalSw0.setBackgroundResource(R.drawable.total_sw_bg_active)
-//            if(mCurrentTotalInterface == 0){
-//                mIsVisibleTotalList = !mIsVisibleTotalList
-//            }
-//
-//            mTotalList1.visibility = View.GONE
-//            mTotalList0.visibility = if(mIsVisibleTotalList) View.VISIBLE else View.GONE
-//            mNoTotal1DataTv.visibility = View.GONE
-//            mCurrentTotalInterface = 0
-//        }
+        mCurrentTotalInterface = 0
+        mNoTotal1DataTv.visibility = View.GONE
+        mTotalList1.visibility = View.GONE
+        mTotalList0.visibility = if(mIsVisibleTotalList) View.VISIBLE else View.GONE
+        val footerTitle = resources.getString(R.string.sum0)
 
         mTotalAr1.rotation = if(mIsVisibleTotalList) 0F else -180F
         mTotalAr0.rotation = if(mIsVisibleTotalList) 0F else -180F
+        updateFooter(mTotalFtr0)
         if(notifyDetails){ mDetailedAdapter.notifyDataSetChanged() }
     }
 
-    private fun calculateTotalData(component: Component?=null){
+    private fun showTotal1(visible: Boolean?=null, notifyDetails: Boolean=true){
+        mTotalSw0.setBackgroundResource(R.drawable.total_sw_bg)
+        mTotalSw1.setBackgroundResource(R.drawable.total_sw_bg_active)
+        mTotalSw1Sep.setBackgroundResource(R.color.bg_green)
+        if(mCurrentTotalInterface == 1){
+            mIsVisibleTotalList = visible ?: !mIsVisibleTotalList
+        }
+        mCurrentTotalInterface = 1
+        mTotalList0.visibility = View.GONE
+        mTotalList1.visibility = if(mIsVisibleTotalList) View.VISIBLE else View.GONE
+        mNoTotal1DataTv.visibility = if(mRwGroupTotalAdapter.itemCount == 0) View.VISIBLE else View.GONE
+        val footerTitle = resources.getString(R.string.all_diam_groups)
+
+        mTotalAr1.rotation = if(mIsVisibleTotalList) 0F else -180F
+        mTotalAr0.rotation = if(mIsVisibleTotalList) 0F else -180F
+        updateFooter(mTotalFtr1)
+        if(notifyDetails){ mDetailedAdapter.notifyDataSetChanged() }
+    }
+
+    private fun calculateTotalData(component: Component?=null, genGS: Boolean=false){
         if(!mTotalUpdateIsRunning){
-            mUpdateTotalTask = UpdateTotalTask(component)
+            mUpdateTotalTask = UpdateTotalTask(component, genGS)
             mTotalUpdateIsRunning = true
         }
     }
 
-    private fun noTotal1Data(){
-        mNoTotal1DataTv.visibility = if(mRwGroupTotalAdapter.itemCount == 0) View.VISIBLE else View.GONE
+    fun setDip(dip: JSONObject){
+        val from = dip.getString(Sheet.GS_MIN).toFloat()
+        val to = dip.getString(Sheet.GS_MAX).toFloat()
+        if(mCurrentTotalInterface == 0){
+            showTotal1(notifyDetails=false)
+        }
+
+        val resultDips = JSONArray()
+        val dipList: MutableList<JSONObject> = mutableListOf()
+
+        val arrayGS = mParent.ext.getJSONArray(Sheet.KEY_GS)
+        if(arrayGS.length() == 0){
+            resultDips.put(dip)
+        } else{
+            (0 until arrayGS.length()).map { arrayGS.getJSONObject(it) }.forEach {
+                dipList.add(it)
+            }
+
+            var m = mComponentOperator.list.first().title.toFloat()
+            for(i in 0 until dipList.size){
+                val jsonDip = dipList[i]
+                val aFrom = jsonDip.getString(Sheet.GS_MIN).toFloat()
+                val aTo = jsonDip.getString(Sheet.GS_MAX).toFloat()
+
+                if(to in m..aFrom){
+                    dipList.add(i, dip)
+                }
+
+                if(i == dipList.lastIndex){
+                    val last = mComponentOperator.list.last().title.toFloat()
+                    if(m < last-1){
+                        if(to in m..last){
+                            dipList.add(dip)
+                        }
+                    }
+                }
+
+                m = aTo
+            }
+
+            dipList.forEach {
+                resultDips.put(it)
+            }
+        }
+
+        mParent.ext.put(Sheet.KEY_GS, resultDips)
+        xGlob.mSheetOrderUI.sheetOperator.edit(mParent)
+        val sheetList = xGlob.mSheetOrderUI.sheetOperator.list
+        sheetList[sheetList.indexOf(mParent)] = mParent
+        xGlob.mSheetOrderUI.mSheetListAdapter.update(sheetList)
+
+        calculateTotalData()
+    }
+
+    fun openDipCreator(){
+        val creator = DipCreator()
+        val args = Bundle()
+        args.putStringArray(DipCreator.DIAMETER_ARRAY, mComponentOperator.list.map{ it.title }.toTypedArray())
+        args.putString(DipCreator.DIP_JSONARRAY, mParent.ext.getJSONArray(Sheet.KEY_GS).toString())
+        creator.arguments = args
+        creator.show(fragmentManager, DipCreator.TAGNAME)
     }
 
     private fun noDetailedData(){
@@ -799,6 +884,8 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
 
         override fun onBindViewHolder(holder: ItemHolder, position: Int) {
             val item = itemList[position]
+
+
             holder.floorTitle.layoutParams = if(item.mode == CalculatorItemMode.HISTORY) lpHistoryTitleFl else lpDefault
             holder.title.text = item.component.title
             holder.subCnt.visibility = if(item.mode == CalculatorItemMode.HISTORY) View.VISIBLE else View.GONE
@@ -810,8 +897,6 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
             holder.incrementPanelOpenSw.setBg(if(isSeveralGroups) resources.getColor(R.color.bg_actionBlue) else mParent.listGMI[0].theme.bg)
             holder.incrementPanelOpenSw.setTxt(if(isSeveralGroups) resources.getColor(R.color.txt_actionBlue) else mParent.listGMI[0].theme.txt)
             holder.incrementPanelCloseSw.setImageResource(if(item.mode == CalculatorItemMode.INCREMENT) R.drawable.arrow_horizontal else if(item.mode == CalculatorItemMode.HISTORY) R.drawable.arrow_vertical else R.drawable.ic_history_white_24dp)
-
-            holder.floorIncrementPanel.visibility = if(item.mode == CalculatorItemMode.INCREMENT) View.VISIBLE else View.GONE
 
             holder.floorSw.visibility = if(mMode == Mode.SELECTION) View.GONE else View.VISIBLE
             holder.itemSelector.visibility = if(mMode == Mode.SELECTION) View.VISIBLE else View.GONE
@@ -868,8 +953,6 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
                     holder.incrementPanelSv.scrollTo(memPosX, holder.incrementPanelSv.bottom)
                 }
             }
-
-            log("bind")
         }
 
         override fun getItemCount(): Int = itemList.size
@@ -931,9 +1014,8 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
             val animOpen = AnimationUtils.loadAnimation(activity, R.anim.scale_open)
 
             init {
-                log("item init")
-                title.setOnClickListener { onItemClick() }
-                title.setOnLongClickListener { onItemLongClick() }
+                itemView.setOnClickListener { onItemClick() }
+                itemView.setOnLongClickListener { onItemLongClick() }
                 incrementPanelOpenSw.setOnClickListener { onClickIncrementPanelOpenSw() }
                 incrementPanelCloseSw.setOnClickListener { onClickIncrementPanelCloseSw() }
 
@@ -956,6 +1038,14 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
                         openFullHistory()
                     }
                 }
+            }
+
+            fun onBindDefault(position: Int){
+
+            }
+
+            fun onBindUnfolded(position: Int){
+
             }
 
             private fun onItemClick() {
@@ -1216,60 +1306,61 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
             val totalCost: TextView = itemView.findViewById(R.id.item_price)
 
             init {
-                itemView.setOnClickListener { showTotalData() }
+                itemView.setOnClickListener { showTotal0() }
                 totalCost.visibility = if(mParent.priceEnabled) View.VISIBLE else View.GONE
             }
         }
     }
 
     inner class RwGroupTotalAdapter : RecyclerView.Adapter<RwGroupTotalAdapter.ItemHolder>(){
-        private val itemList: MutableList<Item> = mutableListOf()
+        val itemList: MutableList<Item> = mutableListOf()
         val subList: MutableList<Group.GroupMeta> = mutableListOf()
 
         override fun getItemCount(): Int = itemList.size
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder = ItemHolder(LayoutInflater.from(parent.context).inflate(R.layout.co_detailedlist_item, parent, false))
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder = ItemHolder(LayoutInflater.from(parent.context).inflate(R.layout.co_rwtotal_item, parent, false))
         override fun onBindViewHolder(holder: ItemHolder, position: Int) {
             val item = itemList[position]
             holder.titleView.setText(item.title, TextView.BufferType.NORMAL)
-            holder.countView.text = item.sumCount.toString()
-            holder.volumeView.text = item.sumVolume.toString()
-            holder.costView.text = item.sumCost.toString()
+            holder.countView.text = item.count.toString()
+            holder.volumeView.text = item.volume.round().toString()
+            holder.costView.text = item.cost.round().toString()
 
             if(item.isVisibleSubCnt){
+                if(item.isVisibleActionCnt){ item.isVisibleActionCnt = false }
+
                 holder.subCnt.visibility = View.VISIBLE
-                subList.forEachIndexed { index, groupInfo ->
+                subList.forEachIndexed { index, groupMeta ->
                     val child: View = holder.subCnt.getChildAt(index)
                     val subTitleView = child.findViewById<TextView>(R.id.iteminfo_title)
-                    subTitleView.text = groupInfo.title
+                    subTitleView.text = groupMeta.title
+                    val subTotal: Total = item.subTotalMap[groupMeta.sid]!!
                     val subCountView = child.findViewById<TextView>(R.id.iteminfo_count)
-                    subCountView.text = (item.count[groupInfo.sid]).toString()
+                    subCountView.text = (subTotal.sumCount).toString()
                     val subVolumeView = child.findViewById<TextView>(R.id.iteminfo_volume)
-                    subVolumeView.text = item.volume[groupInfo.sid]?.round().toString()
+                    subVolumeView.text = subTotal.sumVol.round().toString()
                     val subCostView = child.findViewById<TextView>(R.id.iteminfo_cost)
                     subCostView.visibility = if(mParent.priceEnabled) View.VISIBLE else View.GONE
-                    subCostView.text  = item.cost[groupInfo.sid]?.round().toString()
+                    subCostView.text  = subTotal.sumCost.round().toString()
                 }
             } else{holder.subCnt.visibility = View.GONE}
+
+            if(item.isVisibleActionCnt){
+                holder.subCnt.visibility = View.GONE
+                holder.actionCnt.visibility = View.VISIBLE
+            } else{
+                holder.actionCnt.visibility = View.GONE
+            }
         }
 
-        fun update(componentList: List<Component>){
+        fun update(totalCollection: MutableMap<Total, MutableMap<String, Total>>){
             itemList.clear()
-            val dpzScheme = mParent.ext.getJSONArray(Sheet.KEY_GS)
-            (0 until dpzScheme.length()).map { dpzScheme.getJSONObject(it) }.forEach {
-                log("scheme: $it")
-                itemList.add(Item(it))
+            subList.clear()
+            subList.addAll(mParent.listGMI)
+            totalCollection.forEach {
+                itemList.add(Item(it.key, it.value))
             }
 
-
-
-
-//            (0 until gsArray.length())
-//                    .map{ gsArray.getJSONObject(it) }
-//                    .forEach { itemList.add(Item()) }
-
-//            subList.clear()
-//            subList.addAll(mParent.listGMI)
-            noTotal1Data()
+            mNoTotal1DataTv.visibility = if(mRwGroupTotalAdapter.itemCount == 0 && mCurrentTotalInterface == 1) View.VISIBLE else View.GONE
             notifyDataSetChanged()
         }
 
@@ -1279,7 +1370,10 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
             val countView: TextView = itemView.findViewById(R.id.item_count)
             val volumeView: TextView = itemView.findViewById(R.id.item_volume)
             val costView: TextView = itemView.findViewById(R.id.item_price)
-            val subCnt: LinearLayout = itemView.findViewById(R.id.subitem)
+            val subCnt: LinearLayout = itemView.findViewById(R.id.subcnt)
+            val actionCnt: LinearLayout = itemView.findViewById(R.id.actioncnt)
+            val actionCancel: LinearLayout = itemView.findViewById(R.id.action_cancel)
+            val actionDelete: LinearLayout = itemView.findViewById(R.id.action_delete)
 
             init {
                 costView.visibility = if(mParent.priceEnabled) View.VISIBLE else View.GONE
@@ -1287,89 +1381,165 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
                     subCnt.addView(LayoutInflater.from(activity).inflate(R.layout.co_detailedlist_subitem, null, false))
                 }
                 itemView.setOnClickListener{showSubItem(!subCnt.isVisible())}
+                itemView.setOnLongClickListener { showActions(!actionCnt.isVisible()) }
+                actionCancel.setOnClickListener { showActions(false) }
+                actionDelete.setOnClickListener { deleteDip() }
             }
 
             private fun showSubItem(show: Boolean){
                 if(RecyclerView.NO_POSITION != adapterPosition){
-                    itemList[adapterPosition].isVisibleSubCnt = show
+                    if(itemList[adapterPosition].isVisibleActionCnt){
+                        itemList[adapterPosition].isVisibleActionCnt = false
+                    } else{
+                        itemList[adapterPosition].isVisibleSubCnt = show
+                    }
                     notifyItemChanged(adapterPosition)
+                }
+            }
+
+            private fun showActions(show: Boolean): Boolean{
+                if(RecyclerView.NO_POSITION != adapterPosition){
+                    itemList[adapterPosition].isVisibleActionCnt = show
+                    notifyItemChanged(adapterPosition)
+                }
+                return true
+            }
+
+            private fun deleteDip(){
+                if(RecyclerView.NO_POSITION != adapterPosition){
+                    val newArr = mParent.ext.getJSONArray(Sheet.KEY_GS).removeAt(adapterPosition)
+                    mParent.ext.put(Sheet.KEY_GS, newArr)
+                    xGlob.mSheetOrderUI.sheetOperator.edit(mParent)
+                    val sheetList = xGlob.mSheetOrderUI.sheetOperator.list
+                    sheetList[sheetList.indexOf(mParent)] = mParent
+                    xGlob.mSheetOrderUI.mSheetListAdapter.update(sheetList)
+
+                    calculateTotalData()
                 }
             }
         }
 
-        inner class Item(gs: JSONObject) {
+        inner class Item(total: Total, val subTotalMap: MutableMap<String, Total>) {
             var isVisibleSubCnt: Boolean = false
-            var min: Int
-            var max: Int
-            var title: String
-
-            val count: MutableMap<String, Int> = mutableMapOf()
-            val volume: MutableMap<String, Double> = mutableMapOf()
-            val cost: MutableMap<String, Double> = mutableMapOf()
-            var sumCount: Int = 0
-            var sumVolume: Double = 0.0
-            var sumCost: Double = 0.0
-
-            init {
-                min = gs.getInt(Sheet.GS_MIN_IND)
-                max = gs.getInt(Sheet.GS_MAX_IND)
-                //title = "${mComponentOperator.list[min]} - ${mComponentOperator.list[max]}"
-                title = "ttt"
-                calculate()
-            }
-
-            fun calculate() {
-//                sumCount = 0
-//                sumVolume = 0.0
-//                sumCost = 0.0
-//
-//                mParent.listGMI.forEach {
-//                    val groupData: Group.GroupData? = component.findDataOf(it.sid)
-//                    if(groupData != null){
-//                        count[it.sid] = groupData.count
-//                        sumCount += count[it.sid]!!
-//                        volume[it.sid] = (groupData.count * groupData.capacity)
-//                        sumVolume += volume[it.sid]!!
-//                        cost[it.sid] = it.price * (groupData.count * groupData.capacity)
-//                        sumCost += cost[it.sid]!!
-//                    }
-//                }
-//                sumVolume = sumVolume.round()
-//                sumCost = sumCost.round(2)
-            }
+            var isVisibleActionCnt: Boolean = false
+            var title: String = total.title
+            var count: Int = total.sumCount
+            var volume: Double = total.sumVol
+            var cost: Double = total.sumCost
         }
+    }
+
+    private fun updateFooter(total: Total){
+        mTotalFtrTitle.text = total.title
+        mTotalFtrCount.text = total.sumCount.toString()
+        mTotalFtrVolume.text = total.sumVol.round().toString()
+        mTotalFtrCost.text = total.sumCost.round().toString()
     }
 
     class Total(val title: String, var sumCount: Int, var sumVol: Double, var sumCost: Double)
 
-    inner class UpdateTotalTask(val component: Component?=null) : AsyncTask<Void, Void, List<Total>>(){
+    inner class UpdateTotalTask(val component: Component?=null, private val genGS: Boolean=false) : AsyncTask<Void, Void, Unit>(){
         init {execute()}
 
-        var count = 0
-        var volume = 0.0
-        var cost = 0.0
+        val totalList0: MutableList<Total> = mutableListOf()
+        val totalMapCollection1: MutableMap<Total, MutableMap<String, Total>> = mutableMapOf()
 
-        override fun doInBackground(vararg params: Void?): List<Total> {
-            return updateTotal()
+        override fun doInBackground(vararg params: Void?): Unit {
+            return updateTotal(genGS)
         }
 
-        override fun onPostExecute(result: List<Total>) {
+        override fun onPostExecute(result: Unit) {
             if(component != null){
                 mDetailedAdapter.updateItem(component)
             } else{
                 mDetailedAdapter.update(mComponentOperator.list)
             }
 
-            mTotalAdapter0.update(result)
-            mRwGroupTotalAdapter.update(mComponentOperator.list)
-            mTotalFtrCount.text = count.toString()
-            mTotalFtrVolume.text = volume.round().toString()
-            mTotalFtrCost.text = cost.round().toString()
+            mTotalAdapter0.update(totalList0)
+
+            if(mCurrentTotalInterface == 0){
+                updateFooter(mTotalFtr0)
+            }
+
+            if(xTagname == RwSheetUI.TAGNAME){
+                mRwGroupTotalAdapter.update(totalMapCollection1)
+                if(mCurrentTotalInterface == 1){
+                    updateFooter(mTotalFtr1)
+                }
+            }
+
             mTotalUpdateIsRunning = false
         }
 
-        private fun updateTotal(): List<Total> {
-            val totalList: MutableList<Total> = mutableListOf()
+        fun checkDiapazoneList(): List<List<Component>> {
+            if(genGS){
+                val gsJsonArr = JSONArray()
+                var jsonDiapazone0 = createDiapazone("4", "14")
+                if(!jsonDiapazone0.has(Sheet.GS_MIN)){
+                    jsonDiapazone0 = createDiapazone("5", "15")
+                    if(!jsonDiapazone0.has(Sheet.GS_MIN)){
+                        jsonDiapazone0 = createDiapazone("6", "14")
+                        if(!jsonDiapazone0.has(Sheet.GS_MIN)){
+                            jsonDiapazone0 = createDiapazone("7", "15")
+                        }
+                    }
+                }
+                if(jsonDiapazone0.has(Sheet.GS_MIN)){
+                    gsJsonArr.put(jsonDiapazone0)
+                }
+
+                var jsonDiapazone1 = createDiapazone("26", "56")
+                if(!jsonDiapazone1.has(Sheet.GS_MIN)){
+                    jsonDiapazone1 = createDiapazone("27", "57")
+                }
+                if(jsonDiapazone1.has(Sheet.GS_MIN)){
+                    gsJsonArr.put(jsonDiapazone1)
+                }
+
+                mParent.ext.put(Sheet.KEY_GS, gsJsonArr)
+                xGlob.mSheetOrderUI.sheetOperator.edit(mParent)
+                val sheetList = xGlob.mSheetOrderUI.sheetOperator.list
+                sheetList[sheetList.indexOf(mParent)] = mParent
+                xGlob.mSheetOrderUI.mSheetListAdapter.update(sheetList)
+            } // end generate
+
+            val dipList: MutableList<List<Component>> = mutableListOf()
+            val dipJson = mParent.ext.getJSONArray(Sheet.KEY_GS)
+            val list = mComponentOperator.list
+            (0 until dipJson.length()).map{dipJson.getJSONObject(it)}.forEach{
+                val gs = it
+                val uMinInd = list.indexOfFirst { it.title == gs.getString(Sheet.GS_MIN) }
+                val uMaxInd = list.indexOfFirst { it.title == gs.getString(Sheet.GS_MAX) }
+                if(uMinInd == -1 || uMaxInd == -1){
+                    dipJson.removeObject(it)
+                } else{
+                    dipList.add(list.filterIndexed { index, _ -> (index in uMinInd..uMaxInd) })
+                }
+            } // end check
+
+            log("check ext, dipList.size: ${dipList.size}")
+            return dipList
+        }
+
+        private fun createDiapazone(min: String, max: String): JSONObject {
+            val dipObj = JSONObject()
+            var minObj: String? = null
+            var maxObj: String? = null
+            val list = mComponentOperator.list
+            val dMin = list.find { it.title == min }
+            val dMax = list.find { it.title == max }
+            if(dMin != null && dMax != null){
+                dipObj.put(Sheet.GS_MIN, dMin.title)
+                dipObj.put(Sheet.GS_MAX, dMax.title)
+            }
+            return dipObj
+        }
+
+        private fun calcTotal0(){
+            mTotalFtr0.sumCount = 0
+            mTotalFtr0.sumVol = 0.0
+            mTotalFtr0.sumCost = 0.0
+
             mParent.listGMI.forEach {
                 val groupInfo = it
 
@@ -1385,15 +1555,82 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
                     }
                 }
 
-                count += groupCount
-                volume += groupVolume
-                cost += groupCost
-
-                totalList.add(Total(groupInfo.title, groupCount, groupVolume.round(), groupCost.round()))
+                mTotalFtr0.sumCount += groupCount
+                mTotalFtr0.sumVol += groupVolume
+                mTotalFtr0.sumCost += groupCost
+                totalList0.add(Total(groupInfo.title, groupCount, groupVolume.round(), groupCost.round()))
             }
-            return totalList
         }
 
+        private fun calcTotal1(dipList: List<List<Component>>){
+            mTotalFtr1.sumCount = 0
+            mTotalFtr1.sumVol = 0.0
+            mTotalFtr1.sumCost = 0.0
+
+            dipList.forEach {
+                val dipComponents: List<Component> = it
+                var dipCount = 0
+                var dipVol = 0.0
+                var dipCost = 0.0
+
+                val subTotalMap: MutableMap<String, Total> = mutableMapOf()
+                val subCounts = mutableMapOf<String, Int>()
+                val subVols = mutableMapOf<String, Double>()
+                val subPrices = mutableMapOf<String, Double>()
+
+                mParent.listGMI.forEach {
+                    subCounts.put(it.sid, 0)
+                    subVols.put(it.sid, 0.0)
+                    subPrices.put(it.sid, 0.0)
+                }
+
+                dipComponents.forEach {
+                    val dipComponent = it
+                    mParent.listGMI.forEach {
+                        val groupInfo = it
+                        val groupData = dipComponent.listGD.find { it.sid == groupInfo.sid }
+                        if(groupData != null){
+                            val count = groupData.count
+                            subCounts[groupInfo.sid] = count + subCounts[groupInfo.sid]!!
+                            dipCount += count
+                            mTotalFtr1.sumCount += count
+                            val vol = groupData.capacity * groupData.count
+                            subVols[groupInfo.sid] = vol + subVols[groupInfo.sid]!!
+                            dipVol += vol
+                            mTotalFtr1.sumVol += vol
+                            val cost = groupInfo.price * (groupData.capacity * groupData.count)
+                            subPrices[groupInfo.sid] = cost + subPrices[groupInfo.sid]!!
+                            dipCost += cost
+                            mTotalFtr1.sumCost += cost
+                        }
+                    }
+                }
+
+                mParent.listGMI.forEach {
+                    val groupInfo = it
+                    val groupData = subCounts.keys.find { it == groupInfo.sid }
+                    if(groupData != null){
+                        subTotalMap[groupInfo.sid] = Total(groupInfo.title, subCounts[groupInfo.sid]!!, subVols[groupInfo.sid]!!, subPrices[groupInfo.sid]!!)
+                    }
+                }
+
+                if(dipComponents.isNotEmpty()){
+                    val title = "${dipComponents[0].title} - ${dipComponents[dipComponents.lastIndex].title}"
+                    val parentTotal = Total(title, dipCount, dipVol, dipCost)
+                    totalMapCollection1[parentTotal] = subTotalMap
+                }
+            }
+        }
+
+        private fun updateTotal(genGS: Boolean=false) {
+            // calculate total0
+            calcTotal0()
+
+            //check[, generate] and calculate total1
+            if(xTagname == RwSheetUI.TAGNAME){
+                calcTotal1(checkDiapazoneList())
+            }
+        }
     }
 
     private inner class FilterListener : EditTextWatcher() {

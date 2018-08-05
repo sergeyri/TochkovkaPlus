@@ -59,21 +59,23 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/total_sw_offset"
                     android:gravity="center_vertical"
-                    android:background="@drawable/total_sw_bg">
+                    android:background="@drawable/total_sw_bg"
+                    android:visibility="gone">
                     <ImageView android:id="@+id/creator_diameter_groups"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:padding="@dimen/co_totalOffset"
-                        android:src="@drawable/country_settings"/>
-                    <View
+                        android:src="@drawable/dip_create"/>
+                    <View android:id="@+id/total_sw1_sep"
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:background="@color/bg_green"/>
                     <TextView android:id="@+id/total_sw_1_btn_text"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/co_totalLeftOffset"
                         android:layout_marginStart="@dimen/co_totalLeftOffset"
+                        android:gravity="center"
                         android:textStyle="bold"
                         android:textSize="@dimen/co_textsizeTotalListCaption"
                         android:text="@string/groupsTotalUniv" />
@@ -108,7 +110,8 @@
                     android:gravity="center"
                     android:padding="@dimen/co_emptyDetailedListPadding"
                     android:text="@string/tip_componentListNoData"
-                    android:background="@color/totallist_item"/>
+                    android:background="@color/totallist_item"
+                    android:visibility="gone"/>
                 <View android:id="@+id/no_total_data_footer_line"
                     style="@style/horizontal_line"
                     android:background="@color/gray"/>

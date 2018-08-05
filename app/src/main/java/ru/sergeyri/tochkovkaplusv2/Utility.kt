@@ -381,6 +381,53 @@ abstract class EditTextWatcher : TextWatcher {
     override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 }
 
+class DiameterPicker : LinearLayout {
+    private lateinit var mMinBtn: Button
+    private lateinit var mMaxBtn: Button
+    private lateinit var mValueTv: TextView
+    val sourceList: MutableList<String> = mutableListOf()
+    var mIndex = -1
+
+    constructor(context: Context) : this(context, null)
+    constructor(context: Context, attr: AttributeSet?) : this(context, attr, 0)
+    constructor(context: Context, attr: AttributeSet?, defStyleAttr: Int) : super(context, attr, defStyleAttr)
+
+    private fun init(context: Context){
+        val inflater: LayoutInflater = LayoutInflater.from(context)
+        inflater.inflate(R.layout.diameter_picker, this)
+        mMinBtn = findViewById(R.id.min_btn)
+        mMinBtn.setOnClickListener { onMinus() }
+        mMaxBtn = findViewById(R.id.max_btn)
+        mMaxBtn.setOnClickListener { onPlus() }
+        mValueTv = findViewById(R.id.value_tv)
+    }
+
+    fun setValues(list: List<String>){
+        sourceList.addAll(list)
+        if(sourceList.isNotEmpty()){
+            mIndex = 0
+            //setValue(mIndex)
+        }
+    }
+
+    private fun setValue(index: Int){
+        mValueTv.text = sourceList[index]
+        mIndex = index
+    }
+
+    private fun onMinus(){
+        if(mIndex > 0){
+            setValue(-- mIndex)
+        }
+    }
+
+    private fun onPlus(){
+        if(mIndex < sourceList.size-1){
+            setValue(++ mIndex)
+        }
+    }
+}
+
 abstract class FragmentUI : Fragment(), MainUI.Tool {
     abstract fun onBgStart(bgName: String)
     abstract fun onBgResult(bgName: String, result: Boolean)

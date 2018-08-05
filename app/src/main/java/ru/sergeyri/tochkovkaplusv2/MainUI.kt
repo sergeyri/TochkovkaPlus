@@ -29,11 +29,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.content.edit
 import androidx.net.toUri
-import com.crashlytics.android.Crashlytics
-import com.crashlytics.android.answers.Answers
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.sergeyri.tpcore.TPNode
-import io.fabric.sdk.android.Fabric
 import java.io.File
 import java.io.FileOutputStream
 
@@ -146,7 +143,7 @@ class MainUI : AppCompatActivity(), Glob.OnStateListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Fabric.with(this, Crashlytics())
+        //Fabric.with(this, Crashlytics())
         setContentView(R.layout.main_ui)
 
         try{
@@ -430,7 +427,7 @@ class MainUI : AppCompatActivity(), Glob.OnStateListener {
             if(prefUserEmail == null){
                 var purchased = findKeyApp()
                 if(!purchased){
-                    purchased = checkAbutdinEmail()
+                    purchased = checkAbutdinEmail() || checkDenchikEmail()
                 }
                 result = purchased
             } else{ result = true }
@@ -527,6 +524,20 @@ class MainUI : AppCompatActivity(), Glob.OnStateListener {
             if(gmailAccounts.find { it.name == abutdinEmail } != null){
                 val edit = glob.mPrefs.edit()
                 edit.putString(USER_EMAIL_KEY, abutdinEmail).apply()
+                result = true
+            }
+            return result
+        }
+
+        private fun checkDenchikEmail(): Boolean {
+            var result = false
+            val denchikEmail = "diiinnnchik@gmail.com"
+
+            val gmailAccounts: Array<Account> = AccountManager.get(this@MainUI).getAccountsByType("com.google")
+
+            if(gmailAccounts.find { it.name == denchikEmail } != null){
+                val edit = glob.mPrefs.edit()
+                edit.putString(USER_EMAIL_KEY, denchikEmail).apply()
                 result = true
             }
             return result

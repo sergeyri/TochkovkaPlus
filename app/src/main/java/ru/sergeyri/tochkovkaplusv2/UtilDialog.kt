@@ -38,6 +38,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
+import java.text.Format
 
 /**
  * Created by sergeyri on 1/11/18.
@@ -205,6 +206,166 @@ class FolderPicker : DialogUI() {
                     update(file.listFiles().filter { it.isDirectory })
                 }
             }
+        }
+    }
+}
+
+class DipCreator : SetterUI(){
+    companion object {
+        val TAGNAME = "dip_creator_ui"
+        val DIAMETER_ARRAY = "diameter_array"
+        val DIP_JSONARRAY = "dip_jsonarray"
+    }
+
+    private lateinit var mMinNp: NumberPicker
+    private lateinit var mMaxNp: NumberPicker
+    private lateinit var mDiameterSrc: List<String>
+    private lateinit var mDipSrc: JSONArray
+    
+    private val invertedPairs: MutableList<Pair<Int, Int>> = mutableListOf()
+    private val mMinDst: MutableList<String> = mutableListOf()
+    private var mDelay = 1500
+    private var mDelayTaskIsRunning = false
+    private var mDelayTask: DelayTask? = null
+    private var mMinIndex = -1
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if(arguments != null){
+            mDiameterSrc = arguments.getStringArray(DIAMETER_ARRAY).map { it }
+            mDipSrc = JSONArray(arguments.getString(DIP_JSONARRAY))
+
+            log("dipSrc: $mDipSrc")
+
+            var fm = 0
+            if(mDipSrc.length() == 0){
+                invertedPairs.add(Pair(0, mDiameterSrc.lastIndex-1))
+//                mMinDst.addAll(mDiameterSrc.subList(0, mDiameterSrc.lastIndex-1))
+            } else{
+                (0 until mDipSrc.length()).map { mDipSrc.getJSONObject(it) }.forEachIndexed { index, jsonObject ->
+                    val minInd = mDiameterSrc.indexOf(jsonObject.getString(Sheet.GS_MIN))
+                    val maxInd = mDiameterSrc.indexOf(jsonObject.getString(Sheet.GS_MAX))
+
+                    var befFirstInd = -1
+                    var befLastInd = -1
+                    if(minInd > 1){
+                        befFirstInd = fm
+                        befLastInd = minInd-1
+                    }
+
+                    if(befFirstInd != -1 && befLastInd != -1 && ((befLastInd-befFirstInd) > 0)){
+                    	invertedPairs.add(Pair(befFirstInd, befLastInd))
+                        //mMinDst.addAll(mDiameterSrc.subList(befFirstInd, befLastInd))
+                    }
+
+                    if(maxInd < mDiameterSrc.lastIndex-1){
+                        fm = maxInd+1
+                        if(index == mDipSrc.length()-1){
+                        	val aftFirstInd = fm
+                        	val aftLastInd = mDiameterSrc.lastIndex-1
+                            if(aftLastInd-aftFirstInd > 0){
+                                invertedPairs.add(Pair(aftFirstInd, aftLastInd))
+                            }
+                        }
+                    }
+
+                }//end dip cycle
+            }
+
+            invertedPairs.forEach {
+                log("invPair: ${mDiameterSrc[it.first]}-${mDiameterSrc[it.second]}")
+                mMinDst.addAll(mDiameterSrc.subList(it.first, it.second))
+            }
+        }
+    }
+
+    override fun getExtendedView(inflater: LayoutInflater, savedInstanceState: Bundle?): View {
+        val view = inflater.inflate(R.layout.dip_creator_ui, null, false)
+        mMinNp = view.findViewById(R.id.min_np)
+        mMaxNp = view.findViewById(R.id.max_np)
+
+        if(mDiameterSrc.isNotEmpty()){
+            val diameters: Array<String> = mMinDst.toTypedArray()
+            mMinNp.displayedValues = diameters
+            mMinNp.minValue = 0
+            mMinNp.maxValue = diameters.size-1
+            mMinNp.setOnValueChangedListener { picker, oldInd, newInd -> onChangeMinIndex(oldInd, newInd) }
+            mMinNp.value = 0
+            mMinNp.wrapSelectorWheel = false
+            mMaxNp.setFormatter { value -> mDiameterSrc[value] }
+            mMaxNp.wrapSelectorWheel = false
+            mMinIndex = mMinNp.value
+            if(!mDelayTaskIsRunning){
+                mDelayTask = DelayTask()
+            }
+        }
+        return view
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if(mDelayTask != null){
+            mDelayTask?.cancel(true)
+        }
+    }
+
+    private fun onChangeMinIndex(oldInd: Int, newInd: Int){
+        mDelay = 1000
+        mMinIndex = newInd
+        if(!mDelayTaskIsRunning){
+            mDelayTask = DelayTask()
+        }
+    }
+
+    private fun updMaxList(): Pair<Int, Int> {
+        val selectedInd = mDiameterSrc.indexOfFirst { it == mMinDst[mMinIndex] }
+
+        val pair = invertedPairs.find { (selectedInd in it.first..it.second) }
+        var startInd = 0
+        var endInd = 0
+
+        log("pair--${pair?.first}:${pair?.second}")
+
+        if(pair != null){
+        	startInd = selectedInd+1
+        	endInd = if((pair.second+1) == mDiameterSrc.lastIndex) pair.second+1 else pair.second
+        }
+
+        return Pair(startInd, endInd)
+    }
+
+    override fun onClickPositive() {
+        if(!mDelayTaskIsRunning){
+            val dip = JSONObject()
+            dip.put(Sheet.GS_MIN, mMinDst[mMinNp.value])
+            dip.put(Sheet.GS_MAX, mDiameterSrc[mMaxNp.value])
+            (activity as MainUI).glob.mSheetUI.setDip(dip)
+            dismiss()
+        }
+    }
+
+    inner class DelayTask : AsyncTask<Void, Void, Pair<Int, Int>>(){
+        init{execute()}
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+            mDelayTaskIsRunning = true
+        }
+
+        override fun doInBackground(vararg params: Void?): Pair<Int, Int> {
+            while(mDelay > 0 && !isCancelled){
+                SystemClock.sleep(500)
+                mDelay -= 500
+            }
+            return updMaxList()
+        }
+
+        override fun onPostExecute(result: Pair<Int, Int>) {
+            super.onPostExecute(result)
+            mMaxNp.minValue = result.first
+            mMaxNp.maxValue = result.second
+            mMaxNp.value = result.first
+            mDelayTaskIsRunning = false
         }
     }
 }
@@ -665,7 +826,7 @@ class RwComponentBuilder : ComponentBuilder() {
             val etCapacity: EditText = capSettingsView.findViewById(R.id.et_group_capacity)
             etCapacity.id = "capacity${groupInfo.sid}".hashCode()
             val etCount: EditText = capSettingsView.findViewById(R.id.et_group_count)
-            etCount.id = "count${groupInfo.sid}".hashCode()
+            etCount.id = "countTotal0${groupInfo.sid}".hashCode()
             val etHub: EtHub
             if(savedInstanceState == null){
                 etHub = EtHub()
@@ -725,7 +886,7 @@ class RwComponentBuilder : ComponentBuilder() {
         if(mSwtCapSettings.isChecked){
             mEtCapGroupDataMap.forEach {
                 it.value.etCapacity.id = "capacity${it.key}".hashCode()
-                it.value.etCount.id = "count${it.key}".hashCode()
+                it.value.etCount.id = "countTotal0${it.key}".hashCode()
                 val key = it.key
 
                 it.value.capacityBgRes = R.drawable.input_bg
@@ -934,7 +1095,7 @@ class UnivComponentBuilder : ComponentBuilder(), DelayAutoCompleteTextView.OnFil
             val etCapacity: EditText = capSettingsView.findViewById(R.id.et_group_capacity)
             etCapacity.id = "capacity${groupInfo.sid}".hashCode()
             val etCount: EditText = capSettingsView.findViewById(R.id.et_group_count)
-            etCount.id = "count${groupInfo.sid}".hashCode()
+            etCount.id = "countTotal0${groupInfo.sid}".hashCode()
             val etHub: EtHub
             if(savedInstanceState == null){
                 etHub = EtHub()
@@ -1000,7 +1161,7 @@ class UnivComponentBuilder : ComponentBuilder(), DelayAutoCompleteTextView.OnFil
                 val capacity = it.value.etCapacity.text.toString().toDoubleOrNull()
                 val count = if(it.value.etCount.text.toString().isEmpty()) 0 else it.value.etCount.text.toString().toIntOrNull()
 
-                log("univ cap: $capacity, count: $count")
+                log("univ cap: $capacity, countTotal0: $count")
 
                 if(capacity == null || capacity == 0.0){
                     errorToastMsg = R.string.error_incorrectData
@@ -1476,14 +1637,6 @@ class RwSheetBuilder : SheetBuilder() {
 
     override fun onImportSheet(glob: Glob, out: Sheet): Boolean {
         var result = false
-
-        val tmpArrGS = JSONArray()
-        val gs = JSONObject()
-        gs.put(Sheet.GS_MIN_IND, 0)
-        gs.put(Sheet.GS_MAX_IND, 8)
-        tmpArrGS.put(gs)
-        out.ext.put(Sheet.KEY_GS, tmpArrGS)
-
         if(super.onCreateSheet(glob, out)){
             val successList: MutableList<Boolean> = mutableListOf()
             val date = oJsonSrc.getLong(Sheet.KEY_CREATE_DATE)
@@ -1529,13 +1682,6 @@ class RwSheetBuilder : SheetBuilder() {
     override fun onCreateSheet(glob: Glob, out: Sheet): Boolean {
         var result = false
 
-        val tmpArrGS = JSONArray()
-        val gs = JSONObject()
-        gs.put(Sheet.GS_MIN_IND, 0)
-        gs.put(Sheet.GS_MAX_IND, 8)
-        tmpArrGS.put(gs)
-        out.ext.put(Sheet.KEY_GS, tmpArrGS)
-
         if(super.onCreateSheet(glob, out)){
             val successList: MutableList<Boolean> = mutableListOf()
             val keyList = rwi.standartDataJson.keys.toMutableList()
@@ -1561,6 +1707,7 @@ class RwSheetBuilder : SheetBuilder() {
 
     override fun onEditSheet(glob: Glob, out: Sheet): Boolean {
         var result = false
+
         if(glob.mSheetOrderUI.sheetOperator.edit(out)){
             val successList: MutableList<Boolean> = mutableListOf()
             val componentList = glob.mNode.database.getComponentList(out.sid)

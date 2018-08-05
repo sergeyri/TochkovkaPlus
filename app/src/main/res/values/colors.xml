@@ -37,6 +37,8 @@
     <color name="grouplist_item">@color/bg_componentOrderSecondary</color>
     <color name="grouplist_item_price">#FFBBFC96</color>
     <color name="s">#fff</color>
+    <color name="dip_picker_min">@color/green_active</color>
+    <color name="dip_picker_max">@color/bg_greenLite</color>
 
 
     <color name="bg_violet">#b000bc</color>

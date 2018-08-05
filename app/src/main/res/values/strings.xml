@@ -76,6 +76,7 @@
     <!-- captions and footers -->
     <string name="component_title">Наименование</string>
     <string name="sum0">Итого:</string>
+    <string name="all_diam_groups">Итого в группах:</string>
     <string name="sum1">Сорта</string>
     <string name="sum2">Категории</string>
     <string name="groupsTotalRw">Группы диаметров</string>
@@ -88,6 +89,10 @@
     <string name="cost1">Стоим-ть</string>
     <string name="gost_2708_75_title">ГОСТ 2708-75</string>
     <string name="iso_4480_83_title">ISO 4480-83</string>
+    <string name="dip_picker_min">с:</string>
+    <string name="dip_picker_max">по:</string>
+    <string name="dip_minus">-</string>
+    <string name="dip_plus">+</string>
 
     <!-- messages and descriptions -->
     <string name="howto">Где и как использовать?</string>
@@ -156,6 +161,8 @@
     <string name="def_warnTextColor">#ff6600</string>
     <string name="def_dialogWidthFactory">0.98</string>
     <string name="def_dialogHeightFactory">0.70</string>
+    <string name="defaultButtonMinus">-</string>
+    <string name="defaultButtonPlus">+</string>
 
     <!-- setting items -->
     <string name="tip_soundActionPref">Звук при нажатии кнопок \"Кол-во\"</string>
@@ -177,5 +184,6 @@
     <string name="error_groupRemoveLast">Вы не можете удалить единственную категорию!</string>
     <string name="error_sdCardFailed">Карта памяти недоступна!</string>
     <string name="error_sheetPrint">Данных для печати нет!</string>
+    <string name="error_dip_nothing">Ничего не выбрано!</string>
 
 </resources>

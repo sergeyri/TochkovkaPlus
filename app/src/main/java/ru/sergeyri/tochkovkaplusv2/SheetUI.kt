@@ -131,7 +131,6 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
                 }
 
                 val fbBundle = Bundle()
-                fbBundle.putString(FirebaseAnalytics.Param.ITEM_NAME, fb_user_name)
                 fbBundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Открыт расчёт")
                 fbBundle.putString(FirebaseAnalytics.Param.CONTENT, mParent.title)
                 xGlob.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, fbBundle)
@@ -1267,7 +1266,6 @@ open class SheetUI : FragmentUI(), TPNode.ComponentCallback {
 
         fun moveToBottom(animate: Boolean=true){
             val fbBundle = Bundle()
-            fbBundle.putString(FirebaseAnalytics.Param.ITEM_NAME, fb_user_name)
             fbBundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Просмотр результатов расчёта")
             fbBundle.putString(FirebaseAnalytics.Param.CONTENT, "sheet_size: ${mComponentOperator.list.size}")
             xGlob.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, fbBundle)

@@ -1,7 +1,5 @@
 package ru.sergeyri.tochkovkaplusv2
 
-import android.accounts.Account
-import android.accounts.AccountManager
 import android.app.FragmentManager
 import android.content.Intent
 import android.os.Bundle
@@ -149,8 +147,6 @@ class SheetOrderUI : FragmentUI() {
                 sheetOperator = xGlob.mNode.SheetOperator(xGlob.mFamilyName)
                 fmlReload(xGlob.mFamilyName)
 
-                val gmailAccounts: Array<Account> = AccountManager.get(activity).getAccountsByType("com.google")
-                fb_user_name = if(gmailAccounts.isNotEmpty()) gmailAccounts.last().name else "unknown"
             } else{ mSheetListAdapter.notifyDataSetChanged() }
 
             isBack = false
@@ -421,7 +417,6 @@ class SheetOrderUI : FragmentUI() {
 
     private fun openDemo1(){
         val fbBundle = Bundle()
-        fbBundle.putString(FirebaseAnalytics.Param.ITEM_NAME, fb_user_name)
         fbBundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "open demo 1")
         xGlob.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, fbBundle)
 
@@ -432,7 +427,6 @@ class SheetOrderUI : FragmentUI() {
 
     private fun openDemo2(){
         val fbBundle = Bundle()
-        fbBundle.putString(FirebaseAnalytics.Param.ITEM_NAME, fb_user_name)
         fbBundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "open demo 2")
         xGlob.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, fbBundle)
 

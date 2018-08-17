@@ -1415,7 +1415,6 @@ abstract class ComponentBuilder : DialogUI(){
 
     private fun onEditComponent(glob: Glob, component: Component): Boolean {
         val fbBundle = Bundle()
-        fbBundle.putString(FirebaseAnalytics.Param.ITEM_NAME, fb_user_name)
         fbBundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "onEditComponent")
         fbBundle.putString(FirebaseAnalytics.Param.CONTENT, component.title)
         glob.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, fbBundle)
@@ -1424,7 +1423,6 @@ abstract class ComponentBuilder : DialogUI(){
 
     private fun onCreateComponent(glob: Glob, component: Component): Boolean {
         val fbBundle = Bundle()
-        fbBundle.putString(FirebaseAnalytics.Param.ITEM_NAME, fb_user_name)
         fbBundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "onCreateComponent")
         fbBundle.putString(FirebaseAnalytics.Param.CONTENT, component.title)
         glob.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, fbBundle)
@@ -2054,7 +2052,6 @@ abstract class SheetBuilder : DialogUI() {
                 }))
             }
             val fbBundle = Bundle()
-            fbBundle.putString(FirebaseAnalytics.Param.ITEM_NAME, fb_user_name)
             fbBundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Новый расчёт")
             fbBundle.putString(FirebaseAnalytics.Param.CONTENT, "${out.title}, ${out.family}")
             glob.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, fbBundle)

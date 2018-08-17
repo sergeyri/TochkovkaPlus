@@ -29,8 +29,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.content.edit
 import androidx.net.toUri
+import com.crashlytics.android.Crashlytics
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.sergeyri.tpcore.TPNode
+import io.fabric.sdk.android.Fabric
 import java.io.File
 import java.io.FileOutputStream
 
@@ -143,7 +145,7 @@ class MainUI : AppCompatActivity(), Glob.OnStateListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //Fabric.with(this, Crashlytics())
+        Fabric.with(this, Crashlytics())
         setContentView(R.layout.main_ui)
 
         try{
@@ -175,11 +177,11 @@ class MainUI : AppCompatActivity(), Glob.OnStateListener {
             glob.mFirstOpen = glob.mPrefs.getBoolean(FIRST_OPEN_KEY, true)
             glob.mPrefs.edit { this.putBoolean(FIRST_OPEN_KEY, false).apply() }
 
-            val isGetAccountsPermission = (ContextCompat.checkSelfPermission(this@MainUI, Manifest.permission.GET_ACCOUNTS) == PackageManager.PERMISSION_GRANTED)
+
             val isExtStoragePermission = (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED)
                     && (ContextCompat.checkSelfPermission(this@MainUI, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
 
-            if(!isGetAccountsPermission || !isExtStoragePermission){
+            if(!isExtStoragePermission){
                 onOpenLockedUI(LockedUI.LockType.NO_PERMISSIONS)
             } else{ // все разрешения есть
                 if(appChecker.appPurchased()){ // приложение куплено
@@ -425,11 +427,7 @@ class MainUI : AppCompatActivity(), Glob.OnStateListener {
             var result = false
             val prefUserEmail: String? = glob.mPrefs.getString(USER_EMAIL_KEY, null)
             if(prefUserEmail == null){
-                var purchased = findKeyApp()
-                if(!purchased){
-                    purchased = checkAbutdinEmail() || checkDenchikEmail()
-                }
-                result = purchased
+                result = findKeyApp()
             } else{ result = true }
             return result
         }
@@ -508,39 +506,6 @@ class MainUI : AppCompatActivity(), Glob.OnStateListener {
             }
 
             return (time != null && ((System.currentTimeMillis() - time) <= TRIAL_MAX))
-        }
-
-        private fun checkAbutdinEmail(): Boolean {
-            var result = false
-            val abutdinEmail = "67abutdin@gmail.com"
-
-            val gmailAccounts: Array<Account> = AccountManager.get(this@MainUI).getAccountsByType("com.google")
-
-            val sb = StringBuilder()
-            gmailAccounts.forEach {
-                sb.append(it.name).append("\n")
-            }
-
-            if(gmailAccounts.find { it.name == abutdinEmail } != null){
-                val edit = glob.mPrefs.edit()
-                edit.putString(USER_EMAIL_KEY, abutdinEmail).apply()
-                result = true
-            }
-            return result
-        }
-
-        private fun checkDenchikEmail(): Boolean {
-            var result = false
-            val denchikEmail = "diiinnnchik@gmail.com"
-
-            val gmailAccounts: Array<Account> = AccountManager.get(this@MainUI).getAccountsByType("com.google")
-
-            if(gmailAccounts.find { it.name == denchikEmail } != null){
-                val edit = glob.mPrefs.edit()
-                edit.putString(USER_EMAIL_KEY, denchikEmail).apply()
-                result = true
-            }
-            return result
         }
 
     }

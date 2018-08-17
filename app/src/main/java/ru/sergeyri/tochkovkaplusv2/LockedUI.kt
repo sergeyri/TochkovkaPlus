@@ -66,16 +66,17 @@ class LockedUI : FragmentUI(), MainUI.PermissionResultListener {
         try {
             if(arguments.getString(KEY_LOCKTYPE) != null) when(arguments.getString(KEY_LOCKTYPE)){
                 LockType.NO_PERMISSIONS.name -> {
-                    val permissions = arrayOf(Manifest.permission.GET_ACCOUNTS, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     val deniedPermissionList: MutableList<String> = mutableListOf()
                     permissions.forEach {
                         if(ContextCompat.checkSelfPermission(activity, it) != PackageManager.PERMISSION_GRANTED){
                             deniedPermissionList.add(it)
                             permissionDeniedStateList.add(PermissionState(it))
+                            (activity as MainUI).requestPermissions(deniedPermissionList.toTypedArray(), REQUEST_PERMISSIONS, this)
+                            mLockType = LockType.NO_PERMISSIONS
                         }
                     }
-                    (activity as MainUI).requestPermissions(deniedPermissionList.toTypedArray(), REQUEST_PERMISSIONS, this)
-                    mLockType = LockType.NO_PERMISSIONS
+
                 }
                 LockType.OVERDUE.name -> { mLockType = LockType.OVERDUE }
                 else -> { mLockType = LockType.UNDEFINED }
@@ -108,11 +109,11 @@ class LockedUI : FragmentUI(), MainUI.PermissionResultListener {
                 val mainUI = (activity as MainUI)
                 mainUI.mPermissionResultListener = this
 
-                val permissions = arrayOf(Manifest.permission.GET_ACCOUNTS, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 permissions.forEach {
                     val permission = it
-                    if(ContextCompat.checkSelfPermission(activity, it) == PackageManager.PERMISSION_GRANTED){
-                        permissionDeniedStateList.add(PermissionState(it))
+                    if(ContextCompat.checkSelfPermission(activity, permission) == PackageManager.PERMISSION_GRANTED){
+                        permissionDeniedStateList.add(PermissionState(permission))
                         permissionDeniedStateList.removeAll { it.permission == permission }
                     }
                 }
@@ -163,8 +164,8 @@ class LockedUI : FragmentUI(), MainUI.PermissionResultListener {
                 val permissions: MutableList<String> = mutableListOf()
                 permissionDeniedStateList.forEach {
                     permissions.add(it.permission)
+                    (activity as MainUI).requestPermissions(permissions.toTypedArray(), REQUEST_PERMISSIONS, this)
                 }
-                (activity as MainUI).requestPermissions(permissions.toTypedArray(), REQUEST_PERMISSIONS, this)
             } else{ toast(activity, R.string.error_sdCardFailed) }
         }
     }
@@ -172,8 +173,6 @@ class LockedUI : FragmentUI(), MainUI.PermissionResultListener {
     fun updateUI(){
         when(mLockType){
             LockType.NO_PERMISSIONS -> {
-                mTvMsg0.visibility = if(permissionDeniedStateList.find { it.permission == Manifest.permission.GET_ACCOUNTS } != null) View.VISIBLE else View.GONE
-                mTvMsg0.setText(R.string.desc_get_accounts_permission)
                 mTvMsg1.visibility = if(permissionDeniedStateList.find { it.permission == Manifest.permission.WRITE_EXTERNAL_STORAGE } != null) View.VISIBLE else View.GONE
                 mTvMsg1.setText(R.string.desc_external_storage_permission)
                 mTvUnlockTip.visibility = if(permissionDeniedStateList.find { it.dontAsk } != null) View.VISIBLE else View.GONE
@@ -206,20 +205,7 @@ class LockedUI : FragmentUI(), MainUI.PermissionResultListener {
             val mainUI = (activity as MainUI)
             if(permissions != null && grantResults != null && grantResults.isNotEmpty()){
                 grantResults.forEachIndexed { index, result ->
-                    if(permissions[index] == Manifest.permission.GET_ACCOUNTS){
-                        if(result == PackageManager.PERMISSION_GRANTED){
-                            permissionDeniedStateList.removeAll { it.permission == permissions[index] }
-                            updateUI()
-                        } else{
-                            if (Build.VERSION.SDK_INT >= 23 && !shouldShowRequestPermissionRationale(permissions[index])){
-                                val findedPerm = permissionDeniedStateList.find { it.permission == permissions[index] }
-                                if(findedPerm != null){
-                                    findedPerm.dontAsk = true
-                                }
-                            }
-                            updateUI()
-                        }
-                    } else if(permissions[index] == Manifest.permission.WRITE_EXTERNAL_STORAGE){
+                    if(permissions[index] == Manifest.permission.WRITE_EXTERNAL_STORAGE){
                         if(result == PackageManager.PERMISSION_GRANTED){
                             permissionDeniedStateList.removeAll { it.permission == permissions[index] }
                             updateUI()

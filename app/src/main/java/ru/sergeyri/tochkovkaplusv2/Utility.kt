@@ -50,8 +50,6 @@ const val SHEETNAMES = "sheetnames"
 const val REGEX_PATTERN_FOR_TITLE = "[\\w\\s\\,\\:\\;\\-\\.\\(\\)\\#\\№]+"
 const val REGEX_PATTERN_FOR_UNIT = "[\\w]{1,9}"
 
-var fb_user_name = "unknown"
-
 fun log(msg: String){ Log.d("Talitha", msg) }
 
 fun toast(context: Context, msgResId: Int, len: Int = Toast.LENGTH_SHORT){ Toast.makeText(context, msgResId, len).show() }
